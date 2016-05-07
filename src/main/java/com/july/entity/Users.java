@@ -1,7 +1,10 @@
 package com.july.entity;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 import javax.persistence.*;
 import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
 
 /**
  * Created by kuangjun on 2016/5/5.
@@ -10,14 +13,21 @@ import javax.persistence.Id;
 @Table(name="users")
 public class Users {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    Integer id ;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id ;
 
     @Column(name="username" ,unique = true)
-    String username ;
+    @NotEmpty
+    private String username ;
 
     @Column(name="password")
-    String password ;
+    @NotNull
+    private String password ;
+
+    @NotNull
+    @ManyToOne
+    @JoinColumn(name = "role_id" , referencedColumnName = "id", nullable = false)
+    private Role role ;
 
     public Integer getId() {
         return id;
