@@ -11,7 +11,7 @@ import javax.validation.constraints.NotNull;
  */
 @Entity
 @Table(name="users")
-public class Users {
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id ;
@@ -28,6 +28,9 @@ public class Users {
     @ManyToOne
     @JoinColumn(name = "role_id" , referencedColumnName = "id", nullable = false)
     private Role role ;
+
+    @Column(name="Email")
+    String email ;
 
     public Integer getId() {
         return id;
@@ -51,5 +54,13 @@ public class Users {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 }
