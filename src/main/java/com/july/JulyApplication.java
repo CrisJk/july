@@ -1,7 +1,7 @@
 package com.july;
 
 import com.july.entity.Timeline;
-import com.july.repository.Mongodb.CustomerRepository;
+import com.july.repository.Mongodb.TimelineRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -15,7 +15,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 public class JulyApplication  implements CommandLineRunner {
 
 	@Autowired
-	private CustomerRepository repository;
+	private TimelineRepository repository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(JulyApplication.class, args);
@@ -28,8 +28,8 @@ public class JulyApplication  implements CommandLineRunner {
 		repository.deleteAll();
 
 		// save a couple of Timelines
-		repository.save(new Timeline("Alice", "Smith"));
-		repository.save(new Timeline("Bob", "Smith"));
+		repository.save(new Timeline(1));
+		repository.save(new Timeline(2));
 
 		// fetch all Timelines
 		System.out.println("Customers found with findAll():");
@@ -40,7 +40,7 @@ public class JulyApplication  implements CommandLineRunner {
 		System.out.println();
 
 		// fetch an individual customer
-		System.out.println("Customer found with findByFirstName('Alice'):");
+		/*System.out.println("Customer found with findByFirstName('Alice'):");
 		System.out.println("--------------------------------");
 		System.out.println(repository.findByFirstName("Alice"));
 
@@ -48,7 +48,7 @@ public class JulyApplication  implements CommandLineRunner {
 		System.out.println("--------------------------------");
 		for (Timeline customer : repository.findByLastName("Smith")) {
 			System.out.println(customer);
-		}
+		}*/
 
 	}
 
