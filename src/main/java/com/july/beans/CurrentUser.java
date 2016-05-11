@@ -1,9 +1,7 @@
 package com.july.beans;
 
-import com.july.entity.Role;
 import com.july.entity.User;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.ArrayList;
@@ -18,18 +16,17 @@ public class CurrentUser extends User implements UserDetails {
             this.setId(user.getId());
             this.setUsername(user.getUsername());
             this.setPassword(user.getPassword());
-            this.setRole(user.getRole());
         }
     }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Collection<GrantedAuthority> authorities = new ArrayList<>();
-        Role role = this.getRole();
-        if (role != null) {
+        /*if (role != null) {
             SimpleGrantedAuthority authority = new SimpleGrantedAuthority(role.getRole());
             System.out.println("角色为"+role.getRole());
             authorities.add(authority);
-        }
+        }*/
         return authorities;
     }
 

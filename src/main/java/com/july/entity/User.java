@@ -10,7 +10,7 @@ import javax.validation.constraints.NotNull;
  * Created by kuangjun on 2016/5/5.
  */
 @Entity
-@Table(name="users")
+@Table(name="user")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,13 +24,15 @@ public class User {
     @NotNull
     private String password ;
 
+    @Column(name="nickname")
     @NotNull
-    @ManyToOne
-    @JoinColumn(name = "role_id" , referencedColumnName = "id", nullable = false)
-    private Role role ;
+    private String nickname;
 
     @Column(name="Email")
     String email ;
+
+    @Column(name="image")
+    String image;
 
     public Integer getId() {
         return id;
@@ -56,11 +58,27 @@ public class User {
         this.username = username;
     }
 
-    public Role getRole() {
-        return role;
+    public String getNickname() {
+        return nickname;
     }
 
-    public void setRole(Role role) {
-        this.role = role;
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 }
