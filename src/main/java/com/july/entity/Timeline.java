@@ -2,52 +2,46 @@
 package com.july.entity;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.mongodb.core.mapping.Document;
 
+@Document
+public class Timeline extends AbstractDocument {
 
-public class Timeline {
+    @DBRef
+    @Indexed
+    private User user;
 
-    @Id
-    private String id;
-
-    private String firstName;
-    private String lastName;
+    @DBRef
+    private Moment moment;
 
     public Timeline() {}
 
-    public Timeline(String firstName, String lastName) {
-        this.firstName = firstName;
-        this.lastName = lastName;
+    public Timeline(User user, Moment moment) {
+        this.user = user;
+        this.moment = moment;
     }
-
 
     @Override
     public String toString() {
-        return String.format(
-                "Customer[id=%s, firstName='%s', lastName='%s']",
-                id, firstName, lastName);
+        return String.format("Timeline[id=%s, user_id='%s', moment_id='%s']", id, user.getId(), moment.getId());
     }
 
-    public String getId() {
-        return id;
+    public User getUser() {
+        return user;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setUser(User user) {
+        this.user = user;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public Moment getMoment() {
+        return moment;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setMoment(Moment moment) {
+        this.moment = moment;
     }
 
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
 }
