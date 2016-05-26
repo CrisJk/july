@@ -1,45 +1,39 @@
 package com.july.entity;
 
-import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
-import javax.persistence.*;
-import javax.persistence.Id;
-import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by kuangjun on 2016/5/5.
  */
-@Entity
-@Table(name="user")
-public class User {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id ;
+@Document
+public class User extends AbstractDocument {
 
-    @Column(name="username" ,unique = true)
-    @NotEmpty
-    private String username ;
+    @Field("email")
+    @Indexed(unique = true)
+    private EmailAddress emailAddress;
 
-    @Column(name="password")
-    @NotNull
-    private String password ;
+    private String password;
 
-    @Column(name="nickname")
-    @NotNull
     private String nickname;
 
-    @Column(name="Email")
-    String email ;
+    //头像地址
+    private String avatarAddress;
 
-    @Column(name="image")
-    String image;
+    @DBRef
+    private List<Moment> moments = new ArrayList<Moment>();
 
-    public Integer getId() {
-        return id;
+    public EmailAddress getEmailAddress() {
+        return emailAddress;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setEmailAddress(EmailAddress emailAddress) {
+        this.emailAddress = emailAddress;
     }
 
     public String getPassword() {
@@ -50,14 +44,6 @@ public class User {
         this.password = password;
     }
 
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
     public String getNickname() {
         return nickname;
     }
@@ -66,19 +52,17 @@ public class User {
         this.nickname = nickname;
     }
 
-    public String getEmail() {
-        return email;
+    public String getAvatarAddress() {
+        return avatarAddress;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setAvatarAddress(String avatarAddress) {
+        this.avatarAddress = avatarAddress;
     }
 
-    public String getImage() {
-        return image;
+    @Override
+    public String toString() {
+        return "User [id=" + id + ", email=" + emailAddress + ", nickname=" + nickname + "]";
     }
 
-    public void setImage(String image) {
-        this.image = image;
-    }
 }

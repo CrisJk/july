@@ -1,9 +1,6 @@
 package com.july.service.Impl;
 
-import com.july.entity.User;
-import com.july.repository.Mysql.UserDao;
 import com.july.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,11 +11,4 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class UserServiceImpl implements UserService {
 
-    @Autowired
-    UserDao userDao ;
-
-    @Override
-    public User getUserByUsername(String username) {
-        return userDao.findByUsername(username);
-    }
 }

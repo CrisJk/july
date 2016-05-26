@@ -1,77 +1,45 @@
 package com.july.entity;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.mongodb.core.index.TextIndexed;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
+
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
- * Created by Crow on 2016/5/11.
+ * Created by sherrypan on 16-5-25.
  */
-@Entity
-@Table(name="moment")
-public class Moment {
+@Document
+public class Moment extends AbstractDocument {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id ;
+    private Set<String> picturePath = new HashSet<String>();
 
-    @Column(name="path1")
-    private String path1;
+    @Field("music")
+    private String musicPath;
 
-    @Column(name="path2")
-    private String path2;
-
-    @Column(name="path3")
-    private String path3;
-
-    @Column(name="url")
-    private String url;
-
-    @Column(name="article")
+    @TextIndexed
     private String article;
 
-    @NotNull
-    @ManyToOne
-    @JoinColumn(name="user_id",referencedColumnName = "id",nullable=false)
-    private User user;
+    @CreatedDate
+    private Date createdDate;
 
-    public Integer getId() {
-        return id;
+    public Set<String> getPicturePath() {
+        return picturePath;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setPicturePath(Set<String> picturePath) {
+        this.picturePath = picturePath;
     }
 
-    public String getPath1() {
-        return path1;
+    public String getMusicPath() {
+        return musicPath;
     }
 
-    public void setPath1(String path1) {
-        this.path1 = path1;
-    }
-
-    public String getPath2() {
-        return path2;
-    }
-
-    public void setPath2(String path2) {
-        this.path2 = path2;
-    }
-
-    public String getPath3() {
-        return path3;
-    }
-
-    public void setPath3(String path3) {
-        this.path3 = path3;
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
+    public void setMusicPath(String musicPath) {
+        this.musicPath = musicPath;
     }
 
     public String getArticle() {
@@ -82,11 +50,12 @@ public class Moment {
         this.article = article;
     }
 
-    public User getUser() {
-        return user;
+    public Date getCreatedDate() {
+        return createdDate;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
     }
+
 }

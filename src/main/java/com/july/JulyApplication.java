@@ -1,55 +1,23 @@
 package com.july;
 
-import com.july.entity.Timeline;
-import com.july.repository.Mongodb.CustomerRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @SpringBootApplication
+@EnableAutoConfiguration
 @EnableTransactionManagement
-@EnableJpaAuditing
-public class JulyApplication  implements CommandLineRunner {
+public class JulyApplication {
 
-	@Autowired
-	private CustomerRepository repository;
+    private static final Logger logger = LoggerFactory.getLogger(JulyApplication.class);
 
 	public static void main(String[] args) {
 		SpringApplication.run(JulyApplication.class, args);
-	}
 
-	//test mongodb connnect
-	@Override
-	public void run(String... args) throws Exception {
-
-		repository.deleteAll();
-
-		// save a couple of Timelines
-		repository.save(new Timeline("Alice", "Smith"));
-		repository.save(new Timeline("Bob", "Smith"));
-
-		// fetch all Timelines
-		System.out.println("Customers found with findAll():");
-		System.out.println("-------------------------------");
-		for (Timeline customer : repository.findAll()) {
-			System.out.println(customer);
-		}
-		System.out.println();
-
-		// fetch an individual customer
-		System.out.println("Customer found with findByFirstName('Alice'):");
-		System.out.println("--------------------------------");
-		System.out.println(repository.findByFirstName("Alice"));
-
-		System.out.println("Customers found with findByLastName('Smith'):");
-		System.out.println("--------------------------------");
-		for (Timeline customer : repository.findByLastName("Smith")) {
-			System.out.println(customer);
-		}
-
+        logger.info("July Web Service is Running !");
 	}
 
 }

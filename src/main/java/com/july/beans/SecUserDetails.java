@@ -4,30 +4,24 @@ import com.july.entity.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.ArrayList;
 import java.util.Collection;
 
 /**
  * Created by kuangjun on 2016/5/7.
  */
-public class CurrentUser extends User implements UserDetails {
-    public CurrentUser(User user) {
+public class SecUserDetails extends User implements UserDetails {
+
+    public SecUserDetails(User user) {
         if (user != null) {
             this.setId(user.getId());
-            this.setUsername(user.getUsername());
+            this.setEmailAddress(user.getEmailAddress());
             this.setPassword(user.getPassword());
         }
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        Collection<GrantedAuthority> authorities = new ArrayList<>();
-        /*if (role != null) {
-            SimpleGrantedAuthority authority = new SimpleGrantedAuthority(role.getRole());
-            System.out.println("角色为"+role.getRole());
-            authorities.add(authority);
-        }*/
-        return authorities;
+        return null;
     }
 
     @Override
