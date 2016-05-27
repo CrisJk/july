@@ -15,7 +15,7 @@ public class following extends AbstractDocument {
     private User user;
 
     @DBRef
-    private Set<User> followers;
+    private Set<User> followings;
 
     public User getUser() {
         return user;
@@ -25,12 +25,11 @@ public class following extends AbstractDocument {
         this.user = user;
     }
 
-    public Set<User> getFollowers() {
-        return followers;
+    public Set<User> getFollowings() {
+        return followings;
     }
 
-    public void setFollowers(Set<User> followers) {
-        this.followers = followers;
+    public void setFollowings(Set<User> followings) {
+        this.followings = followings;
     }
-
 }

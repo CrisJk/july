@@ -23,6 +23,9 @@ public class Moment extends AbstractDocument {
     @TextIndexed
     private String article;
 
+    @Field("vedio")
+    private String vedioPath;
+
     @CreatedDate
     private Date createdDate;
 
@@ -58,4 +61,11 @@ public class Moment extends AbstractDocument {
         this.createdDate = createdDate;
     }
 
+    public String getVedioPath() {
+        return vedioPath;
+    }
+
+    public void setVedioPath(String vedioPath) {
+        this.vedioPath = vedioPath;
+    }
 }

@@ -1,4 +1,4 @@
-package com.july.service.Impl;
+package com.july.service.impl;
 
 import com.july.service.UserService;
 import org.springframework.stereotype.Service;
