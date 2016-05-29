@@ -1,0 +1,18 @@
+body {
+    font-family: "Hiragino Sans GB","Microsoft YaHei","微软雅黑",tahoma,arial,simsun,"宋体";
+    font-size: 12px;
+    color: #444;
+    text-align: center;
+    background-color: #ededef;
+    border: 0;
+}
+
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, form, input, button, textarea, p, th, td {
+    padding: 0;
+    margin: 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: bold;
+    font-size: 100%;
+}

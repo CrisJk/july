@@ -27,6 +27,7 @@ spring:
   thymeleaf:
     cache: false
     mode: LEGACYHTML5
+    templates_root: src/main/resources/templates/
   data:
     mongodb:
       uri: mongodb://JULY:JULY@localhost:27017/july
