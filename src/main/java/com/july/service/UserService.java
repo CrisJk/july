@@ -12,4 +12,7 @@ public interface UserService {
     User getUserByEmail(String email);
 
     User create(UserCreateForm form);
+
+    void createVerificationTokenForUser(User user, String token);
+
 }

@@ -16,4 +16,7 @@ public interface UserRepository extends PagingAndSortingRepository<User, Long> {
 
     List<User> findByNickname(String nickname);
 
+    @Override
+    void delete(User user);
+
 }

@@ -25,8 +25,23 @@ public class User extends AbstractDocument {
     //头像地址
     private String avatarAddress;
 
+    private boolean enabled;
+
     @DBRef
     private List<Moment> moments = new ArrayList<Moment>();
+
+    public User() {
+        super();
+        this.enabled = false;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(final boolean enabled) {
+        this.enabled = enabled;
+    }
 
     public String getEmail() {
         return email;
