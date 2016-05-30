@@ -14,8 +14,9 @@ public class SecUserDetails extends User implements UserDetails {
     public SecUserDetails(User user) {
         if (user != null) {
             this.setId(user.getId());
-            this.setEmailAddress(user.getEmailAddress());
+            this.setEmail(user.getEmail());
             this.setPassword(user.getPassword());
+            this.setNickname(user.getNickname());
         }
     }
 
@@ -25,13 +26,8 @@ public class SecUserDetails extends User implements UserDetails {
     }
 
     @Override
-    public String getPassword() {
-        return null;
-    }
-
-    @Override
     public String getUsername() {
-        return this.getUsername();
+        return this.getNickname();
     }
 
     @Override

@@ -1,6 +1,5 @@
 package com.july;
 
-import com.july.entity.EmailAddress;
 import com.july.entity.User;
 import com.july.repository.UserRepository;
 import org.junit.Test;
@@ -26,7 +25,7 @@ public class UserRepositoryTests {
     @Test
     public void saveTest() {
         User user1 = new User();
-        user1.setEmailAddress(new EmailAddress("12345678@qq.com"));
+        user1.setEmail("12345678@qq.com");
         user1.setPassword("123456");
         user1.setNickname("Kitty");
         userRepository.save(user1);

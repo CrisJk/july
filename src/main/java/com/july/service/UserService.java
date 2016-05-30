@@ -1,5 +1,6 @@
 package com.july.service;
 
+import com.july.controller.form.UserCreateForm;
 import com.july.entity.User;
 
 /**
@@ -7,4 +8,8 @@ import com.july.entity.User;
  */
 
 public interface UserService {
+
+    User getUserByEmail(String email);
+
+    User create(UserCreateForm form);
 }

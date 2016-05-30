@@ -1,19 +1,14 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Spring Security Example </title>
+    <title>登录 - July</title>
 </head>
 <body>
 login
-<div th:if test="${param.status=='error'}">
-    Invalid username and password.
-</div>
-<div th:if test="${param.status=='logout'}">
-    You have been logged out.
-</div>
+
 <form th:action="@{/login}" method="post">
-    <div><label> User Name : <input type="text" name="username"/> </label></div>
-    <div><label> Password: <input type="password" name="password"/> </label></div>
+    <div><label> 邮箱 : <input type="text" name="username"/> </label></div>
+    <div><label> 密码 : <input type="password" name="password"/> </label></div>
     <div><input type="submit" value="Sign In"/></div>
 </form>
 </body>

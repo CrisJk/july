@@ -16,7 +16,7 @@ public class User extends AbstractDocument {
 
     @Field("email")
     @Indexed(unique = true)
-    private EmailAddress emailAddress;
+    private String email;
 
     private String password;
 
@@ -28,12 +28,12 @@ public class User extends AbstractDocument {
     @DBRef
     private List<Moment> moments = new ArrayList<Moment>();
 
-    public EmailAddress getEmailAddress() {
-        return emailAddress;
+    public String getEmail() {
+        return email;
     }
 
-    public void setEmailAddress(EmailAddress emailAddress) {
-        this.emailAddress = emailAddress;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getPassword() {
@@ -62,7 +62,7 @@ public class User extends AbstractDocument {
 
     @Override
     public String toString() {
-        return "User [id=" + id + ", email=" + emailAddress + ", nickname=" + nickname + "]";
+        return "User [id=" + id + ", email=" + email + ", nickname=" + nickname + "]";
     }
 
 }

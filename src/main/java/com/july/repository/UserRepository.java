@@ -12,7 +12,7 @@ import java.util.List;
 @Repository
 public interface UserRepository extends PagingAndSortingRepository<User, Long> {
 
-    List<User> findByEmailAddress(String emailAddress);
+    List<User> findByEmail(String email);
 
     List<User> findByNickname(String nickname);
 

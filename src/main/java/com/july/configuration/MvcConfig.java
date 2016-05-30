@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.thymeleaf.extras.springsecurity4.dialect.SpringSecurityDialect;
 import org.thymeleaf.templateresolver.FileTemplateResolver;
 import org.thymeleaf.templateresolver.ITemplateResolver;
 import org.thymeleaf.templateresolver.TemplateResolver;
@@ -30,10 +31,10 @@ public class MvcConfig extends WebMvcAutoConfiguration {
         return characterEncodingFilter;
     }
 
-//    @Bean
-//    public SpringSecurityDialect springSecurityDialect(){
-//        return new SpringSecurityDialect();
-//    }
+    @Bean
+    public SpringSecurityDialect springSecurityDialect(){
+        return new SpringSecurityDialect();
+    }
 //
 //    @Bean
 //    public Java8TimeDialect java8TimeDialect() {
