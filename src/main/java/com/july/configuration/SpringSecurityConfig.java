@@ -50,10 +50,10 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
         http
             .antMatcher("/**")
             .authorizeRequests()
-                .antMatchers("/", "/login**", "/register", "/webjars/**").permitAll()
+                .antMatchers("/", "/index", "/login**", "/register", "/registrationConfirm", "/webjars/**").permitAll()
                 .anyRequest().authenticated()
             .and().exceptionHandling().authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/"))
-            .and().formLogin().loginPage("/login").usernameParameter("username").passwordParameter("password").defaultSuccessUrl("/").permitAll()
+            .and().formLogin().loginPage("/").usernameParameter("username").passwordParameter("password").defaultSuccessUrl("/").permitAll()
             .and().logout().logoutSuccessUrl("/").permitAll()
             .and().addFilterBefore(ssoFilter(), BasicAuthenticationFilter.class);
     }

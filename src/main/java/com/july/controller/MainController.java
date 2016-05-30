@@ -21,25 +21,10 @@ import java.util.Map;
 @Controller
 public class MainController {
 
-    private static final Logger logger = LoggerFactory.getLogger(MainController.class);
-
-    @Autowired
-    MomentService momentService;
-
     @RequestMapping("/")
     public ModelAndView index() {
         ModelAndView mav = new ModelAndView("index");
         return mav;
-    }
-
-    @RequestMapping("/save")
-    public String saveArticle() {
-        Moment moment = new Moment();
-        moment.setArticle("hello kitty");
-        moment.setCreatedDate(new Date());
-        momentService.save(moment);
-        logger.info("save moment success");
-        return "index";
     }
 
     @RequestMapping({ "/user", "/me" })

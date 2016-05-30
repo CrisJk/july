@@ -15,4 +15,6 @@ public interface UserService {
 
     void createVerificationTokenForUser(User user, String token);
 
+    String validateVerificationToken(String token);
+
 }

@@ -17,6 +17,8 @@ public class SecUserDetails extends User implements UserDetails {
             this.setEmail(user.getEmail());
             this.setPassword(user.getPassword());
             this.setNickname(user.getNickname());
+            this.setEnabled(user.isEnabled());
+            this.setAvatarAddress(user.getAvatarAddress());
         }
     }
 
@@ -45,8 +47,4 @@ public class SecUserDetails extends User implements UserDetails {
         return true;
     }
 
-    @Override
-    public boolean isEnabled() {
-        return true;
-    }
 }

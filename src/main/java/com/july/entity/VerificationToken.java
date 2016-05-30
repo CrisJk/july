@@ -1,5 +1,6 @@
 package com.july.entity;
 
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.Calendar;
@@ -15,6 +16,7 @@ public class VerificationToken extends AbstractDocument {
 
     private String token;
 
+    @DBRef
     private User user;
 
     private Date expiryDate;

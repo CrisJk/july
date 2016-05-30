@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
@@ -19,7 +20,6 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
-import java.util.Optional;
 
 /**
  * Created by sherrypan on 16-5-29.
@@ -27,7 +27,7 @@ import java.util.Optional;
 @Controller
 public class UserController {
 
-    private final Logger LOGGER = LoggerFactory.getLogger(getClass());
+    private final Logger logger = LoggerFactory.getLogger(getClass());
 
     @Autowired
     private ApplicationEventPublisher eventPublisher;
@@ -45,7 +45,6 @@ public class UserController {
 
     @RequestMapping(value = "/register", method = RequestMethod.GET)
     public ModelAndView getUserCreateForm() {
-        System.out.println("register GET !");
         return new ModelAndView("register", "form", new UserCreateForm());
     }
 
@@ -57,12 +56,11 @@ public class UserController {
         try {
             User registered = userService.create(form);
             if (registered == null) {
-                bindingResult.rejectValue("email", "message.regError");
+                bindingResult.rejectValue("email.exists", "邮箱已存在！");
             }
             try {
-                String appUrl = request.getContextPath();
-                eventPublisher.publishEvent(new OnRegistrationCompleteEvent
-                        (registered, request.getLocale(), appUrl));
+                String appUrl = request.getHeader("Host");
+                eventPublisher.publishEvent(new OnRegistrationCompleteEvent(registered, appUrl));
             } catch (Exception me) {
                 return "register";
             }
@@ -74,9 +72,22 @@ public class UserController {
         return "redirect:/";
     }
 
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public ModelAndView getLoginPage(@RequestParam Optional<String> error) {
-        return new ModelAndView("login", "error", error);
+    @RequestMapping(value = "/registrationConfirm", method = RequestMethod.GET)
+    public String confirmRegistration(final Model model, @RequestParam("token") final String token) {
+        final String result = userService.validateVerificationToken(token);
+        logger.info(result);
+        if (result == null) {
+            model.addAttribute("message", "Your account verified successfully");
+            logger.info("validate succeeded!!!!!");
+            return "redirect:/";
+        }
+        if (result == "expired") {
+            model.addAttribute("expired", true);
+            model.addAttribute("token", token);
+        }
+        logger.info("validate FAILED !!!!!");
+        model.addAttribute("message", result);
+        return "redirect:/";
     }
 
 }
