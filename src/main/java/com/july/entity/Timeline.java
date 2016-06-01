@@ -1,53 +1,46 @@
 //test mongodb connnect
 package com.july.entity;
 
-import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.util.List;
+@Document
+public class Timeline extends AbstractDocument {
 
+    @DBRef
+    @Indexed
+    private User user;
 
-public class Timeline {
-
-    @Id
-    private String id;
-
-    private int user_id;
-    private List<String> moment_id;
+    @DBRef
+    private Moment moment;
 
     public Timeline() {}
 
-    public Timeline(int Data) {
-        this.user_id = Data;
+    public Timeline(User user, Moment moment) {
+        this.user = user;
+        this.moment = moment;
     }
 
     @Override
     public String toString() {
-        String str="";
-        str += user_id;
-        return str;
+        return String.format("Timeline[id=%s, user_id='%s', moment_id='%s']", id, user.getId(), moment.getId());
     }
 
-    public String getId() {
-        return id;
+    public User getUser() {
+        return user;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setUser(User user) {
+        this.user = user;
     }
 
-    public int getUser_id() {
-        return user_id;
+    public Moment getMoment() {
+        return moment;
     }
 
-    public void setUser_id(int user_id) {
-        this.user_id = user_id;
+    public void setMoment(Moment moment) {
+        this.moment = moment;
     }
-
-    public List<String> getMoment_id() {
-        return moment_id;
-    }
-
-    public void setMoment_id(List<String> moment_id) {
-        this.moment_id = moment_id;
-    }
+    
 }

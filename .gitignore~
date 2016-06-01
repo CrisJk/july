@@ -19,8 +19,3 @@ log
 .DS_Store
 
 server/uploads/
-
-# Maven
-log/
-target/
-/bin/

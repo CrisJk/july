@@ -1,69 +1,46 @@
 package com.july.entity;
 
-import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
-import javax.persistence.*;
-import javax.persistence.Id;
-import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by kuangjun on 2016/5/5.
  */
-@Entity
-@Table(name="user")
-public class User {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id ;
+@Document
+public class User extends AbstractDocument {
 
-    @Column(name="username" ,unique = true)
-    @NotEmpty
-    private String username ;
+    @Field("email")
+    @Indexed(unique = true)
+    private String email;
 
-    @Column(name="password")
-    @NotNull
-    private String password ;
+    private String password;
 
-    @Column(name="nickname")
-    @NotNull
     private String nickname;
 
-    @Column(name="Email")
-    String email ;
+    //头像地址
+    private String avatarAddress;
 
-    @Column(name="image")
-    String image;
+    private boolean enabled;
 
-    public Integer getId() {
-        return id;
+    @DBRef
+    private List<Moment> moments = new ArrayList<Moment>();
+
+    public User() {
+        super();
+        this.enabled = false;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public boolean isEnabled() {
+        return enabled;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getNickname() {
-        return nickname;
-    }
-
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
+    public void setEnabled(final boolean enabled) {
+        this.enabled = enabled;
     }
 
     public String getEmail() {
@@ -74,11 +51,33 @@ public class User {
         this.email = email;
     }
 
-    public String getImage() {
-        return image;
+    public String getPassword() {
+        return password;
     }
 
-    public void setImage(String image) {
-        this.image = image;
+    public void setPassword(String password) {
+        this.password = password;
     }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+    public String getAvatarAddress() {
+        return avatarAddress;
+    }
+
+    public void setAvatarAddress(String avatarAddress) {
+        this.avatarAddress = avatarAddress;
+    }
+
+    @Override
+    public String toString() {
+        return "User [id=" + id + ", email=" + email + ", nickname=" + nickname + "]";
+    }
+
 }

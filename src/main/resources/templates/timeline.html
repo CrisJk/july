@@ -1,0 +1,127 @@
+<!DOCTYPE HTML>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>JULY - 记录生活，发现美好</title>
+    <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css" />
+    <link th:href="@{/css/common.css}" type="text/css" rel="stylesheet"/>
+    <link th:href="@{/css/timeline.css}" type="text/css" rel="stylesheet"/>
+</head>
+<body style="background-color: #ededef">
+<div class="container-fluid">
+    <div class="row">
+        <div class="g-hd">
+            <div id="julyheadbar" class="g-hdc">
+                <h1 class="m-logo"><a href="#"><span style="display:none">JULY - 记录生活</span></a></h1>
+                <div class="m-nav" id="topbar">
+                    <ul class="nav1 tbtag">
+                        <li class="j-crt"><a href="#">首页</a></li>
+                        <li><a href="#">文字</a></li>
+                        <li><a href="#">图片</a></li>
+                        <li><a href="#">音乐</a></li>
+                        <li><a href="#">视频</a></li>
+                    </ul>
+
+                    <div class="nav2" id="schtagbox">
+                        <div class="ssch tbtag">
+                            <form class="xtag">
+                                <a href="#" class="btn xtag"></a>
+                                <label class="xtag" style="display:none;">搜索感兴趣的人、事</label>
+                                <input type="text" placeholder="搜索感兴趣的人、事" class="xtag" onfocus="this.isfocus = true;"/>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="g-bd">
+        <div class="g-bdc">
+            <div class="g-mn" id="main">
+                <div id="publishBarArea" class="publishBarArea">
+                    <ul id="publishPostBar" class="m-nav2">
+                        <li class="user"><a  href="#"><strong>上传头像</strong></a></li>
+                        <li><a  class="publishlink n21" href="#">文字</a></li>
+                        <li><a  class="publishlink n22" href="#">图片</a></li>
+                        <li><a  class="publishlink n23" href="#">音乐</a></li>
+                        <li><a  class="publishlink publishlink-video n24" href="#">视频</a></li>
+                    </ul>
+                </div>
+                <div id="cannonentrybanner" class="m-cannonentrybanner a-slide a-slide-do">
+                    <div id="cannonentrybannerslide" class="m-mlist slide cannonentrybannerslide">
+                    </div>
+                </div>
+                <div class="w-load2" id="loadfirst" style="display: none;"><div class="load">加载中</div></div>
+
+                <div class="m-mlist">
+                    <div class="mlistimg" style="float: left; margin-right:20px">
+                        <div class="w-img" style="z-index:1;">
+                            <a target="_blank"><img src="/image/100.jpg" style="height: 70px;border-radius: 5px;"></a>
+                        </div>
+                    </div>
+                    <article id="post-2582" class="block post">
+                        <span class="round-date red">
+                                    <span class="month">4月</span>
+                                    <span class="day">16</span>
+                        </span>
+                        <header class="entry-header">
+                            <p class="title">
+                                <a href="#" rel="bookmark">一朵炒鸡萌的表情面板</a>
+                            </p>
+                            <p class="article-meta"><i class="fa fa-heart-o"></i>发表于 2016年4月16日</p>
+                            <div class="article-content red">
+                                <p></p>
+                            </div>
+                        </header>
+                        <!-- .entry-header -->
+                        <div class="article-content red">
+                            <p>换掉多说之后评论一直不方便插♂入表情，所以造了个简单的轮子。</p>
+                            <p>支持颜文字、Emoji、图片等，支持移动端，表情数据从一个可以自定义的json接口读取。</p>
+                            <p>使用方法见GitHub，喜欢就给个star吧~</p>
+                        </div>
+                        <div style="height:10px"></div>
+                        <div class="article-content red">
+                            <p class="more"><a href="#" title="一朵炒鸡萌的表情面板" target="_blank">阅读全文
+                                &gt;&gt;</a></p>
+                        </div>
+                    </article><!-- #post -->
+
+                </div>
+            </div>
+
+            <div class="m-menu" style="padding-top:5px">
+                <div class="menum">
+                    <ul>
+                        <li class="first large">
+                            <div class="large-fontsize">昵称</div>
+                        </li>
+                        <li class="small">
+                            <div class="crtp"></div>
+                            <span class="icn icn-9"></span>
+                            <span class="txt">文章</span>
+                            <span class="inf inf-1">0</span>
+                        </li>
+                        <li class="small">
+                            <span class="icn icn-1"></span>
+                            <span class="txt">关注</span>
+                            <span class="inf inf-1">0</span></li>
+                        <li class="small">
+                            <span class="icn icn-13"></span>
+                            <span class="txt">粉丝</span>
+                            <span class="inf inf-1">0</span>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+    <div class="m-loadm" id="loadmore" style="display:none">
+        <div class="loadm">载入更多内容</div>
+    </div>
+    <a title="回到顶部" class="w-top" href="#" id="gtotop" hidefocus="true" style="visibility:hidden;">回到顶部</a>
+    <div id="preOpenCoverForPublish" class="preOpenCoverForPublish" style="display:none;opacity:1;"></div>
+</div>
+</body>
+</html>

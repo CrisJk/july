@@ -1,19 +1,29 @@
 package com.july;
 
+<<<<<<< HEAD
 import com.july.entity.Timeline;
 import com.july.repository.Mongodb.TimelineRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
+=======
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+>>>>>>> master
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
+import org.springframework.boot.autoconfigure.security.oauth2.client.EnableOAuth2Sso;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @SpringBootApplication
+@EnableAutoConfiguration
 @EnableTransactionManagement
-@EnableJpaAuditing
-public class JulyApplication  implements CommandLineRunner {
+@EnableOAuth2Sso
+@EnableScheduling
+public class JulyApplication {
 
+<<<<<<< HEAD
 	@Autowired
 	private TimelineRepository repository;
 
@@ -49,7 +59,14 @@ public class JulyApplication  implements CommandLineRunner {
 		for (Timeline customer : repository.findByLastName("Smith")) {
 			System.out.println(customer);
 		}*/
+=======
+    private static final Logger logger = LoggerFactory.getLogger(JulyApplication.class);
 
+	public static void main(String[] args) {
+		SpringApplication.run(JulyApplication.class, args);
+>>>>>>> master
+
+        logger.info("July Web Service is Running !");
 	}
 
 }

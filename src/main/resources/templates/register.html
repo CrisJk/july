@@ -1,8 +1,40 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
-<title>July-Register</title>
+    <title id="pageTitle">注册 - July</title>
 </head>
 <body>
+
+<h1>注册</h1>
+<form name="form" th:action="@{/register}" method="post" th:object="${form}">
+    <div class="form_group">
+        <label class="form_label">邮箱</label>
+        <input type="email" class="form_control" th:field="*{email}" placeholder="邮箱" required />
+        <div th:if="${#fields.hasErrors('email')}" class="alert alert-danger" th:errors="*{email}"></div>
+    </div>
+    <div class="form_group">
+        <label class="form_label">密码</label>
+        <input type="password" class="form_control" th:field="*{password}" placeholder="密码" required />
+        <div th:if="${#fields.hasErrors('password')}" class="alert alert-danger" th:errors="*{password}"></div>
+    </div>
+    <div class="form_group">
+        <label class="form_label">确认密码</label>
+        <input type="password" class="form_control" th:field="*{passwordRepeated}" placeholder="密码" required />
+        <div th:if="${#fields.hasErrors('passwordRepeated')}" class="alert alert-danger" th:errors="*{passwordRepeated}"></div>
+    </div>
+    <div class="form_group">
+        <label class="form_label">昵称</label>
+        <input type="text" class="form_control" th:field="*{nickname}" placeholder="姓名" required />
+        <div th:if="${#fields.hasErrors('nickname')}" class="alert alert-danger" th:errors="*{nickname}"></div>
+    </div>
+    <div class="form_group">
+        <div class="center">
+            <button type="submit" class="btn btn-primary">注册</button>
+            <button type="reset" class="btn btn-default">重置</button>
+        </div>
+    </div>
+</form>
+
 </body>
 </html>
