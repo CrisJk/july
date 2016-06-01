@@ -49,12 +49,14 @@ public class AppConfig {
         javaMailProps.put("mail.debug", true);
         //javaMailProps.put("mail.smtp.starttls.enable", true);
         mailSenderImpl.setJavaMailProperties(javaMailProps);
-        try {
-            mailSenderImpl.testConnection();
-            logger.info("Connection succeeded.");
-        } catch (MessagingException e) {
-            logger.error("Connection failed.");
-        }
+
+//        测试邮箱发送
+//        try {
+//            mailSenderImpl.testConnection();
+//            logger.info("Connection succeeded.");
+//        } catch (MessagingException e) {
+//            logger.error("Connection failed.");
+//        }
         return mailSenderImpl;
     }
 
