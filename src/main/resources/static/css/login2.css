@@ -1,11 +1,11 @@
 html {
-	
+
 }
 body {
 	font-family:"Microsoft Yahei";
 	font-size:12px;
 	margin:0;
-background: #fff url(../images/1.jpg) 50% 0 no-repeat;}
+	background: #fff url(../images/1.jpg) 50% 0 no-repeat;}
 ul {
 	padding:0;
 	margin:0;
@@ -26,15 +26,15 @@ input[type="text"]:focus, input[type="password"]:focus {
 input::-ms-clear {
 	display:none;
 }
-.loginRegist_area_bg { 
-	width:106%; 
-	height:103%; 
-	background:#FFF; 
-	opacity:0.4; 
-	filter:alpha(opacity:40); 
-	position:absolute; 
-	top:-3%; 
-	left:-3%; 
+.loginRegist_area_bg {
+	width:106%;
+	height:103%;
+	background:#FFF;
+	opacity:0.4;
+	filter:alpha(opacity:40);
+	position:absolute;
+	top:-3%;
+	left:-3%;
 }
 .login {
 	margin:0 auto;
@@ -48,7 +48,7 @@ input::-ms-clear {
 {
 	margin-left:35px ;
 	font-family: "Microsoft Yahei";
-    font-size: 16px;
+	font-size: 16px;
 }
 .header {
 	height:50px;
@@ -131,7 +131,7 @@ input::-ms-clear {
 	margin-left:5%;
 	margin-top:10px;
 	float:left;
-	
+
 }
 .web_login .inputOuter2 {
 	width:200px;
@@ -139,7 +139,7 @@ input::-ms-clear {
 	margin-left:5%;
 	margin-top:10px;
 	float:left;
-	
+
 }
 .web_login .inputstyle {
 	width:300px;
@@ -153,7 +153,8 @@ input::-ms-clear {
 	font-size:16px;
 	ime-mode:disabled;
 }
-.web_login input.inputstyle2:focus,.web_login input.inputstyle:focus{border:1px solid #198BD4;box-shadow:0 0 2px #198BD4;}
+.web_login input.inputstyle2:focus,
+.web_login input.inputstyle:focus{border:1px solid #198BD4;box-shadow:0 0 2px #198BD4;}
 .web_login .inputstyle2 {
 	width:300px;
 	height:35px;
@@ -181,7 +182,7 @@ input::-ms-clear {
 }
 .web_qr_login {
 	position:relative;
-	
+
 	overflow:hidden;
 }
 
@@ -200,40 +201,40 @@ input::-ms-clear {
 
 h1{margin:80px auto 50px auto;text-align:center;color:#fff;margin-left:-25px;font-size:35px;font-weight: bold;text-shadow: 0px 1px 1px #555;}
 h1 sup{
-    font-size: 18px;
-    font-style: normal;
-    position: absolute;
-    margin-left: 10px;}
+	font-size: 18px;
+	font-style: normal;
+	position: absolute;
+	margin-left: 10px;}
 .login {
-border:0;padding:5px 0;
-background: #fff;
-margin: 0 auto;
--webkit-box-shadow: 1px 1px 2px 0 rgba(0, 0, 0, .3);
-box-shadow: 1px 1px 2px 0 rgba(0, 0, 0, .3);}
+	border:0;padding:5px 0;
+	background: #fff;
+	margin: 0 auto;
+	-webkit-box-shadow: 1px 1px 2px 0 rgba(0, 0, 0, .3);
+	box-shadow: 1px 1px 2px 0 rgba(0, 0, 0, .3);}
 
 .web_login{padding-bottom:20px;}
 
 .jianyi{color:#fff;text-align:center;margin-top:25px;color:#B3B8C4;}
 .reg_form li {
-height: 55px;
+	height: 55px;
 }
 .cue {
-margin-top: 15px;
-margin-bottom: 10px;border:1px solid #eee;border-radius:3px;
+	margin-top: 15px;
+	margin-bottom: 10px;border:1px solid #eee;border-radius:3px;
 }
 .web_login input.inputstyle2:focus, .web_login input.inputstyle:focus {
-border: 1px solid #5796f;
-box-shadow: 0 0 0;
+	border: 1px solid #5796f;
+	box-shadow: 0 0 0;
 }
 .web_login .reg_form {
-width: 350px;
-margin-top:10px;
-margin-left:50px ;
+	width: 350px;
+	margin-top:10px;
+	margin-left:50px ;
 }
 .web_login .inputstyle2 {border-radius:2px;width:210px;}
 .web_login .input-tips2 {
-padding-right: 5px;
-width: 80px;_width: 75px;_font-size:12px;}
+	padding-right: 5px;
+	width: 80px;_width: 75px;_font-size:12px;}
 .button_blue
 {
 	display:inline-block;
@@ -255,6 +256,6 @@ input.button_blue:hover
 a.zcxy {text-decoration: underline;line-height:58px;margin-left:15px;color: #959ca8;}
 .web_login .login_form {margin-top:30px;}
 .web_login .uinArea {
-height: 60px;}
+	height: 60px;}
 .header .switch{left:120px;}
 

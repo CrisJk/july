@@ -12,124 +12,122 @@
     <meta name="_csrf_parameter" th:content="${_csrf.parameterName}" />
 
     <base href="/" />
-    <link rel="stylesheet" type="text/css"
-          href="/webjars/bootstrap/css/bootstrap.min.css" />
     <script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
+    <!--<link rel="stylesheet" type="text/css"
+          href="/webjars/bootstrap/css/bootstrap.min.css" />
+
     <script type="text/javascript"
-            src="/webjars/bootstrap/js/bootstrap.min.js"></script>
-    <link  rel="stylesheet" type="text/css" th:href="@{css/login2.css}" />
-    <script  type="text/javascript"   th:src="@{js/login.js}"></script>
+            src="/webjars/bootstrap/js/bootstrap.min.js"></script>-->
+    <link  th:href="@{/css/login2.css}" type="text/css"rel="stylesheet" />
+    <script th:src="@{/js/login.js}"}></script>
+
 
 </head>
 <body>
-<div sec:authorize="isAuthenticated()">
-    <h1>hello <span sec:authentication="name"></span></h1>
-    <a href="#" onclick="logout();">Logout</a>
-</div>
-<div sec:authorize="isAnonymous()">
-    <div class="login" style="margin-top:300px;">
-        <!-- <div class = "loginRegist_area_bg"></div> -->
-        <div class="header">
-            <div class="switch" id="switch">
-                <a class="switch_btn_focus" id="switch_qlogin" href="javascript:void(0);" tabindex="7">&nbsp&nbsp&nbsp 登录</a>
-                <a class="switch_btn" id="switch_login" href="javascript:void(0);" tabindex="8">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp 注册</a><div class="switch_bottom" id="switch_bottom" style="position: absolute; width: 64px; left: 0px;"></div>
-            </div>
+
+
+<div class="login" style="margin-top:300px;">
+    <!-- <div class = "loginRegist_area_bg"></div> -->
+    <div class="header">
+        <div class="switch" id="switch">
+            <a class="switch_btn_focus" id="switch_qlogin" href="javascript:void(0);" tabindex="7">&nbsp&nbsp&nbsp 登录</a>
+            <a class="switch_btn" id="switch_login" href="javascript:void(0);" tabindex="8">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp 注册</a><div class="switch_bottom" id="switch_bottom" style="position: absolute; width: 64px; left: 0px;"></div>
         </div>
-
-
-        <div class="web_qr_login" id="web_qr_login" style="display: block; height: 300px;">
-
-            <!--登录-->
-            <div class="web_login" id="web_login">
-
-
-                <div class="login-box">
-
-
-                    <div class="login_form">
-                        <form action="@{/}" accept-charset="utf-8" id="login_form" class="loginForm" method="post"><input type="hidden" name="did" value="0"/>
-
-                            <input type="hidden" name="to" value="log"/>
-                            <div class="uinArea" id="uinArea">
-                                <div class="inputOuter" id="uArea">
-
-                                    <input type="text" id="u"  placeholder="常用邮箱" name="username" class="inputstyle"/>
-                                </div>
-                            </div>
-                            <div class="pwdArea" id="pwdArea">
-                                <div class="inputOuter" id="pArea">
-
-                                    <input type="password" id="p" name="p" placeholder = "密码" class="inputstyle"/>
-                                </div>
-                            </div>
-
-                            <div style="padding-left:12%;margin-top:20px;">
-                                <input type="submit" value="登        录" style="width:305px;margin-bottom:30px;" class="button_blue"/>
-                            </div>
-                            <div>
-                                <label class="myfont">其它登录:</label>
-                                <a a href="/login/facebook">
-                                <img src="images/facebook.png" style="margin-right:20px ; margin-left:20px  ;width:40px;height:40px;border-radius: 6px;">
-                                </a>
-                                <a href="/login/github">
-                                    <img src="images/github.png" style="margin-right:20px ; margin-left:20px  ;width:40px;height:40px;border-radius: 6px;">
-                                </a>
-                            </div>
-                        </form>
-                    </div>
-
-                </div>
-
-            </div>
-            <!--登录end-->
-        </div>
-
-        <!--注册-->
-
-        <div class="qlogin" id="qlogin" style="display: none; ">
-            <div class="web_qr_login" id="web_qr_login2" style="display: block; height: 300px;">
-                <div class="web_login"><form name="form2" id="regUser" accept-charset="utf-8"  action="@{/}" method="post">
-                    <input type="hidden" name="to" value="reg"/>
-                    <input type="hidden" name="did" value="0"/>
-                    <ul class="login_form" id="reg-ul">
-
-                        <li>
-                            <div class="uinArea" id="uinArea2">
-                                <div class="inputOuter">
-                                    <input class="inputstyle" type="text" id="user" name="user"  placeholder="常用邮箱" />
-                                </div>
-                            </div>
-
-                        </li>
-
-                        <li>
-                            <div class="uinArea" id="pwdArea2">
-                                <div class="inputOuter">
-                                    <input type="password" id="passwd"  name="passwd" placeholder="密码" class="inputstyle"/>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <div  class="uinArea" id="pwdArea3">
-                                <div class="inputOuter">
-                                    <input type="password" id="passwd2" name="" placeholder = "确认密码"maxlength="16" class="inputstyle" />
-                                </div>
-                            </div>
-
-                        </li>
-
-
-                        <li>
-                            <div style="padding-left:12%;margin-top:20px;"><input type="submit" value="注        册" style="width:305px;" class="button_blue"/></div>
-                        </li><div class="cl"></div>
-                    </ul></form>
-
-
-                </div>
-            </div>
-        </div>
-
     </div>
+
+
+    <div class="web_qr_login" id="web_qr_login" style="display: block; height: 300px;">
+
+        <!--登录-->
+        <div class="web_login" id="web_login">
+
+
+            <div class="login-box">
+
+
+                <div class="login_form">
+                    <form action="@{/}" accept-charset="utf-8" id="login_form" class="loginForm" method="post"><input type="hidden" name="did" value="0"/>
+
+                        <input type="hidden" name="to" value="log"/>
+                        <div class="uinArea" id="uinArea">
+                            <div class="inputOuter" id="uArea">
+
+                                <input type="text" id="u"  placeholder="常用邮箱" name="username" class="inputstyle"/>
+                            </div>
+                        </div>
+                        <div class="pwdArea" id="pwdArea">
+                            <div class="inputOuter" id="pArea">
+
+                                <input type="password" id="p" name="p" placeholder = "密码" class="inputstyle"/>
+                            </div>
+                        </div>
+
+                        <div style="padding-left:12%;margin-top:20px;">
+                            <input type="submit" value="登        录" style="width:305px;margin-bottom:30px;" class="button_blue"/>
+                        </div>
+                        <div>
+                            <label class="myfont">其它登录:</label>
+                            <a href="/login/facebook">
+                                <img th:src="@{/images/facebook.png}" style="margin-right:20px ; margin-left:20px  ;width:40px;height:40px;border-radius: 6px;">
+                            </a>
+                            <a href="/login/github">
+                                <img th:src="@{/images/github.png}" style="margin-right:20px ; margin-left:20px  ;width:40px;height:40px;border-radius: 6px;">
+                            </a>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+
+        </div>
+        <!--登录end-->
+    </div>
+
+    <!--注册-->
+
+    <div class="qlogin" id="qlogin" style="display: none; ">
+        <div class="web_qr_login" id="web_qr_login2" style="display: block; height: 300px;">
+            <div class="web_login"><form name="form2" id="regUser" accept-charset="utf-8"  action="@{/}" method="post">
+                <input type="hidden" name="to" value="reg"/>
+                <input type="hidden" name="did" value="0"/>
+                <ul class="login_form" id="reg-ul">
+
+                    <li>
+                        <div class="uinArea" id="uinArea2">
+                            <div class="inputOuter">
+                                <input class="inputstyle" type="text" id="user" name="user"  placeholder="常用邮箱" />
+                            </div>
+                        </div>
+
+                    </li>
+
+                    <li>
+                        <div class="uinArea" id="pwdArea2">
+                            <div class="inputOuter">
+                                <input type="password" id="passwd"  name="passwd" placeholder="密码" class="inputstyle"/>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div  class="uinArea" id="pwdArea3">
+                            <div class="inputOuter">
+                                <input type="password" id="passwd2" name="" placeholder = "确认密码"maxlength="16" class="inputstyle" />
+                            </div>
+                        </div>
+
+                    </li>
+
+
+                    <li>
+                        <div style="padding-left:12%;margin-top:20px;"><input type="submit" value="注        册" style="width:305px;" class="button_blue"/></div>
+                    </li><div class="cl"></div>
+                </ul></form>
+
+
+            </div>
+        </div>
+    </div>
+
 </div>
 <script>
     var csrfParameter = $("meta[name='_csrf_parameter']").attr("content");

@@ -4,7 +4,7 @@
 }
 
 .p-body7 .g-hdfull, body, .g-bd9, .g-hdwrap, .p-body10 .g-hdfull, .g-hd {
-    background: url(../image/body.png) repeat-x;
+    background: url(../images/body.png) repeat-x;
 }
 
 .m-logo {
@@ -19,7 +19,7 @@
 }
 
 .m-logo a {
-    background: url("../image/logo.png") 0 0 no-repeat;
+    background: url("../images/logo.png") 0 0 no-repeat;
     background-size: 180px;
 }
 
@@ -29,7 +29,7 @@
 }
 
 .m-nav .more, .w-sel-4, .w-sel-5, .w-sel-6, .m-nav .nav2, .m-nav .btn, .m-nav .new, .m-nav .nav2 .name, .m-menu .large .dropicon, .m-menu .tip, .w-sel-6 .sd a, .w-sel-6 .sd .sdtip, .m-nav .nav1 .seli a, .m-nav .nav2 .sugbox, .m-ssch2 .sugitma, .m-nav .nav2 .sugbox, .w-vsbtn-3, .w-vsbtn-4, .w-sel-6 .selc .add .user, .w-sel-6 .selc .add, .m-menu .crtp, .w-schbtn2, .m-at .shadow, .w-sel-4 .newicn, .w-wmtips, .w-icnwm, .w-icnreward, .w-icnpaster {
-    background: url(../image/icon4-24.png) -9999px -9999px no-repeat;
+    background: url(../images/icon4-24.png) -9999px -9999px no-repeat;
 }
 
 .m-nav .nav1, .m-icnt .icnttt, .w-fttl, .w-ett, .m-layer .warmt, .m-end h2, .m-layer .infoc h2, .m-itag h2, .m-loadm, .m-about h3, .w-load2 {
@@ -187,17 +187,17 @@
     right: 0;
     width: 22px;
     height: 21px;
-    background: url(../image/browsersavetip24.png) 0 0 no-repeat;
+    background: url(../images/browsersavetip24.png) 0 0 no-repeat;
 }
 
 #publishPostBar li a.publishlink-video .browsersavetip {
     right: -4px;
     width: 25px;
-    background: url(../image/browsersavetip_video24.png) 0 0 no-repeat;
+    background: url(../images/browsersavetip_video24.png) 0 0 no-repeat;
 }
 
 .m-nav2, .m-nav2 a, .m-activity-1 .m-nav2 span {
-    background: url(../image/nav224.png) no-repeat 999px 999px;
+    background: url(../images/nav224.png) no-repeat 999px 999px;
 }
 
 .publishBarArea .m-nav2 {
@@ -374,7 +374,7 @@
 }
 
 .icon24, .w-sel, .w-sel .selicn, .w-icn, .w-opt .opta, .w-more, .m-menu .icn, .m-menu .set, .m-ssch button, .m-ssch2 button, .w-close, .w-ii, .m-icnt .zoomi, .w-opt .opticrt, .w-more2 span, .w-tip, .w-tip .tipc, .w-close, .w-icancel, .w-iadd, .w-help, .m-filecnt .music .type, .m-filecnt .movie .type, .m-goodblog .new, .m-selmorebtn2 a {
-    background: url(../image/icon24.png) no-repeat 999px 999px;
+    background: url(../images/icon24.png) no-repeat 999px 999px;
 }
 
 .m-menu .menut {

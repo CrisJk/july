@@ -20,6 +20,10 @@ public class MainController {
         ModelAndView mav = new ModelAndView("index");
         return mav;
     }
+    @RequestMapping("/fe")
+    public String showTimeline() {
+        return "fe";
+    }
 
     @RequestMapping({ "/user", "/me" })
     @ResponseBody
