@@ -1,23 +1,24 @@
+
 <!DOCTYPE html>
 <html lang="zh-CN" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>主页 - July</title>
-    <meta name="description" content="" />
-    <meta name="viewport" content="width=device-width" />
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<title>主页 - July</title>
+<meta name="description" content="" />
+<meta name="viewport" content="width=device-width" />
 
-    <meta name="_csrf" th:content="${_csrf.token}" />
-    <meta name="_csrf_header" th:content="${_csrf.getHeaderName()}" />
-    <meta name="_csrf_parameter" th:content="${_csrf.parameterName}" />
+<meta name="_csrf" th:content="${_csrf.token}" />
+<meta name="_csrf_header" th:content="${_csrf.getHeaderName()}" />
+<meta name="_csrf_parameter" th:content="${_csrf.parameterName}" />
 
-    <base href="/" />
-    <script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
-    <!--<link rel="stylesheet" type="text/css"
-          href="/webjars/bootstrap/css/bootstrap.min.css" />
-
-    <script type="text/javascript"
-            src="/webjars/bootstrap/js/bootstrap.min.js"></script>-->
+<base href="/" />
+<link rel="stylesheet" type="text/css"
+      href="/webjars/bootstrap/css/bootstrap.min.css" />
+<script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
+<script type="text/javascript"
+        src="/webjars/bootstrap/js/bootstrap.min.js"></script>
     <link  th:href="@{/css/login2.css}" type="text/css"rel="stylesheet" />
     <script th:src="@{/js/login.js}"}></script>
 
@@ -25,6 +26,15 @@
 </head>
 <body>
 
+<h1 th:text="${message}"></h1>
+
+<div sec:authorize="isAuthenticated()">
+    <h1>hello <span sec:authentication="name"></span></h1>
+    <!--<h1>hi<span th:text="${currentUser} ? ${currentUser.email} : Bob">Bob</span></h1>-->
+    <a href="#" onclick="logout();">Logout</a>
+</div>
+
+<div sec:authorize="isAnonymous()">
 
 <div class="login" style="margin-top:300px;">
     <!-- <div class = "loginRegist_area_bg"></div> -->
@@ -46,13 +56,13 @@
 
 
                 <div class="login_form">
-                    <form action="@{/}" accept-charset="utf-8" id="login_form" class="loginForm" method="post"><input type="hidden" name="did" value="0"/>
+                    <form th:action="@{/}" accept-charset="utf-8" id="login_form" class="loginForm" method="post"><input type="hidden" name="did" value="0"/>
 
-                        <input type="hidden" name="to" value="log"/>
                         <div class="uinArea" id="uinArea">
                             <div class="inputOuter" id="uArea">
 
                                 <input type="text" id="u"  placeholder="常用邮箱" name="username" class="inputstyle"/>
+
                             </div>
                         </div>
                         <div class="pwdArea" id="pwdArea">
@@ -86,15 +96,15 @@
 
     <div class="qlogin" id="qlogin" style="display: none; ">
         <div class="web_qr_login" id="web_qr_login2" style="display: block; height: 300px;">
-            <div class="web_login"><form name="form2" id="regUser" accept-charset="utf-8"  action="@{/}" method="post">
-                <input type="hidden" name="to" value="reg"/>
-                <input type="hidden" name="did" value="0"/>
+            <div class="web_login">
+                <form name="form" th:action="@{/register}" method="post" th:object="${form}">
                 <ul class="login_form" id="reg-ul">
 
                     <li>
                         <div class="uinArea" id="uinArea2">
                             <div class="inputOuter">
-                                <input class="inputstyle" type="text" id="user" name="user"  placeholder="常用邮箱" />
+                                <input class="inputstyle" type="email" th:field="*{email}" id="user" name="user"  placeholder="常用邮箱" />
+                                <div th:if="${#fields.hasErrors('email')}" class="alert alert-danger" th:errors="*{email}"></div>
                             </div>
                         </div>
 
@@ -103,14 +113,16 @@
                     <li>
                         <div class="uinArea" id="pwdArea2">
                             <div class="inputOuter">
-                                <input type="password" id="passwd"  name="passwd" placeholder="密码" class="inputstyle"/>
+                                <input type="password" id="passwd" th:field="*{password}" name="passwd" placeholder="密码" class="inputstyle"/>
+                                <div th:if="${#fields.hasErrors('password')}",class="alert alert-danger" th:errors="*{password}"></div>
                             </div>
                         </div>
                     </li>
                     <li>
                         <div  class="uinArea" id="pwdArea3">
                             <div class="inputOuter">
-                                <input type="password" id="passwd2" name="" placeholder = "确认密码"maxlength="16" class="inputstyle" />
+                                <input type="password" id="passwd2" name="" th:field="*{passwordRepeated}" placeholder = "确认密码" class="inputstyle" />
+                                <div th:if="${#fields.hasErrors('passwordRepeated')}" class="alert alert-danger" th:errors="*{passwordRepeated}"></div>
                             </div>
                         </div>
 
@@ -127,6 +139,7 @@
         </div>
     </div>
 
+</div>
 </div>
 <script>
     var csrfParameter = $("meta[name='_csrf_parameter']").attr("content");
@@ -147,6 +160,7 @@
         });
     }
 </script>
+
 
 </body>
 </html>
