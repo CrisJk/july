@@ -1,40 +1,88 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 
 <head>
     <title id="pageTitle">注册 - July</title>
+
+    <meta name="_csrf" th:content="${_csrf.token}" />
+    <meta name="_csrf_header" th:content="${_csrf.getHeaderName()}" />
+    <meta name="_csrf_parameter" th:content="${_csrf.parameterName}" />
+
+    <link rel="stylesheet" type="text/css"
+          href="/webjars/bootstrap/css/bootstrap.min.css" />
+    <script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
+    <script type="text/javascript"
+            src="/webjars/bootstrap/js/bootstrap.min.js"></script>
 </head>
 <body>
 
-<h1>注册</h1>
-<form name="form" th:action="@{/register}" method="post" th:object="${form}">
-    <div class="form_group">
-        <label class="form_label">邮箱</label>
-        <input type="email" class="form_control" th:field="*{email}" placeholder="邮箱" required />
-        <div th:if="${#fields.hasErrors('email')}" class="alert alert-danger" th:errors="*{email}"></div>
-    </div>
-    <div class="form_group">
-        <label class="form_label">密码</label>
-        <input type="password" class="form_control" th:field="*{password}" placeholder="密码" required />
-        <div th:if="${#fields.hasErrors('password')}" class="alert alert-danger" th:errors="*{password}"></div>
-    </div>
-    <div class="form_group">
-        <label class="form_label">确认密码</label>
-        <input type="password" class="form_control" th:field="*{passwordRepeated}" placeholder="密码" required />
-        <div th:if="${#fields.hasErrors('passwordRepeated')}" class="alert alert-danger" th:errors="*{passwordRepeated}"></div>
-    </div>
-    <div class="form_group">
-        <label class="form_label">昵称</label>
-        <input type="text" class="form_control" th:field="*{nickname}" placeholder="姓名" required />
-        <div th:if="${#fields.hasErrors('nickname')}" class="alert alert-danger" th:errors="*{nickname}"></div>
-    </div>
-    <div class="form_group">
-        <div class="center">
-            <button type="submit" class="btn btn-primary">注册</button>
-            <button type="reset" class="btn btn-default">重置</button>
+<div th:if="${notBind eq 'notBind'}">
+    <h1>绑定本地用户</h1>
+    <h2>绑定已注册邮箱</h2>
+    <form th:action="@{/bindUser}" method="post">
+        <input type="hidden" name="identity" th:value="${identity}" />
+        <input type="hidden" name="type" th:value="${type}" />
+        <div><label> 邮箱 : <input type="text" name=b_email"/> </label></div>
+        <div><label> 密码: <input type="password" name="b_password"/> </label></div>
+        <div><input type="submit" value="提交"/></div>
+    </form>
+</div>
+<div th:if="${notBind eq 'new user'}">
+    <h1>注册</h1>
+</div>
+    <h2>新建用户</h2>
+    <form name="form" th:action="@{/register}" method="post" th:object="${form}">
+        <div class="form_group">
+            <label class="form_label">邮箱</label>
+            <input type="email" class="form_control" th:field="*{email}" placeholder="邮箱" required />
+            <div th:if="${#fields.hasErrors('email')}" class="alert alert-danger" th:errors="*{email}"></div>
         </div>
-    </div>
-</form>
+        <div class="form_group">
+            <label class="form_label">密码</label>
+            <input type="password" class="form_control" th:field="*{password}" placeholder="密码" required />
+            <div th:if="${#fields.hasErrors('password')}" class="alert alert-danger" th:errors="*{password}"></div>
+        </div>
+        <div class="form_group">
+            <label class="form_label">确认密码</label>
+            <input type="password" class="form_control" th:field="*{passwordRepeated}" placeholder="密码" required />
+            <div th:if="${#fields.hasErrors('passwordRepeated')}" class="alert alert-danger" th:errors="*{passwordRepeated}"></div>
+        </div>
+        <div class="form_group">
+            <label class="form_label">昵称</label>
+            <input type="text" class="form_control" th:field="*{nickname}" placeholder="姓名" required />
+            <div th:if="${#fields.hasErrors('nickname')}" class="alert alert-danger" th:errors="*{nickname}"></div>
+        </div>
+        <div class="form_group">
+            <div class="center">
+                <button type="submit" class="btn btn-primary">注册</button>
+                <button type="reset" class="btn btn-default">重置</button>
+            </div>
+        </div>
+    </form>
+
+<div sec:authorize="isAuthenticated()">
+    <a href="#" onclick="logout();">Logout</a>
+    <h1>hello <span sec:authentication="name"></span></h1>
+</div>
+<script>
+    var csrfParameter = $("meta[name='_csrf_parameter']").attr("content");
+    var csrfHeader = $("meta[name='_csrf_header']").attr("content");
+    var csrfToken = $("meta[name='_csrf']").attr("content");
+
+    //logout
+    function logout() {
+        var data = {};
+        data[csrfParameter] = csrfToken;
+        $.ajax({
+            url: '/logout',
+            type: "POST",
+            data: data,
+            success: function(response) {
+                window.location = "/";
+            }
+        });
+    }
+</script>
 
 </body>
 </html>

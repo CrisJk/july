@@ -1,5 +1,6 @@
 package com.july.repository;
 
+import com.july.entity.Account;
 import com.july.entity.User;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
@@ -15,6 +16,10 @@ public interface UserRepository extends MongoRepository<User, Long> {
     List<User> findByEmail(String email);
 
     List<User> findByNickname(String nickname);
+
+    List<User> findByFacebookAccount(Account account);
+
+    List<User> findByGithubAccount(Account account);
 
     @Override
     void delete(User user);

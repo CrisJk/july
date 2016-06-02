@@ -3,8 +3,6 @@ package com.july.registration;
 import com.july.entity.User;
 import org.springframework.context.ApplicationEvent;
 
-import java.util.Locale;
-
 /**
  * Created by sherrypan on 16-5-30.
  */
