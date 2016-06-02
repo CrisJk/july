@@ -3,10 +3,59 @@
 <head>
     <meta charset="UTF-8">
     <title>音乐 - july</title>
+<!--弹窗通用资源链接-->
+    <link rel="stylesheet" type="text/css"
+          href="/webjars/bootstrap/css/bootstrap.min.css" />
+    <script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
+    <script type="text/javascript"
+            src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+<!--弹窗通用资源链接结束-->
+
     <link rel="stylesheet" th:href="@{css/APlayer.min.css}">
 </head>
 <body>
+<!--弹窗触发按钮-->
+    <a id="btnAdd">添加音乐按钮</a>
+<!--弹窗触发按钮结束-->
+
 <div id="player1" class="aplayer"></div>
+
+<!--弹窗主体内容-->
+    <div class="modal fade" id="musicAddForm" tabindex="-1" role="dialog">
+        <div class="modal-dialog" style="width:500px" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"
+                            aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title text-center" id="myConditionsAddLabel">在这里添加标题</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-horizontal form_pop">
+                        <form>
+
+                            .....
+
+                        </form>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        //add conditions pop up
+        $(document).ready(function(){
+            $("#btnAdd").click(function(){
+                $("#musicAddForm").modal('show');
+            });
+        });
+    </script>
+<!--弹窗主体内容结束-->
+
 <script src="../js/APlayer.min.js"></script>
 <script src="../js/selfAPlayer.js"></script>
 </body>

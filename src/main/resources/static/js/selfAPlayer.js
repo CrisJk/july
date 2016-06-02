@@ -1,6 +1,7 @@
 /**
  * Created by sherrypan on 16-6-2.
  */
+var musicUrl = document.getElementById("musicUrl");
 var ap1 = new APlayer({
     element: document.getElementById('player1'),
     narrow: false,
