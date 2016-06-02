@@ -1,5 +1,7 @@
 package com.july.controller.form;
 
+import com.july.entity.Account;
+
 /**
  * Created by sherrypan on 16-5-29.
  */
@@ -12,6 +14,10 @@ public class UserCreateForm {
     private String passwordRepeated = "";
 
     private String nickname = "";
+
+    private Account githubAccount = null;
+
+    private Account facebookAcount = null;
 
     public String getEmail() {
         return email;
@@ -44,4 +50,21 @@ public class UserCreateForm {
     public void setPasswordRepeated(String passwordRepeated) {
         this.passwordRepeated = passwordRepeated;
     }
+
+    public Account getGithubAccount() {
+        return githubAccount;
+    }
+
+    public void setGithubAccount(Account githubAccount) {
+        this.githubAccount = githubAccount;
+    }
+
+    public Account getFacebookAcount() {
+        return facebookAcount;
+    }
+
+    public void setFacebookAcount(Account facebookAcount) {
+        this.facebookAcount = facebookAcount;
+    }
+
 }

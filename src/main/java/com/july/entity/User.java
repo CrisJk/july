@@ -14,7 +14,6 @@ import java.util.List;
 @Document
 public class User extends AbstractDocument {
 
-    @Field("email")
     @Indexed(unique = true)
     private String email;
 
@@ -29,6 +28,12 @@ public class User extends AbstractDocument {
 
     @DBRef
     private List<Moment> moments = new ArrayList<Moment>();
+
+    @DBRef
+    private Account facebookAccount;
+
+    @DBRef
+    private Account githubAccount;
 
     public User() {
         super();
@@ -73,6 +78,22 @@ public class User extends AbstractDocument {
 
     public void setAvatarAddress(String avatarAddress) {
         this.avatarAddress = avatarAddress;
+    }
+
+    public Account getFacebookAccount() {
+        return facebookAccount;
+    }
+
+    public void setFacebookAccount(Account facebookAccount) {
+        this.facebookAccount = facebookAccount;
+    }
+
+    public Account getGithubAccount() {
+        return githubAccount;
+    }
+
+    public void setGithubAccount(Account githubAccount) {
+        this.githubAccount = githubAccount;
     }
 
     @Override

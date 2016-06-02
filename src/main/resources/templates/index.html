@@ -20,8 +20,12 @@
 
 </head>
 <body>
+
+<h1 th:text="${message}"></h1>
+
 <div sec:authorize="isAuthenticated()">
     <h1>hello <span sec:authentication="name"></span></h1>
+    <!--<h1>hi<span th:text="${currentUser} ? ${currentUser.email} : Bob">Bob</span></h1>-->
     <a href="#" onclick="logout();">Logout</a>
 </div>
 <div sec:authorize="isAnonymous()">

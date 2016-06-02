@@ -1,23 +1,35 @@
 package com.july.service.impl;
 
 import com.july.controller.form.UserCreateForm;
+import com.july.entity.Account;
 import com.july.entity.User;
 import com.july.entity.VerificationToken;
 import com.july.repository.UserRepository;
 import com.july.repository.VerificationTokenRepository;
+import com.july.service.AccountService;
 import com.july.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.stereotype.Service;
 
+import java.security.Principal;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by kuangjun on 2016/5/7.
  */
 @Service
 public class UserServiceImpl implements UserService {
+
+    @Autowired
+    private AccountService accountService;
 
     @Autowired
     private UserRepository userRepository;
@@ -71,6 +83,74 @@ public class UserServiceImpl implements UserService {
         tokenRepository.delete(verificationToken);
         userRepository.save(user);
         return null;
+    }
+
+    @Override
+    public User getOAuthUser(Principal principal, String type) {
+        UserDetails userDetails = (UserDetails) ((OAuth2Authentication) principal).getUserAuthentication().getDetails();
+        User user;
+        Map mp = (Map) ((OAuth2Authentication) principal).getDetails();
+        if (type == "github") {
+            user = this.getUserByGithubAccount((String)mp.get("login"));
+        } else {
+            user = this.getUserByFacebookAccount((String)mp.get("id"));
+        }
+        return user;
+    }
+
+    private User getUserByFacebookAccount(String fid) {
+        Account account = accountService.getByTypeAndIdentity("facebook", fid);
+        if (account == null) {
+            return null;
+        } else {
+            List<User> users = userRepository.findByFacebookAccount(account);
+            System.out.println(account.getIdentity());
+            System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!user 's size is "+users.size());
+
+            if (users != null && users.size() == 1 ) {
+                return users.get(0);
+            } else {
+                return null;
+            }
+        }
+    }
+
+    private User getUserByGithubAccount(String gid) {
+        Account account = accountService.getByTypeAndIdentity("github", gid);
+        if (account == null) {
+            return null;
+        } else {
+            List<User> users = userRepository.findByGithubAccount(account);
+            if (users != null && users.size() == 1 ) {
+                return users.get(0);
+            } else {
+                return null;
+            }
+        }
+    }
+
+    public void reloadSessionUser(User user) {
+        Authentication authentication = new UsernamePasswordAuthenticationToken(user, user.getPassword(), null);
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+    }
+
+    @Override
+    public User getSessionUser() {
+        return (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    }
+
+    @Override
+    public User getOAuthUserByAccount(String type, String ob) {
+        if (type == "github") {
+            return getUserByGithubAccount(ob);
+        } else {
+            return getUserByFacebookAccount(ob);
+        }
+    }
+
+    @Override
+    public void update(User user) {
+        userRepository.save(user);
     }
 
 }
