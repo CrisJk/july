@@ -1,36 +1,52 @@
 package com.july.entity;
 
-import org.springframework.data.mongodb.core.index.Indexed;
-import org.springframework.data.mongodb.core.mapping.DBRef;
-
-import java.util.Set;
-
 /**
- * Created by sherrypan on 16-5-25.
+ * Created by Crow on 2016/5/11.
  */
-public class follow extends AbstractDocument {
+import org.springframework.data.annotation.Id;
 
-    @DBRef
-    @Indexed
-    private User user;
+import java.util.List;
 
-    @DBRef
-    private Set<User> followers;
+public class Follow {
+    @Id
+    private int id;
 
-    public User getUser() {
-        return user;
+    private int user_id;
+
+    private List<String> follower_id;
+
+    private List<String> following_id;
+    public int getId() {
+        return id;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public Set<User> getFollowers() {
-        return followers;
+    public int getUser_id() {
+        return user_id;
     }
 
-    public void setFollowers(Set<User> followers) {
-        this.followers = followers;
+    public void setUser_id(int user_id) {
+        this.user_id = user_id;
     }
 
+    public List<String> getFollower_id() {
+        return follower_id;
+    }
+
+    public void setFollower_id(List<String> follower_id) {
+        this.follower_id = follower_id;
+    }
+
+    public List<String> getFollowing_id() {
+        return following_id;
+    }
+
+    public void setFollowing_id(List<String> following_id) {
+        this.following_id = following_id;
+    }
 }
+
+
