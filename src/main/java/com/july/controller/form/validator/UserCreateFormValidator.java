@@ -35,7 +35,7 @@ public class UserCreateFormValidator implements Validator {
         }
     }
 
-    //验证学号是否重复
+    //验证邮箱是否重复
     private void validateEmail(Errors errors, UserCreateForm form) {
         if (userService.getUserByEmail(form.getEmail()) != null) {
             errors.rejectValue("email", "email.exist", "邮箱已被使用!");

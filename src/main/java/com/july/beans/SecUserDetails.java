@@ -21,6 +21,7 @@ public class SecUserDetails extends User implements UserDetails {
             this.setAvatarAddress(user.getAvatarAddress());
             this.setFacebookAccount(user.getFacebookAccount());
             this.setGithubAccount(user.getGithubAccount());
+            this.setTimeline(user.getTimeline());
         }
     }
 

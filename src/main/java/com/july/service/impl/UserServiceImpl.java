@@ -105,8 +105,6 @@ public class UserServiceImpl implements UserService {
         } else {
             List<User> users = userRepository.findByFacebookAccount(account);
             System.out.println(account.getIdentity());
-            System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!user 's size is "+users.size());
-
             if (users != null && users.size() == 1 ) {
                 return users.get(0);
             } else {
