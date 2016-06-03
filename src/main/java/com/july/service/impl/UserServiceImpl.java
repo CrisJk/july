@@ -1,4 +1,4 @@
-package com.july.service.impl;
+package com.july.service.Impl;
 
 import com.july.controller.form.UserCreateForm;
 import com.july.entity.User;
@@ -73,4 +73,27 @@ public class UserServiceImpl implements UserService {
         return null;
     }
 
+    @Override
+    public void addFollower(User current_user, User user) {
+        current_user.addFollower(user);
+        userRepository.save(current_user);
+    }
+
+    @Override
+    public void removeFollower(User current_user, User user) {
+        current_user.removeFollower(user);
+        userRepository.save(current_user);
+    }
+
+    @Override
+    public void addFollowing(User current_user, User user) {
+        current_user.addFollowing(user);
+        userRepository.save(current_user);
+    }
+
+    @Override
+    public void removeFollowing(User current_user, User user) {
+        current_user.removeFollowing(user);
+        userRepository.save(current_user);
+    }
 }

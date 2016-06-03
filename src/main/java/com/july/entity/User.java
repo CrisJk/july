@@ -6,6 +6,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -25,6 +26,8 @@ public class User extends AbstractDocument {
     //头像地址
     private String avatarAddress;
 
+
+
     @DBRef
     private List<Moment> timeline = new ArrayList<Moment>();
 
@@ -32,7 +35,7 @@ public class User extends AbstractDocument {
     private List<User> followers = new ArrayList<User>();
 
     @DBRef
-    private List<User> folllowings = new ArrayList<User>();
+    private List<User> followings = new ArrayList<User>();
 
     private boolean enabled;
 
@@ -81,9 +84,51 @@ public class User extends AbstractDocument {
         this.avatarAddress = avatarAddress;
     }
 
+    public List<Moment> getTimeline() { return timeline; }
+
+    public void setTimeline(List<Moment> timeline) { this.timeline = timeline; }
+
+    public List<User> getFollowers() { return followers; }
+
+    public void setFollowers(List<User> followers) { this.followers = followers; }
+
+    public List<User> getFollowings() { return followings; }
+
+    public void setFollowings(List<User> followings) { this.followings = followings; }
+
+    public void addFollower( User user )
+    {
+        followers.add(user);
+    }
+
+    public void addFollowing( User user )
+    {
+        followings.add(user);
+        List<Moment> tmpTimeLine = user.getTimeline();
+        for( int i = 0; i < tmpTimeLine.size(); i ++ )
+        {
+            timeline.add(tmpTimeLine.get(i));
+        }
+    }
+
+    public void removeFollower( User user )
+    {
+        followers.remove(user);
+    }
+
+    public void removeFollowing( User user )
+    {
+        followings.remove(user);
+        List<Moment> tmpTimeLine = user.getTimeline();
+        for( int i = 0; i < tmpTimeLine.size(); i ++ )
+        {
+            timeline.remove(tmpTimeLine.get(i));
+        }
+    }
     @Override
     public String toString() {
         return "User [id=" + id + ", email=" + email + ", nickname=" + nickname + "]";
     }
+
 
 }
