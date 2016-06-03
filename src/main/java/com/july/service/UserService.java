@@ -9,6 +9,8 @@ import com.july.entity.User;
 
 public interface UserService {
 
+    User getSessionUser();
+
     User getUserByEmail(String email);
 
     User create(UserCreateForm form);

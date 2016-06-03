@@ -29,6 +29,11 @@ public class UserServiceImpl implements UserService {
     public static final String TOKEN_EXPIRED = "expired";
 
     @Override
+    public User getSessionUser() {
+        return null;
+    }
+
+    @Override
     public User getUserByEmail(String email) {
         List<User> users = userRepository.findByEmail(email);
         if(users != null && users.size() == 1){

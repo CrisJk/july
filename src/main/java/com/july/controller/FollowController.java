@@ -1,6 +1,5 @@
 package com.july.controller;
 
-import com.july.repository.UserRepository;
 import com.july.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,12 +19,11 @@ public class FollowController {
     @RequestMapping(value="/followControl",method = RequestMethod.GET,produces = "text/html;charset=UTF-8")
     @ResponseBody
     public String followControlInJson( @RequestParam(value="type") Integer type,
-                                       @RequestParam(value="user_email") String user_email,
                                        @RequestParam(value="operate_email") String operate_email )
     {
         Gson gson = new Gson();
         JsonObject jo = new JsonObject();
-        User current_user = userService.getUserByEmail(user_email);
+        User current_user = userService.getSessionUser();
         User operate_user = userService.getUserByEmail(operate_email);
         if(type==1) //1代表关注
         {

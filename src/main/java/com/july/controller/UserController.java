@@ -90,4 +90,16 @@ public class UserController {
         return "redirect:/";
     }
 
+    @RequestMapping(value="/listUserByNickName", method = RequestMethod.GET)
+    public ModelAndView listUserByNickName(
+            @RequestParam(value="current_user_email")String current_user_email,
+            @RequestParam(value="nickname",required = false) String nickname
+            )
+    {
+        ModelAndView mav = new ModelAndView("/listUserByNickName");
+
+        return mav;
+    }
+
+
 }
