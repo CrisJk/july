@@ -32,17 +32,20 @@ public class MainController {
             mav.addObject("type", type);
             mav.addObject("identity", identity);
         }
+        else{
+            mav = new ModelAndView("index", "form", new UserCreateForm());
+        }
         mav.addObject("notBind", notBind);
         return mav;
     }
 
-    @ModelAttribute("currentUser")
+    /*@ModelAttribute("currentUser")
     public User getCurrentUser() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (auth != null && auth.isAuthenticated() && !"anonymousUser".equals(auth.getPrincipal())) {
             return (User) auth.getPrincipal();
         }
         return null;
-    }
+    }*/
 
 }

@@ -7,6 +7,7 @@ import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by kuangjun on 2016/5/5.
@@ -24,10 +25,18 @@ public class User extends AbstractDocument {
     //头像地址
     private String avatarAddress;
 
-    private boolean enabled;
-
     @DBRef
-    private List<Moment> moments = new ArrayList<Moment>();
+    private List<Moment> timeline = new ArrayList<Moment>();
+
+    //粉丝
+    @DBRef
+    private List<User> followers = new ArrayList<User>();
+
+    //关注
+    @DBRef
+    private List<User> folllowings = new ArrayList<User>();
+
+    private boolean enabled;
 
     @DBRef
     private Account facebookAccount;

@@ -20,7 +20,6 @@ public class JulyApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(JulyApplication.class, args);
-
         logger.info("July Web Service is Running !");
 	}
 

@@ -76,7 +76,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
         http
             .antMatcher("/**")
             .authorizeRequests()
-                .antMatchers("/", "/index", "/login**", "/register", "/waitForEmailValidate", "/registrationConfirm", "/webjars/**").permitAll()
+                .antMatchers("/", "/index", "/login/**", "/register","/css/**",  "/js/**","/images/**","/registrationConfirm","/waitForEmailValidate","/webjars/**").permitAll()
                 .anyRequest().authenticated()
             .and().exceptionHandling().authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/"))
             .and().formLogin().loginPage("/").usernameParameter("username").passwordParameter("password").defaultSuccessUrl("/").permitAll()

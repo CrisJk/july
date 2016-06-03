@@ -5,9 +5,7 @@ import org.springframework.data.mongodb.core.index.TextIndexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by sherrypan on 16-5-25.
@@ -15,35 +13,25 @@ import java.util.Set;
 @Document
 public class Moment extends AbstractDocument {
 
-    private Set<String> picturePath = new HashSet<String>();
+    //资源路径
+    private List<String> path = new ArrayList<String>();
 
-    @Field("music")
-    private String musicPath;
-
+    //文章内容
     @TextIndexed
     private String article;
 
-    @Field("vedio")
-    private String vedioPath;
+    //创建者
+    private User creater;
 
+    //创建时间
     @CreatedDate
     private Date createdDate;
 
-    public Set<String> getPicturePath() {
-        return picturePath;
-    }
+    //获得的赞数
+    private Integer like;
 
-    public void setPicturePath(Set<String> picturePath) {
-        this.picturePath = picturePath;
-    }
-
-    public String getMusicPath() {
-        return musicPath;
-    }
-
-    public void setMusicPath(String musicPath) {
-        this.musicPath = musicPath;
-    }
+    //内容类型
+    private String type;// music picture video
 
     public String getArticle() {
         return article;
@@ -61,11 +49,36 @@ public class Moment extends AbstractDocument {
         this.createdDate = createdDate;
     }
 
-    public String getVedioPath() {
-        return vedioPath;
+    public List<String> getPath() {
+        return path;
     }
 
-    public void setVedioPath(String vedioPath) {
-        this.vedioPath = vedioPath;
+    public void setPath(List<String> path) {
+        this.path = path;
     }
+
+    public User getCreater() {
+        return creater;
+    }
+
+    public void setCreater(User creater) {
+        this.creater = creater;
+    }
+
+    public Integer getLike() {
+        return like;
+    }
+
+    public void setLike(Integer like) {
+        this.like = like;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
 }
