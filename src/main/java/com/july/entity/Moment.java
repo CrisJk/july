@@ -28,7 +28,7 @@ public class Moment extends AbstractDocument {
     private Date createdDate;
 
     //获得的赞数
-    private int like;
+    private Integer like;
 
     //内容类型
     private String type;// music picture video
@@ -65,11 +65,11 @@ public class Moment extends AbstractDocument {
         this.creater = creater;
     }
 
-    public int getLike() {
+    public Integer getLike() {
         return like;
     }
 
-    public void setLike(int like) {
+    public void setLike(Integer like) {
         this.like = like;
     }
 

@@ -28,9 +28,11 @@ public class User extends AbstractDocument {
     @DBRef
     private List<Moment> timeline = new ArrayList<Moment>();
 
+    //粉丝
     @DBRef
     private List<User> followers = new ArrayList<User>();
 
+    //关注
     @DBRef
     private List<User> folllowings = new ArrayList<User>();
 
