@@ -14,4 +14,9 @@ public class TimelineController {
         return "timeline";
     }
 
+    @RequestMapping("/music")
+    public String showTmp() {
+        return "playMusic";
+    }
+
 }

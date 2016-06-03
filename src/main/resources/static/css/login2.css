@@ -5,7 +5,7 @@ body {
 	font-family:"Microsoft Yahei";
 	font-size:12px;
 	margin:0;
-	background: #fff url(../images/1.jpg) 50% 0 no-repeat;}
+	background: #fff url(../images/5.jpg) 50% 0 no-repeat;}
 ul {
 	padding:0;
 	margin:0;
@@ -259,3 +259,6 @@ a.zcxy {text-decoration: underline;line-height:58px;margin-left:15px;color: #959
 	height: 60px;}
 .header .switch{left:120px;}
 
+a:hover, a:focus {
+	text-decoration : none;
+}

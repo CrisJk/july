@@ -1,9 +1,12 @@
 package com.july.configuration;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.thymeleaf.ThymeleafProperties;
 import org.springframework.boot.autoconfigure.web.WebMvcAutoConfiguration;
+import org.springframework.boot.context.embedded.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.filter.CharacterEncodingFilter;
@@ -14,6 +17,7 @@ import org.thymeleaf.templateresolver.ITemplateResolver;
 import org.thymeleaf.templateresolver.TemplateResolver;
 
 import javax.servlet.Filter;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * Created by kuangjun on 2016/5/7.
@@ -22,6 +26,8 @@ import javax.servlet.Filter;
 @Configuration
 @EnableWebMvc
 public class MvcConfig extends WebMvcAutoConfiguration {
+
+    protected final Logger logger = LoggerFactory.getLogger(getClass());
 
     @Bean
     public Filter characterEncodingFilter() {

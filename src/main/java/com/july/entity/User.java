@@ -26,18 +26,24 @@ public class User extends AbstractDocument {
     //头像地址
     private String avatarAddress;
 
-
-
     @DBRef
     private List<Moment> timeline = new ArrayList<Moment>();
 
+    //粉丝
     @DBRef
     private List<User> followers = new ArrayList<User>();
 
+    //关注
     @DBRef
     private List<User> followings = new ArrayList<User>();
 
     private boolean enabled;
+
+    @DBRef
+    private Account facebookAccount;
+
+    @DBRef
+    private Account githubAccount;
 
     public User() {
         super();
@@ -125,10 +131,25 @@ public class User extends AbstractDocument {
             timeline.remove(tmpTimeLine.get(i));
         }
     }
+
+    public Account getFacebookAccount() {
+        return facebookAccount;
+    }
+
+    public void setFacebookAccount(Account facebookAccount) {
+        this.facebookAccount = facebookAccount;
+    }
+
+    public Account getGithubAccount() {
+        return githubAccount;
+    }
+
+    public void setGithubAccount(Account githubAccount) {
+        this.githubAccount = githubAccount;
+    }
+
     @Override
     public String toString() {
         return "User [id=" + id + ", email=" + email + ", nickname=" + nickname + "]";
     }
-
-
 }
