@@ -7,6 +7,7 @@ import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by kuangjun on 2016/5/5.
@@ -14,7 +15,6 @@ import java.util.List;
 @Document
 public class User extends AbstractDocument {
 
-    @Field("email")
     @Indexed(unique = true)
     private String email;
 
@@ -25,10 +25,16 @@ public class User extends AbstractDocument {
     //头像地址
     private String avatarAddress;
 
-    private boolean enabled;
+    @DBRef
+    private List<Moment> timeline = new ArrayList<Moment>();
 
     @DBRef
-    private List<Moment> moments = new ArrayList<Moment>();
+    private List<User> followers = new ArrayList<User>();
+
+    @DBRef
+    private List<User> folllowings = new ArrayList<User>();
+
+    private boolean enabled;
 
     public User() {
         super();
