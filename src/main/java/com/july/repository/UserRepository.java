@@ -5,13 +5,14 @@ import com.july.entity.User;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
+import java.math.BigInteger;
 import java.util.List;
 
 /**
  * Created by sherrypan on 16-5-25.
  */
 @Repository
-public interface UserRepository extends MongoRepository<User, Long> {
+public interface UserRepository extends MongoRepository<User, BigInteger> {
 
     List<User> findByEmail(String email);
 

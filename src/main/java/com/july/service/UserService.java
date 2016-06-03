@@ -3,6 +3,7 @@ package com.july.service;
 import com.july.controller.form.UserCreateForm;
 import com.july.entity.User;
 
+import java.math.BigInteger;
 import java.security.Principal;
 
 /**
@@ -30,5 +31,7 @@ public interface UserService {
     User getOAuthUserByAccount(String type, String ob);
 
     void update(User user);
+
+    User getUserById(BigInteger id);
 
 }

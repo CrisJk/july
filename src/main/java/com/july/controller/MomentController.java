@@ -50,7 +50,8 @@ public class MomentController {
 
     @RequestMapping(value = "/upload", method = RequestMethod.POST)
     public String handleFormUpload(@RequestParam String type, @RequestParam MultipartFile[] files) {
-        User user = userService.getSessionUser();
+        BigInteger userId = userService.getSessionUser().getId();
+        User user = userService.getUserById(userId);
         Moment moment = new Moment(type, user);
         List<String> resourceList = new ArrayList<>();
         try {

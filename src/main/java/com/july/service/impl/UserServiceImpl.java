@@ -17,6 +17,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.stereotype.Service;
 
+import java.math.BigInteger;
 import java.security.Principal;
 import java.util.Calendar;
 import java.util.List;
@@ -149,6 +150,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public void update(User user) {
         userRepository.save(user);
+    }
+
+    @Override
+    public User getUserById(BigInteger id) {
+        return userRepository.findOne(id);
     }
 
 }

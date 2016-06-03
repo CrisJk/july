@@ -2,6 +2,7 @@ package com.july.service;
 
 import com.mongodb.gridfs.GridFSDBFile;
 import com.mongodb.gridfs.GridFSFile;
+import org.bson.types.ObjectId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,8 +37,9 @@ public class ResourceService {
             logger.info("contentType = " + contentType + "; filename = " + filename + "; size = " + file.getSize());
             GridFSFile gridFSFile = gridOperations.store(inputStream, filename, contentType);
             logger.info("Resource " + filename + " saved successfully.");
-            logger.info("ID = " + gridFSFile.getId() + ", hey" + ((String) gridFSFile.getId())); //????
-            return ((String) gridFSFile.getId());
+            logger.info("id = " + gridFSFile.getId()); //????
+            String id = new String(gridFSFile.getId().toString());
+            return id;
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
