@@ -1,4 +1,4 @@
-package com.july.service.impl;
+package com.july.service.Impl;
 
 import com.july.controller.form.UserCreateForm;
 import com.july.entity.Account;
@@ -86,6 +86,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+<<<<<<< HEAD
     public User getOAuthUser(Principal principal, String type) {
         UserDetails userDetails = (UserDetails) ((OAuth2Authentication) principal).getUserAuthentication().getDetails();
         User user;
@@ -153,4 +154,28 @@ public class UserServiceImpl implements UserService {
         userRepository.save(user);
     }
 
+=======
+    public void addFollower(User current_user, User user) {
+        current_user.addFollower(user);
+        userRepository.save(current_user);
+    }
+
+    @Override
+    public void removeFollower(User current_user, User user) {
+        current_user.removeFollower(user);
+        userRepository.save(current_user);
+    }
+
+    @Override
+    public void addFollowing(User current_user, User user) {
+        current_user.addFollowing(user);
+        userRepository.save(current_user);
+    }
+
+    @Override
+    public void removeFollowing(User current_user, User user) {
+        current_user.removeFollowing(user);
+        userRepository.save(current_user);
+    }
+>>>>>>> b6aecf57e7d565d3fdb4653e53c72a6f117c15f9
 }

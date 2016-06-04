@@ -40,8 +40,8 @@
     <!-- <div class = "loginRegist_area_bg"></div> -->
     <div class="header">
         <div class="switch" id="switch">
-            <a class="switch_btn_focus" id="switch_qlogin" href="javascript:void(0);" tabindex="7">&nbsp&nbsp&nbsp 登录</a>
-            <a class="switch_btn" id="switch_login" href="javascript:void(0);" tabindex="8">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp 注册</a><div class="switch_bottom" id="switch_bottom" style="position: absolute; width: 64px; left: 0px;"></div>
+            <a class="switch_btn_focus" id="switch_qlogin" href="javascript:void(0);" tabindex="7" style="text-decoration:none;">&nbsp&nbsp&nbsp 登录</a>
+            <a class="switch_btn" id="switch_login" href="javascript:void(0);" tabindex="8" style="text-decoration:none;">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp 注册</a><div class="switch_bottom" id="switch_bottom" style="position: absolute; width: 64px; left: 0px;"></div>
         </div>
     </div>
 
@@ -98,7 +98,7 @@
         <div class="web_qr_login" id="web_qr_login2" style="display: block; height: 300px;">
             <div class="web_login">
                 <form name="form" th:action="@{/register}" method="post" th:object="${form}">
-                <ul class="login_form" id="reg-ul">
+                <ul class="reg_form" id="reg-ul">
 
                     <li>
                         <div class="uinArea" id="uinArea2">
@@ -128,6 +128,15 @@
 
                     </li>
 
+                    <li>
+                        <div  class="uinArea" id="pwdArea4">
+                            <div class="inputOuter">
+                                <input type="text" id="nickname" name="" th:field="*{nickname}" placeholder = "昵称" class="inputstyle" />
+                                <div th:if="${#fields.hasErrors('nickname')}" class="alert alert-danger" th:errors="*{nickname}"></div>
+                            </div>
+                        </div>
+
+                    </li>
 
                     <li>
                         <div style="padding-left:12%;margin-top:20px;"><input type="submit" value="注        册" style="width:305px;" class="button_blue"/></div>
