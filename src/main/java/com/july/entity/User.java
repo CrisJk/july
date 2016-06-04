@@ -107,7 +107,7 @@ public class User extends AbstractDocument {
     public void setGithubAccount(Account githubAccount) {
         this.githubAccount = githubAccount;
     }
-    
+
     public List<Moment> getTimeline() { return timeline; }
 
     public void setTimeline(List<Moment> timeline) { this.timeline = timeline; }
