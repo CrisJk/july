@@ -22,6 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedInputStream;
 import java.io.IOException;
@@ -47,41 +48,62 @@ public class MomentController {
     ResourceService resourceService;
 
     @RequestMapping(value = "/resource/upload", method = RequestMethod.POST)
-    public String handleFormUpload(@RequestParam String type, @RequestParam MultipartFile[] files) {
+    public String handleFormUpload(@RequestParam String type, @RequestParam MultipartFile[] files, HttpServletRequest request) {
+        String referer = request.getHeader("Referer");
         BigInteger userId = userService.getSessionUser().getId();
         User user = userService.getUserById(userId);
-        Moment moment = new Moment(type, user);
-        List<Resource> resourceList = new ArrayList<>();
-        try {
-            if (files != null && files.length > 0){
-                for(int i = 0; i < files.length; i++){
-                    MultipartFile file = files[i];
-                    if (file == null || file.isEmpty()) continue;
-                    String resourceId = resourceService.save(file);
-                    String filename = file.getOriginalFilename();
-                    logger.info("resource Id = " + resourceId);
-                    if (resourceId != null) {
-                        Resource resource = new Resource(resourceId, file.getContentType(), filename);
-                        resourceService.saveResource(resource);
-                        resourceList.add(resource);
-                    }
+        //上传头像
+        if (type.equals("avatar")) {
+            MultipartFile file = files[0];
+            if (file != null && !file.isEmpty()) {
+                String resourceId = resourceService.save(file);
+                String filename = file.getOriginalFilename();
+                logger.info("resource Id = " + resourceId);
+                if (resourceId != null) {
+                    Resource resource = new Resource(resourceId, file.getContentType(), filename);
+                    resourceService.saveResource(resource);
                 }
-                moment.setResources(resourceList);
-                momentService.save(moment);
-
-                //本用户时间线添加该动态
-                List<Moment> timeline = user.getTimeline();
-                timeline.add(moment);
-                user.setTimeline(timeline);
+                user.setAvatarAddress(resourceId);
                 userService.update(user);
-                //todo:关注本用户的人的时间线添加该动态
-
-                logger.info("Moment saved successfully.");
+                logger.info("Avatar updated successfully.");
+                userService.reloadSessionUser(user);
             }
-            return "redirect:/";
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
+            return "redirect:"+ referer;
+        } else {
+            //上传动态
+            Moment moment = new Moment(type, user);
+            List<Resource> resourceList = new ArrayList<>();
+            try {
+                if (files != null && files.length > 0) {
+                    for (int i = 0; i < files.length; i++) {
+                        MultipartFile file = files[i];
+                        if (file == null || file.isEmpty()) continue;
+                        String resourceId = resourceService.save(file);
+                        String filename = file.getOriginalFilename();
+                        logger.info("resource Id = " + resourceId);
+                        if (resourceId != null) {
+                            Resource resource = new Resource(resourceId, file.getContentType(), filename);
+                            resourceService.saveResource(resource);
+                            resourceList.add(resource);
+                        }
+                    }
+                    moment.setResources(resourceList);
+                    momentService.save(moment);
+
+                    //本用户时间线添加该动态
+                    List<Moment> timeline = user.getTimeline();
+                    timeline.add(moment);
+                    user.setTimeline(timeline);
+                    userService.update(user);
+                    //todo:关注本用户的人的时间线添加该动态
+
+                    logger.info("Moment saved successfully.");
+                }
+                return "redirect:"+ referer;
+            } catch (Exception e) {
+                e.printStackTrace();
+                return null;
+            }
         }
     }
 
