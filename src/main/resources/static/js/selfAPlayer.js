@@ -1,18 +1,17 @@
 /**
  * Created by sherrypan on 16-6-2.
  */
-var musicUrl = document.getElementById("musicUrl");
 var ap1 = new APlayer({
     element: document.getElementById('player1'),
     narrow: false,
-    autoplay: true,
+    autoplay: false,
     showlrc: false,
     mutex: true,
     theme: '#e6d0b2',
     music: {
         title: 'Preparation',
         author: 'Hans Zimmer/Richard Harvey',
-        url: 'http://devtest.qiniudn.com/Preparation.mp3',
+        url: musicUrl,
         pic: 'http://devtest.qiniudn.com/Preparation.jpg'
     }
 });

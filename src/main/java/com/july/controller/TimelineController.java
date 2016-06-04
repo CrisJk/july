@@ -19,4 +19,9 @@ public class TimelineController {
         return "playMusic";
     }
 
+    @RequestMapping("/vedio")
+    public String showVedio() {
+        return "playVedio";
+    }
+
 }
