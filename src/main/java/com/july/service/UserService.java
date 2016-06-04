@@ -20,7 +20,6 @@ public interface UserService {
 
     String validateVerificationToken(String token);
 
-<<<<<<< HEAD
     User getOAuthUser(Principal principal, String type);
 
     //重新登录
@@ -33,8 +32,6 @@ public interface UserService {
 
     void update(User user);
 
-<<<<<<< HEAD
-=======
     void addFollower(User current_user,User user);
 
     void removeFollower(User current_user,User user);
@@ -42,9 +39,7 @@ public interface UserService {
     void addFollowing(User current_user,User user);
 
     void removeFollowing(User current_user, User user);
->>>>>>> b6aecf57e7d565d3fdb4653e53c72a6f117c15f9
-=======
+
     User getUserById(BigInteger id);
 
->>>>>>> 42697a0b763260ad9f8f68b2a36a9b2c72b3eeed
 }

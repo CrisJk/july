@@ -87,7 +87,6 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-<<<<<<< HEAD
     public User getOAuthUser(Principal principal, String type) {
         UserDetails userDetails = (UserDetails) ((OAuth2Authentication) principal).getUserAuthentication().getDetails();
         User user;
@@ -153,8 +152,6 @@ public class UserServiceImpl implements UserService {
         userRepository.save(user);
     }
 
-<<<<<<< HEAD
-=======
     public void addFollower(User current_user, User user) {
         current_user.addFollower(user);
         userRepository.save(current_user);
@@ -177,12 +174,9 @@ public class UserServiceImpl implements UserService {
         current_user.removeFollowing(user);
         userRepository.save(current_user);
     }
->>>>>>> b6aecf57e7d565d3fdb4653e53c72a6f117c15f9
-=======
     @Override
     public User getUserById(BigInteger id) {
         return userRepository.findOne(id);
     }
 
->>>>>>> 42697a0b763260ad9f8f68b2a36a9b2c72b3eeed
 }
