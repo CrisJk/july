@@ -3,6 +3,7 @@ package com.july.service;
 import com.july.controller.form.UserCreateForm;
 import com.july.entity.User;
 
+import java.math.BigInteger;
 import java.security.Principal;
 
 /**
@@ -32,6 +33,7 @@ public interface UserService {
 
     void update(User user);
 
+<<<<<<< HEAD
 =======
     void addFollower(User current_user,User user);
 
@@ -41,4 +43,8 @@ public interface UserService {
 
     void removeFollowing(User current_user, User user);
 >>>>>>> b6aecf57e7d565d3fdb4653e53c72a6f117c15f9
+=======
+    User getUserById(BigInteger id);
+
+>>>>>>> 42697a0b763260ad9f8f68b2a36a9b2c72b3eeed
 }

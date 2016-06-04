@@ -10,7 +10,6 @@ import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.core.env.Environment;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 
-import javax.mail.MessagingException;
 import java.util.Properties;
 
 /**

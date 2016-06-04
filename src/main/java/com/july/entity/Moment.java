@@ -2,10 +2,14 @@ package com.july.entity;
 
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.mongodb.core.index.TextIndexed;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.Field;
 
-import java.util.*;
+import java.math.BigInteger;
+import java.time.Instant;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 /**
  * Created by sherrypan on 16-5-25.
@@ -14,13 +18,14 @@ import java.util.*;
 public class Moment extends AbstractDocument {
 
     //资源路径
-    private List<String> path = new ArrayList<String>();
+    private List<String> resources = new ArrayList<String>();
 
     //文章内容
     @TextIndexed
     private String article;
 
     //创建者
+    @DBRef
     private User creater;
 
     //创建时间
@@ -32,6 +37,18 @@ public class Moment extends AbstractDocument {
 
     //内容类型
     private String type;// music picture video
+
+    public Moment() {
+        super();
+    }
+
+    public Moment(String type, User creater) {
+        super();
+        this.type = type;
+        this.creater = creater;
+        this.createdDate = Date.from(Instant.now());
+        like = 0;
+    }
 
     public String getArticle() {
         return article;
@@ -49,12 +66,12 @@ public class Moment extends AbstractDocument {
         this.createdDate = createdDate;
     }
 
-    public List<String> getPath() {
-        return path;
+    public List<String> getResources() {
+        return resources;
     }
 
-    public void setPath(List<String> path) {
-        this.path = path;
+    public void setResources(List<String> resources) {
+        this.resources = resources;
     }
 
     public User getCreater() {
