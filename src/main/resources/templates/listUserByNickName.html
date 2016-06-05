@@ -13,13 +13,13 @@
             <div th:if="${type==1}">
                 <label th:text="${aim_user.nickname}"></label>
                 <label>已关注</label>
-                <button>取消关注</button>
+                <button th:onclick="'javascript:follow(\'' + ${aim_user.email} + '\',0,\'' + ${current_user.email} + '\')'">取消关注</button>
             </div>
             <div th:if="${type==0}">
                 <label th:text="${aim_user.nickname}"></label>
                 <label th:text="${aim_user.email}"></label>
                 <label>未关注</label>
-                <button th:onclick="'javascript:follow(\'' + ${aim_user.email} + '\',\'' + ${type} + '\')'">关注</button>
+                <button th:onclick="'javascript:follow(\'' + ${aim_user.email} + '\',1,\'' + ${current_user.email} + '\')'">关注</button>
 
             </div>
             <div th:if="${type==-1}">

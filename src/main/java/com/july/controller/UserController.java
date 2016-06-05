@@ -123,12 +123,18 @@ public class UserController {
             @RequestParam(value="nickname",required = false,defaultValue = "新浪邮箱") String nickname
             )
     {
-       // System.out.println("************************已进入**********************");
-       // System.out.println(nickname+"******************************************");
+        ModelAndView mav = new ModelAndView("listUserByNickName");
+
+        System.out.println("UserController: ************************已进入**********************");
+        System.out.println("UserController: "+nickname+"******************************************");
         int type = 0;
         User current_user = userService.getSessionUser();
-        ModelAndView mav = new ModelAndView("listUserByNickName");
+        System.out.println("UserController:"+current_user.toString());
+        mav.addObject("current_user",current_user);
+
         User aim_user = userService.getUserByNickName(nickname);
+        System.out.println("UserController:"+aim_user.toString());
+
         if(aim_user != null)
         {
             List<User> aim_user_followers = aim_user.getFollowers();
@@ -141,7 +147,7 @@ public class UserController {
         {
             mav.addObject("type",-1);
         }
-        //System.out.println(mav.toString());
+        System.out.println("UserController: "+mav.toString());
         return mav;
     }
 

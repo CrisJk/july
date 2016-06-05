@@ -43,7 +43,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getUserByEmail(String email) {
+        //System.out.println("UserServiceImpl: ENTER");
         List<User> users = userRepository.findByEmail(email);
+        //System.out.println("UserServiceImpl: "+users.size());
         if(users != null && users.size() == 1){
             User user = users.get(0);
             return user;

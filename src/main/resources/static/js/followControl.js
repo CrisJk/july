@@ -1,7 +1,7 @@
 /**
  * Created by Crow on 2016/6/5.
  */
-function follow( aim_user_email ,type)
+function follow( aim_user_email ,type,current_user_email)
 {
     alert(aim_user_email);
     $.ajax({
@@ -9,26 +9,19 @@ function follow( aim_user_email ,type)
         type:"GET",
         data:{
             "aim_user_email":aim_user_email,
-            "type":type
+            "type":type,
+            "current_user_email":current_user_email
         },
         dataType:"json",
         async : false,
         cache:true,
         success:function(data){
-            setTimeout(function() {
-                // After 5s delay
-                alert(data.message);
-            }, 5000);
-            //alert("success");
-           // alert(data);
+            alert("success");
+            alert(data.success);
         },
         error:function(data){
-            setTimeout(function() {
-                // After 5s delay
-                alert(data.message);
-            }, 5000);
-            //alert("error");
-            //alert(data);
+            alert("error");
+            alert(data.success);
         }
     });
 }

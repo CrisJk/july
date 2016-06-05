@@ -1,6 +1,7 @@
 package com.july.controller;
 
 import com.july.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -15,17 +16,22 @@ import com.july.entity.User;
  */
 @Controller
 public class FollowController {
+    @Autowired
     UserService userService;
+
     @RequestMapping(value="/followControlInJson",method = RequestMethod.GET,produces = "text/html;charset=UTF-8")
     @ResponseBody
     public String followControlInJson( @RequestParam(value="type") Integer type,
-                                       @RequestParam(value="aim_user_email") String aim_user_email )
+                                       @RequestParam(value="aim_user_email") String aim_user_email,
+                                       @RequestParam(value="current_user_email")String current_user_email)
     {
-        System.out.println(type+"************************");
-        System.out.println(aim_user_email+"********************");
+        System.out.println("type:"+type+"************************");
+       // System.out.println("aim_user_email:"+aim_user_email+"********************");
+       // System.out.println("current_user_email:"+current_user_email+"********************");
         Gson gson = new Gson();
         JsonObject jo = new JsonObject();
-        User current_user = userService.getSessionUser();
+        //User current_user = userService.getUserByNickName("163邮箱");
+        User current_user = userService.getUserByEmail(current_user_email);
         User aim_user = userService.getUserByEmail(aim_user_email);
         boolean success = false;
         if(type==1) //1代表关注
