@@ -16,7 +16,7 @@ import java.util.Set;
 @Document
 public class User extends AbstractDocument {
 
-    @Indexed(unique = true)
+    @Indexed
     private String email;
 
     private String password;
@@ -90,6 +90,22 @@ public class User extends AbstractDocument {
         this.avatarAddress = avatarAddress;
     }
 
+    public Account getFacebookAccount() {
+        return facebookAccount;
+    }
+
+    public void setFacebookAccount(Account facebookAccount) {
+        this.facebookAccount = facebookAccount;
+    }
+
+    public Account getGithubAccount() {
+        return githubAccount;
+    }
+
+    public void setGithubAccount(Account githubAccount) {
+        this.githubAccount = githubAccount;
+    }
+
     public List<Moment> getTimeline() { return timeline; }
 
     public void setTimeline(List<Moment> timeline) { this.timeline = timeline; }
@@ -138,23 +154,6 @@ public class User extends AbstractDocument {
             timeline.remove(tmpTimeLine.get(i));
         }
     }
-
-    public Account getFacebookAccount() {
-        return facebookAccount;
-    }
-
-    public void setFacebookAccount(Account facebookAccount) {
-        this.facebookAccount = facebookAccount;
-    }
-
-    public Account getGithubAccount() {
-        return githubAccount;
-    }
-
-    public void setGithubAccount(Account githubAccount) {
-        this.githubAccount = githubAccount;
-    }
-
     @Override
     public String toString() {
         return "User [id=" + id + ", email=" + email + ", nickname=" + nickname + "]";

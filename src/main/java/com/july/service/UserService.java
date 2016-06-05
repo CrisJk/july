@@ -3,6 +3,7 @@ package com.july.service;
 import com.july.controller.form.UserCreateForm;
 import com.july.entity.User;
 
+import java.math.BigInteger;
 import java.security.Principal;
 
 /**
@@ -42,4 +43,5 @@ public interface UserService {
 
     User getUserByNickName(String nickName);
 
+    User getUserById(BigInteger id);
 }

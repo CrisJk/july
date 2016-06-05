@@ -17,6 +17,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.stereotype.Service;
 
+import java.math.BigInteger;
 import java.security.Principal;
 import java.util.Calendar;
 import java.util.List;
@@ -108,6 +109,7 @@ public class UserServiceImpl implements UserService {
         current_user.removeFollowing(user);
         userRepository.save(current_user);
     }
+
     public User getOAuthUser(Principal principal, String type) {
         UserDetails userDetails = (UserDetails) ((OAuth2Authentication) principal).getUserAuthentication().getDetails();
         User user;
@@ -127,8 +129,6 @@ public class UserServiceImpl implements UserService {
         } else {
             List<User> users = userRepository.findByFacebookAccount(account);
             System.out.println(account.getIdentity());
-            System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!user 's size is "+users.size());
-
             if (users != null && users.size() == 1 ) {
                 return users.get(0);
             } else {
@@ -185,5 +185,8 @@ public class UserServiceImpl implements UserService {
             return null;
         }
     }
-
+    @Override
+    public User getUserById(BigInteger id) {
+        return userRepository.findOne(id);
+    }
 }

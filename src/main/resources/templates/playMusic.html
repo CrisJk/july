@@ -33,11 +33,15 @@
                 </div>
                 <div class="modal-body">
                     <div class="form-horizontal form_pop">
-                        <form>
-
-                            .....
-
+                        <form th:action="@{/moment/upload}" method="post" enctype="multipart/form-data">
+                            <input type="hidden" name="type" value="music" />
+                            <label>选择音乐文件</label>
+                            <input id="fileupload1" type="file" name="files" />
+                            <input id="fileupload2" type="file" name="files" />
+                            <input id="fileupload3" type="file" name="files" />
+                            <input type="submit" value="上传">
                         </form>
+
                     </div>
                 </div>
                 <div class="modal-footer">
