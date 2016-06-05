@@ -1,5 +1,5 @@
 body {
-    font-family: "Hiragino Sans GB","Microsoft YaHei","微软雅黑",tahoma,arial,simsun,"宋体";
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     font-size: 12px;
     color: #444;
     text-align: center;
@@ -14,5 +14,4 @@ body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, form, input, but
 
 h1, h2, h3, h4, h5, h6 {
     font-weight: bold;
-    font-size: 100%;
 }

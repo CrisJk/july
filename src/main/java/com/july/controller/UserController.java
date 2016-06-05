@@ -150,7 +150,6 @@ public class UserController {
             } else {
                 user.setFacebookAccount(account);
             }
-            System.out.println(user.getGithubAccount().getIdentity());
             userService.update(user);
             logger.info("Bind local user successfully.");
         } else {

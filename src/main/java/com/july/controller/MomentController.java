@@ -47,14 +47,66 @@ public class MomentController {
     @Autowired
     ResourceService resourceService;
 
-    @RequestMapping(value = "/resource/upload", method = RequestMethod.POST)
+    private boolean dealWithFiles(String type, User user, MultipartFile[] files) {
+        Moment moment = new Moment(type, user);
+        List<Resource> resourceList = new ArrayList<>();
+        try {
+            if (files != null && files.length > 0) {
+                for (int i = 0; i < files.length; i++) {
+                    MultipartFile file = files[i];
+                    if (file == null || file.isEmpty()) continue;
+                    String resourceId = resourceService.save(file);
+                    String filename = file.getOriginalFilename();
+                    logger.info("resource Id = " + resourceId);
+                    if (resourceId != null) {
+                        Resource resource = new Resource(resourceId, file.getContentType(), filename);
+                        resourceService.saveResource(resource);
+                        resourceList.add(resource);
+                    }
+                }
+                moment.setResources(resourceList);
+                momentService.save(moment);
+                //本用户时间线添加该动态
+                List<Moment> timeline = user.getTimeline();
+                timeline.add(moment);
+                user.setTimeline(timeline);
+                userService.update(user);
+                //todo:关注本用户的人的时间线添加该动态
+
+                logger.info("Moment with type " + type + " saved successfully.");
+                return true;
+            }
+            return false;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    //发布动态（图片）
+    @RequestMapping(value = "/pictures/upload", method = RequestMethod.POST)
     @ResponseBody
     public void handleFormUpload(@RequestParam String type,
                                  @RequestParam("qqfile") MultipartFile[] files,
                                  HttpServletRequest request, HttpServletResponse response) throws IOException {
-//        String referer = request.getHeader("Referer");
         Gson gson = new Gson();
         JsonObject json1 = new JsonObject();
+        BigInteger userId = userService.getSessionUser().getId();
+        User user = userService.getUserById(userId);
+        //上传动态(图片)
+        if (dealWithFiles(type, user, files)) {
+            json1.addProperty("success", true);
+            response.setCharacterEncoding("UTF-8");
+            response.setContentType("text");
+            response.getWriter().print(json1);
+            response.flushBuffer();
+        }
+    }
+
+    //上传头像
+    @RequestMapping(value = "/avatar/upload", method = RequestMethod.POST)
+    public String handleAvatarUpload(@RequestParam String type, @RequestParam MultipartFile[] files, HttpServletRequest request) {
+        String referer = request.getHeader("Referer");
         BigInteger userId = userService.getSessionUser().getId();
         User user = userService.getUserById(userId);
         //上传头像
@@ -72,62 +124,29 @@ public class MomentController {
                 userService.update(user);
                 logger.info("Avatar updated successfully.");
                 userService.reloadSessionUser(user);
-                json1.addProperty("success", true);
             }
-            response.setCharacterEncoding("UTF-8");
-            response.setContentType("text");
-            response.getWriter().print(json1);
-            response.flushBuffer();
-//            return "redirect:"+ referer;
-//            return gson.toJson(json1);
+        }
+        return "redirect:"+ referer;
+    }
+
+    //发布动态（音乐、视频）
+    @RequestMapping(value = "/resource/upload", method = RequestMethod.POST)
+    public String handleResourceUpload(@RequestParam String type, @RequestParam MultipartFile[] files, HttpServletRequest request) {
+        String referer = request.getHeader("Referer");
+        BigInteger userId = userService.getSessionUser().getId();
+        User user = userService.getUserById(userId);
+        //上传动态（音乐视频）
+        if (dealWithFiles(type, user, files)) {
+            return "redirect:"+ referer;
         } else {
-            //上传动态
-            Moment moment = new Moment(type, user);
-            List<Resource> resourceList = new ArrayList<>();
-            try {
-                if (files != null && files.length > 0) {
-                    for (int i = 0; i < files.length; i++) {
-                        MultipartFile file = files[i];
-                        if (file == null || file.isEmpty()) continue;
-                        String resourceId = resourceService.save(file);
-                        String filename = file.getOriginalFilename();
-                        logger.info("resource Id = " + resourceId);
-                        if (resourceId != null) {
-                            Resource resource = new Resource(resourceId, file.getContentType(), filename);
-                            resourceService.saveResource(resource);
-                            resourceList.add(resource);
-                        }
-                    }
-                    moment.setResources(resourceList);
-                    momentService.save(moment);
-
-                    //本用户时间线添加该动态
-                    List<Moment> timeline = user.getTimeline();
-                    timeline.add(moment);
-                    user.setTimeline(timeline);
-                    userService.update(user);
-                    //todo:关注本用户的人的时间线添加该动态
-
-                    logger.info("Moment saved successfully.");
-                    json1.addProperty("success", true);
-
-                }
-                response.setCharacterEncoding("UTF-8");
-                response.setContentType("text");
-                response.getWriter().print(json1);
-                response.flushBuffer();
-//                return "redirect:"+ referer;
-//                return gson.toJson(json1);
-            } catch (Exception e) {
-                e.printStackTrace();
-//                return null;
-            }
+            return "redirect:"+ referer;
         }
     }
 
     @Autowired
     GridFsOperations gridOperations;
 
+    //查看资源（图片、视频、音频）
     @RequestMapping(value = "/resource/view/{resourceId}", method = RequestMethod.GET)
     public void viewDigest(HttpServletResponse response, @PathVariable String resourceId) throws ServletException, IOException {
         GridFSDBFile gridFSDBFiles = gridOperations.findOne(

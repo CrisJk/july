@@ -6,15 +6,18 @@
 </head>
 <body>
 
+
+
+
 <form th:action="@{/resource/upload} + '?' + ${_csrf.parameterName} + '=' + ${_csrf.token}" method="post" enctype="multipart/form-data">
-    <input type="hidden" name="type" value="vedio" />
+    <input type="hidden" name="type" value="video" />
     <label>选择视频文件</label>
     <input id="fileupload" type="file" name="files" />
     <input type="submit" value="上传">
 </form>
 
 <video width="400" controls>
-    <source th:src="@{/resource/view/{resourceId}(resourceId='5752bde6640e5f5f5e5408c4')}" type="video/mp4">
+    <source th:src="@{/resource/view/{resourceId}(resourceId='5752bde6640e5f5f5e5408c4')}" >
     Your browser does not support HTML5 video.
 </video>
 
