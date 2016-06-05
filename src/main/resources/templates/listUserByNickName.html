@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="zh-CN" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
                      xmlns:sec="http://www.w3.org/1999/xhtml">
-
+<script th:src="@{/js/followControl.js}"></script>
+<script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
 <head>
     <meta charset="UTF-8">
     <title>List User By Nickname</title>
@@ -16,8 +17,10 @@
             </div>
             <div th:if="${type==0}">
                 <label th:text="${aim_user.nickname}"></label>
+                <label th:text="${aim_user.email}"></label>
                 <label>未关注</label>
-                <button>关注</button>
+                <button th:onclick="'javascript:follow(\'' + ${aim_user.email} + '\',\'' + ${type} + '\')'">关注</button>
+
             </div>
             <div th:if="${type==-1}">
                 <lable> 未发现此用户</lable>

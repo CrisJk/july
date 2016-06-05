@@ -16,23 +16,32 @@ import com.july.entity.User;
 @Controller
 public class FollowController {
     UserService userService;
-    @RequestMapping(value="/followControl",method = RequestMethod.GET,produces = "text/html;charset=UTF-8")
+    @RequestMapping(value="/followControlInJson",method = RequestMethod.GET,produces = "text/html;charset=UTF-8")
     @ResponseBody
     public String followControlInJson( @RequestParam(value="type") Integer type,
-                                       @RequestParam(value="operate_email") String operate_email )
+                                       @RequestParam(value="aim_user_email") String aim_user_email )
     {
+        System.out.println(type);
+        Gson gson = new Gson();
+        JsonObject jo = new JsonObject();
         User current_user = userService.getSessionUser();
-        User operate_user = userService.getUserByEmail(operate_email);
+        User aim_user = userService.getUserByEmail(aim_user_email);
+        boolean success = false;
         if(type==1) //1代表关注
         {
-            userService.addFollowing(current_user,operate_user);
-            userService.addFollower(operate_user,current_user);
+            userService.addFollowing(current_user,aim_user);
+            userService.addFollower(aim_user,current_user);
+            success = true;
+            jo.addProperty("success",success);
         }
         else        //取消关注
         {
-            userService.removeFollowing(current_user,operate_user);
-            userService.removeFollower(operate_user,current_user);
+            userService.removeFollowing(current_user,aim_user);
+            userService.removeFollower(aim_user,current_user);
+            success = true;
+            jo.addProperty("success",success);
+            return gson.toJson(jo);
         }
-        return "error";
+        return gson.toJson(jo);
     }
 }
