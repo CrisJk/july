@@ -1,45 +1,52 @@
 package com.july.entity;
 
-import com.sun.org.apache.regexp.internal.RE;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.io.File;
-import java.util.Date;
-
 /**
- * Created by sherrypan on 16-6-3.
+ * Created by sherrypan on 16-6-4.
  */
 @Document
 public class Resource extends AbstractDocument {
 
-    private String fileName;
+    private String identity;
 
-    //private File file;
+    private String type;
+
+    private String name;
 
     public Resource() {
         super();
     }
 
-    public Resource(String fileName, File file) {
+    public Resource(String identity, String type, String name) {
         super();
-        this.fileName = fileName;
-        //this.file = file;
+        this.identity = identity;
+        this.type = type;
+        this.name = name;
     }
 
-    public String getFileName() {
-        return fileName;
+    public String getIdentity() {
+        return identity;
     }
 
-    public void setFileName(String fileName) {
-        this.fileName = fileName;
+    public void setIdentity(String identity) {
+        this.identity = identity;
     }
 
-//    public File getFile() {
-//        return file;
-//    }
-//
-//    public void setFile(File file) {
-//        this.file = file;
-//    }
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
 }

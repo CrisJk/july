@@ -21,7 +21,8 @@ public class FollowController {
     public String followControlInJson( @RequestParam(value="type") Integer type,
                                        @RequestParam(value="aim_user_email") String aim_user_email )
     {
-        System.out.println(type);
+        System.out.println(type+"************************");
+        System.out.println(aim_user_email+"********************");
         Gson gson = new Gson();
         JsonObject jo = new JsonObject();
         User current_user = userService.getSessionUser();

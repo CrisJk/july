@@ -2,7 +2,13 @@
 <html lang="zh" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>JULY - 记录生活，发现美好</title>
-    <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css" />
+    <!--弹窗通用资源链接-->
+    <link rel="stylesheet" type="text/css"
+          href="/webjars/bootstrap/css/bootstrap.min.css" />
+    <script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
+    <script type="text/javascript"
+            src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+    <!--弹窗通用资源链接结束-->
     <link th:href="@{/css/common.css}" type="text/css" rel="stylesheet"/>
     <link th:href="@{/css/timeline.css}" type="text/css" rel="stylesheet"/>
 </head>
@@ -40,7 +46,7 @@
             <div class="g-mn" id="main">
                 <div id="publishBarArea" class="publishBarArea">
                     <ul id="publishPostBar" class="m-nav2">
-                        <li class="user"><a  href="#"><strong>上传头像</strong></a></li>
+                        <li class="user"><a href="#" id="addAvatar"><strong>上传头像</strong></a></li>
                         <li><a  class="publishlink n21" href="#">文字</a></li>
                         <li><a  class="publishlink n22" href="#">图片</a></li>
                         <li><a  class="publishlink n23" href="#">音乐</a></li>
@@ -56,7 +62,7 @@
                 <div class="m-mlist">
                     <div class="mlistimg" style="float: left; margin-right:20px">
                         <div class="w-img" style="z-index:1;">
-                            <a target="_blank"><img src="/images/100.jpg" style="height: 70px;border-radius: 5px;"></a>
+                            <a target="_blank"><img th:src='@{/resource/view/{resourceId}(resourceId=${user.avatarAddress})}' style="height: 70px;border-radius: 5px;"></a>
                         </div>
                     </div>
                     <article id="post-2582" class="block post">
@@ -122,6 +128,45 @@
     </div>
     <a title="回到顶部" class="w-top" href="#" id="gtotop" hidefocus="true" style="visibility:hidden;">回到顶部</a>
     <div id="preOpenCoverForPublish" class="preOpenCoverForPublish" style="display:none;opacity:1;"></div>
+
+    <div class="modal fade" id="addAvatarForm" tabindex="-1" role="dialog">
+        <div class="modal-dialog" style="width:500px" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"
+                            aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title text-center" id="myConditionsAddLabel">上传头像</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-horizontal form_pop">
+                        <form th:action="@{/resource/upload} + '?' + ${_csrf.parameterName} + '=' + ${_csrf.token}" method="post" enctype="multipart/form-data">
+                            <input type="hidden" name="type" value="avatar" />
+                            <label>选择图片</label>
+                            <input id="fileupload" type="file" name="files" th:width="30px" />
+                            <input type="submit" value="上传">
+                        </form>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        //add conditions pop up
+        $(document).ready(function(){
+            $("#addAvatar").click(function(){
+                $("#addAvatarForm").modal('show');
+            });
+        });
+    </script>
+
+
 </div>
 </body>
 </html>
