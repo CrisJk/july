@@ -14,10 +14,7 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.gridfs.GridFsOperations;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.ServletException;
@@ -29,6 +26,9 @@ import java.io.IOException;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 
 /**
  * Created by sherrypan on 16-6-3.
@@ -48,8 +48,13 @@ public class MomentController {
     ResourceService resourceService;
 
     @RequestMapping(value = "/resource/upload", method = RequestMethod.POST)
-    public String handleFormUpload(@RequestParam String type, @RequestParam MultipartFile[] files, HttpServletRequest request) {
-        String referer = request.getHeader("Referer");
+    @ResponseBody
+    public void handleFormUpload(@RequestParam String type,
+                                 @RequestParam("qqfile") MultipartFile[] files,
+                                 HttpServletRequest request, HttpServletResponse response) throws IOException {
+//        String referer = request.getHeader("Referer");
+        Gson gson = new Gson();
+        JsonObject json1 = new JsonObject();
         BigInteger userId = userService.getSessionUser().getId();
         User user = userService.getUserById(userId);
         //上传头像
@@ -67,8 +72,14 @@ public class MomentController {
                 userService.update(user);
                 logger.info("Avatar updated successfully.");
                 userService.reloadSessionUser(user);
+                json1.addProperty("success", true);
             }
-            return "redirect:"+ referer;
+            response.setCharacterEncoding("UTF-8");
+            response.setContentType("text");
+            response.getWriter().print(json1);
+            response.flushBuffer();
+//            return "redirect:"+ referer;
+//            return gson.toJson(json1);
         } else {
             //上传动态
             Moment moment = new Moment(type, user);
@@ -98,11 +109,18 @@ public class MomentController {
                     //todo:关注本用户的人的时间线添加该动态
 
                     logger.info("Moment saved successfully.");
+                    json1.addProperty("success", true);
+
                 }
-                return "redirect:"+ referer;
+                response.setCharacterEncoding("UTF-8");
+                response.setContentType("text");
+                response.getWriter().print(json1);
+                response.flushBuffer();
+//                return "redirect:"+ referer;
+//                return gson.toJson(json1);
             } catch (Exception e) {
                 e.printStackTrace();
-                return null;
+//                return null;
             }
         }
     }
