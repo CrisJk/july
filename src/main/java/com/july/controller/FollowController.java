@@ -21,8 +21,6 @@ public class FollowController {
     public String followControlInJson( @RequestParam(value="type") Integer type,
                                        @RequestParam(value="operate_email") String operate_email )
     {
-        Gson gson = new Gson();
-        JsonObject jo = new JsonObject();
         User current_user = userService.getSessionUser();
         User operate_user = userService.getUserByEmail(operate_email);
         if(type==1) //1代表关注

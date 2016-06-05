@@ -27,7 +27,7 @@ public interface UserService {
     void addFollowing(User current_user,User user);
 
     void removeFollowing(User current_user, User user);
-    
+
     User getOAuthUser(Principal principal, String type);
 
     //重新登录
@@ -39,5 +39,7 @@ public interface UserService {
     User getOAuthUserByAccount(String type, String ob);
 
     void update(User user);
+
+    User getUserByNickName(String nickName);
 
 }

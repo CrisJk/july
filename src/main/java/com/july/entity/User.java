@@ -94,11 +94,18 @@ public class User extends AbstractDocument {
 
     public void setTimeline(List<Moment> timeline) { this.timeline = timeline; }
 
-    public List<User> getFollowers() { return followers; }
+    public List<User> getFollowers()
+    {
+        if(followers.size()==0) return null;
+        return followers;
+    }
 
     public void setFollowers(List<User> followers) { this.followers = followers; }
 
-    public List<User> getFollowings() { return followings; }
+    public List<User> getFollowings() {
+        if(followings.size()==0) return null;
+        return followings;
+    }
 
     public void setFollowings(List<User> followings) { this.followings = followings; }
 

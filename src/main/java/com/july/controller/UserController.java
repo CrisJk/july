@@ -27,6 +27,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.security.Principal;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -116,14 +117,31 @@ public class UserController {
         return "redirect:/";
     }
 
+    //根据昵称列出用户
     @RequestMapping(value="/listUserByNickName", method = RequestMethod.GET)
     public ModelAndView listUserByNickName(
-            @RequestParam(value="current_user_email")String current_user_email,
-            @RequestParam(value="nickname",required = false) String nickname
+            @RequestParam(value="nickname",required = false,defaultValue = "新浪邮箱") String nickname
             )
     {
-        ModelAndView mav = new ModelAndView("/listUserByNickName");
+        System.out.println("************************已进入**********************");
+        System.out.println(nickname+"******************************************");
+        int type = 0;
+        User current_user = userService.getSessionUser();
+        ModelAndView mav = new ModelAndView("listUserByNickName");
+        User aim_user = userService.getUserByNickName(nickname);
+        if(aim_user != null)
+        {
+            List<User> aim_user_followers = aim_user.getFollowers();
+            if(aim_user_followers!=null&&aim_user_followers.contains(current_user))  type = 1;
 
+            mav.addObject("type",type);
+            mav.addObject("aim_user",aim_user);
+        }
+        else
+        {
+            mav.addObject("type",-1);
+        }
+        System.out.println(mav.toString());
         return mav;
     }
 

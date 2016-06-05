@@ -175,4 +175,15 @@ public class UserServiceImpl implements UserService {
         userRepository.save(user);
     }
 
+    @Override
+    public User getUserByNickName(String nickName) {
+        List<User> users = userRepository.findByNickname(nickName);
+        if(users != null && users.size() == 1){
+            User user = users.get(0);
+            return user;
+        }else{
+            return null;
+        }
+    }
+
 }

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+                     xmlns:sec="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="UTF-8">
+    <title>List User By Nickname</title>
+</head>
+<body>
+    <tr>
+        <td>
+            <div th:if="${type==1}">
+                <label th:text="${aim_user.nickname}"></label>
+                <label>已关注</label>
+                <button>取消关注</button>
+            </div>
+            <div th:if="${type==0}">
+                <label th:text="${aim_user.nickname}"></label>
+                <label>未关注</label>
+                <button>关注</button>
+            </div>
+            <div th:if="${type==-1}">
+                <lable> 未发现此用户</lable>
+            </div>
+        </td>
+    </tr>
+</body>
+</html>
