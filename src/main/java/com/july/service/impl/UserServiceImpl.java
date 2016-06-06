@@ -88,30 +88,6 @@ public class UserServiceImpl implements UserService {
         return null;
     }
 
-    @Override
-    public void addFollower(User current_user, User user) {
-        current_user.addFollower(user);
-        userRepository.save(current_user);
-    }
-
-    @Override
-    public void removeFollower(User current_user, User user) {
-        current_user.removeFollower(user);
-        userRepository.save(current_user);
-    }
-
-    @Override
-    public void addFollowing(User current_user, User user) {
-        current_user.addFollowing(user);
-        userRepository.save(current_user);
-    }
-
-    @Override
-    public void removeFollowing(User current_user, User user) {
-        current_user.removeFollowing(user);
-        userRepository.save(current_user);
-    }
-
     public User getOAuthUser(Principal principal, String type) {
         UserDetails userDetails = (UserDetails) ((OAuth2Authentication) principal).getUserAuthentication().getDetails();
         User user;

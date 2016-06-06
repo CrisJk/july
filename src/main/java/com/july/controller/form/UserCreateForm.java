@@ -1,6 +1,9 @@
 package com.july.controller.form;
 
 import com.july.entity.Account;
+import com.july.entity.User;
+
+import java.util.List;
 
 /**
  * Created by sherrypan on 16-5-29.
@@ -18,6 +21,18 @@ public class UserCreateForm {
     private Account githubAccount = null;
 
     private Account facebookAcount = null;
+
+    private List<User> followers = null;
+
+    private List<User> followings = null;
+
+    public List<User> getFollowers(){return followers;}
+
+    public void setFollowers(List<User> followers){this.followers=followers;}
+
+    public List<User> getfollowings(){return followings;}
+
+    public void setfollowings(List<User> followings){this.followings=followings;}
 
     public String getEmail() {
         return email;

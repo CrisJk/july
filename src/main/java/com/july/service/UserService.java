@@ -21,14 +21,6 @@ public interface UserService {
 
     String validateVerificationToken(String token);
 
-    void addFollower(User current_user,User user);
-
-    void removeFollower(User current_user,User user);
-
-    void addFollowing(User current_user,User user);
-
-    void removeFollowing(User current_user, User user);
-
     User getOAuthUser(Principal principal, String type);
 
     //重新登录

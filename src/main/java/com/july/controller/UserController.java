@@ -120,25 +120,26 @@ public class UserController {
     //根据昵称列出用户
     @RequestMapping(value="/listUserByNickName", method = RequestMethod.GET)
     public ModelAndView listUserByNickName(
-            @RequestParam(value="nickname",required = false,defaultValue = "新浪邮箱") String nickname
+            @RequestParam(value="nickname",required = false,defaultValue = "新浪") String nickname
             )
     {
         ModelAndView mav = new ModelAndView("listUserByNickName");
 
         System.out.println("UserController: ************************已进入**********************");
         System.out.println("UserController: "+nickname+"******************************************");
+
         int type = 0;
         User current_user = userService.getSessionUser();
-        System.out.println("UserController:"+current_user.toString());
-        mav.addObject("current_user",current_user);
+        System.out.println("UserController current_user:"+current_user.toString());
 
+        mav.addObject("current_user",current_user);
         User aim_user = userService.getUserByNickName(nickname);
-        System.out.println("UserController:"+aim_user.toString());
+        if(aim_user != null) System.out.println("UserController aim_user:"+aim_user.toString());
 
         if(aim_user != null)
         {
-            List<User> aim_user_followers = aim_user.getFollowers();
-            if(aim_user_followers!=null&&aim_user_followers.contains(current_user))  type = 1;
+            List<String> aim_user_followers = aim_user.getFollowers();
+            if(aim_user_followers!=null&&aim_user_followers.contains(current_user.getEmail()))  type = 1;
 
             mav.addObject("type",type);
             mav.addObject("aim_user",aim_user);

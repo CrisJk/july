@@ -29,13 +29,11 @@ public class User extends AbstractDocument {
     @DBRef
     private List<Moment> timeline = new ArrayList<Moment>();
 
-    //粉丝
-    @DBRef
-    private List<User> followers = new ArrayList<User>();
+    //粉丝 存的是emali
+    private List<String> followers = new ArrayList<String>();
 
-    //关注
-    @DBRef
-    private List<User> followings = new ArrayList<User>();
+    //关注 存的是email
+    private List<String> followings = new ArrayList<String>();
 
     private boolean enabled;
 
@@ -110,50 +108,19 @@ public class User extends AbstractDocument {
 
     public void setTimeline(List<Moment> timeline) { this.timeline = timeline; }
 
-    public List<User> getFollowers()
+    public List<String> getFollowers()
     {
-        if(followers.size()==0) return null;
         return followers;
     }
 
-    public void setFollowers(List<User> followers) { this.followers = followers; }
+    public void setFollowers(List<String> followers) { this.followers = followers; }
 
-    public List<User> getFollowings() {
-        if(followings.size()==0) return null;
+    public List<String> getFollowings() {
         return followings;
     }
 
-    public void setFollowings(List<User> followings) { this.followings = followings; }
+    public void setFollowings(List<String> followings) { this.followings = followings; }
 
-    public void addFollower( User user )
-    {
-        followers.add(user);
-    }
-
-    public void addFollowing( User user )
-    {
-        followings.add(user);
-        List<Moment> tmpTimeLine = user.getTimeline();
-        for( int i = 0; i < tmpTimeLine.size(); i ++ )
-        {
-            timeline.add(tmpTimeLine.get(i));
-        }
-    }
-
-    public void removeFollower( User user )
-    {
-        followers.remove(user);
-    }
-
-    public void removeFollowing( User user )
-    {
-        followings.remove(user);
-        List<Moment> tmpTimeLine = user.getTimeline();
-        for( int i = 0; i < tmpTimeLine.size(); i ++ )
-        {
-            timeline.remove(tmpTimeLine.get(i));
-        }
-    }
     @Override
     public String toString() {
         return "User [id=" + id + ", email=" + email + ", nickname=" + nickname + "]";
