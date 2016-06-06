@@ -1,6 +1,13 @@
 <!DOCTYPE HTML>
 <html lang="zh" xmlns:th="http://www.thymeleaf.org">
 <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta name="_csrf" th:content="${_csrf.token}" />
+    <meta name="_csrf_header" th:content="${_csrf.getHeaderName()}" />
+    <meta name="_csrf_parameter" th:content="${_csrf.parameterName}" />
+
     <title>JULY - 记录生活，发现美好</title>
     <!--弹窗通用资源链接-->
     <link rel="stylesheet" type="text/css"
@@ -9,8 +16,84 @@
     <script type="text/javascript"
             src="/webjars/bootstrap/js/bootstrap.min.js"></script>
     <!--弹窗通用资源链接结束-->
-    <link th:href="@{/css/common.css}" type="text/css" rel="stylesheet"/>
+    <!-- Fine Uploader New/Modern CSS file
+    ====================================================================== -->
+    <link th:href="@{/css/gallary/fine-uploader-new.css}" rel="stylesheet">
+    <!-- Fine Uploader Custom CSS file
+    ====================================================================== -->
+    <link th:href="@{/css/gallary/custom.css}" rel="stylesheet">
+    <!-- Fine Uploader JS file
+    ====================================================================== -->
+    <script th:src="@{/js/gallary/fine-uploader.js}"></script>
+
+    <!--<link th:href="@{/css/common.css}" type="text/css" rel="stylesheet"/>-->
+    <!--Custom Timeline CSS-->
     <link th:href="@{/css/timeline.css}" type="text/css" rel="stylesheet"/>
+
+    <script type="text/template" id="qq-template-manual-trigger">
+        <div class="qq-uploader-selector qq-uploader" qq-drop-area-text="Drop files here">
+            <div class="qq-total-progress-bar-container-selector qq-total-progress-bar-container">
+                <div role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" class="qq-total-progress-bar-selector qq-progress-bar qq-total-progress-bar"></div>
+            </div>
+            <div class="qq-upload-drop-area-selector qq-upload-drop-area" qq-hide-dropzone>
+                <span class="qq-upload-drop-area-text-selector"></span>
+            </div>
+            <div class="buttons">
+                <div class="qq-upload-button-selector qq-upload-button">
+                    <div>选择文件</div>
+                </div>
+                <button type="button" id="trigger-upload" class="btn btn-primary">
+                    <i class="icon-upload icon-white"></i> 上传
+                </button>
+            </div>
+            <span class="qq-drop-processing-selector qq-drop-processing">
+                <span>Processing dropped files...</span>
+                <span class="qq-drop-processing-spinner-selector qq-drop-processing-spinner"></span>
+            </span>
+            <ul class="qq-upload-list-selector qq-upload-list" aria-live="polite" aria-relevant="additions removals">
+                <li>
+                    <div class="qq-progress-bar-container-selector">
+                        <div role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" class="qq-progress-bar-selector qq-progress-bar"></div>
+                    </div>
+                    <span class="qq-upload-spinner-selector qq-upload-spinner"></span>
+                    <img class="qq-thumbnail-selector" qq-max-size="100" qq-server-scale>
+                    <span class="qq-upload-file-selector qq-upload-file"></span>
+                    <span class="qq-edit-filename-icon-selector qq-edit-filename-icon" aria-label="Edit filename"></span>
+                    <input class="qq-edit-filename-selector qq-edit-filename" tabindex="0" type="text">
+                    <span class="qq-upload-size-selector qq-upload-size"></span>
+                    <button type="button" class="qq-btn qq-upload-cancel-selector qq-upload-cancel">取消</button>
+                    <button type="button" class="qq-btn qq-upload-retry-selector qq-upload-retry">重试</button>
+                    <button type="button" class="qq-btn qq-upload-delete-selector qq-upload-delete">删除</button>
+                    <span role="status" class="qq-upload-status-text-selector qq-upload-status-text"></span>
+                </li>
+            </ul>
+
+            <dialog class="qq-alert-dialog-selector">
+                <div class="qq-dialog-message-selector"></div>
+                <div class="qq-dialog-buttons">
+                    <button type="button" class="qq-cancel-button-selector">Close</button>
+                </div>
+            </dialog>
+
+            <dialog class="qq-confirm-dialog-selector">
+                <div class="qq-dialog-message-selector"></div>
+                <div class="qq-dialog-buttons">
+                    <button type="button" class="qq-cancel-button-selector">No</button>
+                    <button type="button" class="qq-ok-button-selector">Yes</button>
+                </div>
+            </dialog>
+
+            <dialog class="qq-prompt-dialog-selector">
+                <div class="qq-dialog-message-selector"></div>
+                <input type="text" />
+                <div class="qq-dialog-buttons">
+                    <button type="button" class="qq-cancel-button-selector">取消</button>
+                    <button type="button" class="qq-ok-button-selector">Ok</button>
+                </div>
+            </dialog>
+        </div>
+    </script>
+
 </head>
 <body style="background-color: #ededef">
 <div class="container-fluid">
@@ -48,9 +131,9 @@
                     <ul id="publishPostBar" class="m-nav2">
                         <li class="user"><a href="#" id="addAvatar"><strong>上传头像</strong></a></li>
                         <li><a  class="publishlink n21" href="#">文字</a></li>
-                        <li><a  class="publishlink n22" href="#">图片</a></li>
-                        <li><a  class="publishlink n23" href="#">音乐</a></li>
-                        <li><a  class="publishlink publishlink-video n24" href="#">视频</a></li>
+                        <li><a class="publishlink n22" id="addPictures" href="#">图片</a></li>
+                        <li><a class="publishlink n23" id="addMusic" href="#">音乐</a></li>
+                        <li><a class="publishlink publishlink-video n24" id="addVideo" href="#">视频</a></li>
                     </ul>
                 </div>
                 <div id="cannonentrybanner" class="m-cannonentrybanner a-slide a-slide-do">
@@ -62,7 +145,7 @@
                 <div class="m-mlist">
                     <div class="mlistimg" style="float: left; margin-right:20px">
                         <div class="w-img" style="z-index:1;">
-                            <a target="_blank"><img th:src='@{/resource/view/{resourceId}(resourceId=${user.avatarAddress})}' style="height: 70px;border-radius: 5px;"></a>
+                            <a target="_blank"><img th:src='@{/resource/view/{resourceId}(resourceId=${user.avatarAddress})}' style="width: 70px; height: 70px; border-radius: 5px;"></a>
                         </div>
                     </div>
                     <article id="post-2582" class="block post">
@@ -129,23 +212,35 @@
     <a title="回到顶部" class="w-top" href="#" id="gtotop" hidefocus="true" style="visibility:hidden;">回到顶部</a>
     <div id="preOpenCoverForPublish" class="preOpenCoverForPublish" style="display:none;opacity:1;"></div>
 
+    <!--上传头像弹窗-->
     <div class="modal fade" id="addAvatarForm" tabindex="-1" role="dialog">
-        <div class="modal-dialog" style="width:500px" role="document">
+        <div class="modal-dialog" style="width:400px" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal"
                             aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
-                    <h4 class="modal-title text-center" id="myConditionsAddLabel">上传头像</h4>
+                    <h4 class="modal-title text-center" id="myAvatarAddLabel">
+                        <label th:text="${user.nickname}" style="margin-right:10px"></label>
+                        上传头像
+                    </h4>
                 </div>
                 <div class="modal-body">
-                    <div class="form-horizontal form_pop">
-                        <form th:action="@{/resource/upload} + '?' + ${_csrf.parameterName} + '=' + ${_csrf.token}" method="post" enctype="multipart/form-data">
+                    <div class="form-horizontal form_pop" style="min-height:160px">
+                        <form id="avatarUploadForm" th:action="@{/avatar/upload} + '?' + ${_csrf.parameterName} + '=' + ${_csrf.token}" method="post" enctype="multipart/form-data">
                             <input type="hidden" name="type" value="avatar" />
-                            <label>选择图片</label>
-                            <input id="fileupload" type="file" name="files" th:width="30px" />
-                            <input type="submit" value="上传">
+                            <div style="margin-left: 10px;display: inline-block">
+                                <div id="avatar-holder" style="float: left" class="img-rounded defaultAvatar"></div>
+                                <div style="float:right; width:250px; margin-top:20px; margin-left:18px" >
+                                    <input id="avatarFileUpload" type="file" name="files" />
+                                    <div style="font-size:11px; margin:10px">支持JPG、PNG、JPEG、GIF格式</div>
+                                </div>
+
+                            </div>
+                            <div style="margin-top:10px; text-align:center; padding:10px">
+                                <input type="submit" value="上传" class="btn btn-default" style="width: 100%; background-color:#00ABC7; border-color:#00ABC7; color:white">
+                            </div>
                         </form>
                     </div>
                 </div>
@@ -155,17 +250,179 @@
             </div>
         </div>
     </div>
+    <!--上传头像弹窗结束-->
+
+    <!--上传图片弹窗-->
+    <div class="modal fade" id="addPicturesForm" tabindex="-1" role="dialog">
+        <div class="modal-dialog" style="width:700px" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"
+                            aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title text-center" id="myPicturesAddLabel"><span class="glyphicon glyphicon-picture" style="margin-right:5px"></span>上传图片</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-horizontal form_pop">
+                        <form id="picturesUploadForm" th:action="@{/pictures/upload} + '?' + ${_csrf.parameterName} + '=' + ${_csrf.token}" method="post" enctype="multipart/form-data">
+                            <input type="hidden" name="type" value="pictures" />
+                            <!-- Fine Uploader DOM Element
+                            ====================================================================== -->
+                            <div id="fine-uploader-manual-trigger"></div>
+                        </form>
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--上传图片弹窗结束-->
+
+    <!--上传音乐弹窗-->
+    <div class="modal fade" id="addMusicForm" tabindex="-1" role="dialog">
+        <div class="modal-dialog" style="width:500px" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"
+                            aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title text-center" id="myMusicAddLabel"><span class="glyphicon glyphicon-headphones" style="margin-right:5px"></span>上传音乐文件</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-horizontal form_pop">
+                        <form th:action="@{/resource/upload} + '?' + ${_csrf.parameterName} + '=' + ${_csrf.token}" method="post" enctype="multipart/form-data">
+                            <input type="hidden" name="type" value="music" />
+                            <div class="input-group">
+                                <span class="input-group-btn">
+                                    <span class="btn btn-primary" style="background-color:#00ABC7; border-color:#00ABC7" onclick="$(this).parent().find('input[type=file]').click();">浏览本地文件</span>
+                                    <input id="fileupload1" type="file" name="files" onchange="$(this).parent().parent().find('.form-control').html($(this).val().split(/[\\|/]/).pop());" style="display: none"/>
+                                </span>
+                                <span class="form-control"></span>
+                            </div>
+                            <span style="font-size:11px; margin:10px">支持OGG、MP3、WAV格式</span>
+                            <input type="submit" class="btn btn-default" style="margin-top:10px; width:100px; margin-left:15px" value="上传">
+                        </form>
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--上传音乐弹窗结束-->
+
+    <!--上传视频弹窗-->
+    <div class="modal fade" id="addVideoForm" tabindex="-1" role="dialog">
+        <div class="modal-dialog" style="width:500px" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"
+                            aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title text-center" id="myVideoAddLabel"><span class="glyphicon glyphicon-film" style="margin-right:5px"></span>上传视频文件</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-horizontal form_pop">
+                        <form th:action="@{/resource/upload} + '?' + ${_csrf.parameterName} + '=' + ${_csrf.token}" method="post" enctype="multipart/form-data">
+                            <input type="hidden" name="type" value="video" />
+                            <div class="input-group">
+                                <span class="input-group-btn">
+                                    <span class="btn btn-primary" style="background-color:#00ABC7; border-color:#00ABC7"  onclick="$(this).parent().find('input[type=file]').click();">浏览本地文件</span>
+                                    <input type="file" name="files" onchange="$(this).parent().parent().find('.form-control').html($(this).val().split(/[\\|/]/).pop());" style="display: none"/>
+                                </span>
+                                <span class="form-control"></span>
+                            </div>
+                            <span style="font-size:11px; margin:10px">支持MP4、WebM、Ogg格式</span>
+                            <input type="submit" class="btn btn-default" style="margin-top:10px; width:100px; margin-left:15px" value="上传">
+                        </form>
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--上传视频弹窗结束-->
 
 
-    <script>
-        //add conditions pop up
-        $(document).ready(function(){
-            $("#addAvatar").click(function(){
-                $("#addAvatarForm").modal('show');
-            });
+<script>
+    //add conditions pop up
+    $(document).ready(function(){
+        $("#addAvatar").click(function(){
+            $("#addAvatarForm").modal('show');
         });
-    </script>
+        $("#addPictures").click(function(){
+            $("#addPicturesForm").modal('show');
+        });
+        $("#addMusic").click(function(){
+            $("#addMusicForm").modal('show');
+        });
+        $("#addVideo").click(function(){
+            $("#addVideoForm").modal('show');
+        });
+    });
+</script>
+<!-- code to create an instance of Fine Uploader and bind to the DOM/template
+    ====================================================================== -->
+<script>
+    var csrfParameter = $("meta[name='_csrf_parameter']").attr("content");
+    var csrfHeader = $("meta[name='_csrf_header']").attr("content");
+    var csrfToken = $("meta[name='_csrf']").attr("content");
 
+    var manualUploader = new qq.FineUploader({
+        element: document.getElementById('fine-uploader-manual-trigger'),
+        template: 'qq-template-manual-trigger',
+        request: {
+            endpoint: '/pictures/upload',
+            method: "POST"
+        },
+        form:{
+            element:'picturesUploadForm'
+        },
+        thumbnails: {
+            placeholders: {
+                waitingPath: '/images/placeholders/waiting-generic.png',
+                notAvailablePath: '/images/placeholders/not_available-generic.png'
+            }
+        },
+        autoUpload: false,
+        debug: true,
+        validation: {
+            allowedExtensions: ['jpeg', 'jpg', 'txt', 'png', 'odt'],
+            itemLimit: 3000000
+        },
+        callbacks: {
+            onComplete: function(id, name, responseJSON, maybeXhr) {
+                if(responseJSON.success==true)
+                {
+                    //alert("successfully uploaded");
+                }
+            },
+            onCancel: function(id, name) {
+            },
+            onError: function(id, name, reason, maybeXhrOrXdr) {
+            },
+            onAllComplete: function(succeeded, failed) {
+            }
+        }
+    });
+
+    $('#trigger-upload').on('click', function(){
+        manualUploader.uploadStoredFiles();
+    });
+</script>
+<!--Custom Timeline js-->
+<script th:src="@{/js/timeline.js}"></script>
 
 </div>
 </body>
