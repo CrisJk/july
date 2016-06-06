@@ -2,6 +2,7 @@ package com.july.controller;
 
 import com.july.entity.Moment;
 import com.july.entity.User;
+import com.july.repository.MomentRepository;
 import com.july.service.MomentService;
 import com.july.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,8 @@ public class UploadArticleController {
     MomentService momentService ;
     @Autowired
     UserService userService ;
+    @Autowired
+    MomentRepository momentRepository ;
 
     @RequestMapping(value="/saveArticle",method=RequestMethod.GET)
     String saveArticle()
@@ -58,5 +61,17 @@ public class UploadArticleController {
             return null ;
         }
 
+    }
+
+    @RequestMapping(value="/seeArticle",method=RequestMethod.GET)
+    public ModelAndView seeArticle()
+    {
+        BigInteger userId = userService.getSessionUser().getId();
+        User user = userService.getUserById(userId) ;
+        ModelAndView mav = new ModelAndView("seeArticle") ;
+        List<Moment> moment = momentRepository.findByCreater(user) ;
+        String article = moment.get(2).getArticle() ;
+        mav.addObject("article",article) ;
+        return  mav ;
     }
 }

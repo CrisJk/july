@@ -1,3 +1,4 @@
+/*
 package com.july.controller;
 
 import com.baidu.ueditor.MyActionEnter;
@@ -16,12 +17,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+*/
 /**
  * Created by kuangjun on 2016/6/4.
- */
+ *//*
+
 @Controller
 public class UEditorController {
-    private static final Logger logger = LoggerFactory.getLogger(JulyApplication.class) ;
+*/
+/*    private static final Logger logger = LoggerFactory.getLogger(JulyApplication.class) ;
     @Value("${config.json.path}")
     private String configJSONPath;
 
@@ -35,6 +39,8 @@ public class UEditorController {
         String baseState = new MyActionEnter(request, appContext.getResource(configJSONPath).getInputStream()).exec();
         // response.getWriter().write(baseState);
         return baseState;
-    }
+    }*//*
+
 
 }
+*/
