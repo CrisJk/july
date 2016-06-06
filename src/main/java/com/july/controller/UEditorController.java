@@ -22,7 +22,7 @@ import java.io.IOException;
 @Controller
 public class UEditorController {
     private static final Logger logger = LoggerFactory.getLogger(JulyApplication.class) ;
-    @Value("classpath:static/config/config.json")
+    @Value("${config.json.path}")
     private String configJSONPath;
 
     @RequestMapping("/controller")

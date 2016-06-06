@@ -34,4 +34,8 @@ spring:
   resources:
     chain:
       enabled: true
+
+config:
+  json:
+    path: classpath:static/config/config.json
 #spring.data.mongodb.uri: mongodb://<user>:<passwd>@<url>:<port>/<dbname>
