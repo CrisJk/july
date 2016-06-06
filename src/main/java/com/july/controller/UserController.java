@@ -26,6 +26,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -33,6 +34,7 @@ import java.util.Map;
 /**
  * Created by sherrypan on 16-5-29.
  */
+
 @Controller
 public class UserController {
 
@@ -133,21 +135,25 @@ public class UserController {
         System.out.println("UserController current_user:"+current_user.toString());
 
         mav.addObject("current_user",current_user);
-        User aim_user = userService.getUserByNickName(nickname);
-        if(aim_user != null) System.out.println("UserController aim_user:"+aim_user.toString());
+        List<User> aim_users = userService.getUserByNickName(nickname);
+        //mav.addObject("aim_users",aim_users);
 
-        if(aim_user != null)
+        if(aim_users != null&&aim_users.size()!=0)
         {
-            List<String> aim_user_followers = aim_user.getFollowers();
-            if(aim_user_followers!=null&&aim_user_followers.contains(current_user.getEmail()))  type = 1;
+            type = 1;
 
-            mav.addObject("type",type);
-            mav.addObject("aim_user",aim_user);
+            for(int i=0;i<aim_users.size();i++)
+            {
+                List<String> aim_user_followers = aim_users.get(i).getFollowers();
+                if(aim_user_followers!=null&&aim_user_followers.contains(current_user.getEmail()))
+                {
+                    aim_users.get(i).setIs_followed("YES");
+                }
+                else aim_users.get(i).setIs_followed("NO");
+            }
+            mav.addObject("aim_users",aim_users);
         }
-        else
-        {
-            mav.addObject("type",-1);
-        }
+        mav.addObject("type",type);
         System.out.println("UserController: "+mav.toString());
         return mav;
     }

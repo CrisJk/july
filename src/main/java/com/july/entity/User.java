@@ -43,6 +43,11 @@ public class User extends AbstractDocument {
     @DBRef
     private Account githubAccount;
 
+
+
+    //这个属性用在进行昵称搜索时，当前用户与该用户的关注关系判断，其余位置不起作用，可随时更改
+    public String is_followed;
+
     public User() {
         super();
         this.enabled = false;
@@ -121,8 +126,12 @@ public class User extends AbstractDocument {
 
     public void setFollowings(List<String> followings) { this.followings = followings; }
 
+    public String is_followed() { return is_followed;}
+
+    public void setIs_followed(String is_followed) {this.is_followed = is_followed;}
+
     @Override
     public String toString() {
-        return "User [id=" + id + ", email=" + email + ", nickname=" + nickname + "]";
+        return "User [id=" + id + ", email=" + email + ", nickname=" + nickname + ", is_followed=" + is_followed + "]";
     }
 }

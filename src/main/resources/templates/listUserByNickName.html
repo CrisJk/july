@@ -9,23 +9,26 @@
 </head>
 <body>
     <tr>
-        <td>
-            <div th:if="${type==1}">
-                <label th:text="${aim_user.nickname}"></label>
-                <label>已关注</label>
-                <button th:onclick="'javascript:follow(\'' + ${aim_user.email} + '\',0,\'' + ${current_user.email} + '\')'">取消关注</button>
-            </div>
-            <div th:if="${type==0}">
-                <label th:text="${aim_user.nickname}"></label>
-                <label th:text="${aim_user.email}"></label>
-                <label>未关注</label>
-                <button th:onclick="'javascript:follow(\'' + ${aim_user.email} + '\',1,\'' + ${current_user.email} + '\')'">关注</button>
+        <div th:if="${type==0}">
+            <td> <lable> 未发现此用户</lable> </td>
+        </div>
+        <div th:if="${type==1}">
+            <div th:each="aim_user:${aim_users}">
+                <td>
+                    <label th:text="${aim_user.nickname}"></label>
+                    <div th:if="${aim_user.is_followed=='NO'}">
+                        <label>未关注</label>
+                        <button th:onclick="'javascript:follow(\'' + ${aim_user.email} + '\',1,\'' + ${current_user.email} + '\')'">关注</button>
+                    </div>
+                    <div th:if="${aim_user.is_followed=='YES'}">
+                        <label>已关注</label>
+                        <button th:onclick="'javascript:follow(\'' + ${aim_user.email} + '\',0,\'' + ${current_user.email} + '\')'">取消关注</button>
+                    </div>
 
+                </td>
             </div>
-            <div th:if="${type==-1}">
-                <lable> 未发现此用户</lable>
-            </div>
-        </td>
+
+        </div>
     </tr>
 </body>
 </html>

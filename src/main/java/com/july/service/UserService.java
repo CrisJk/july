@@ -5,6 +5,7 @@ import com.july.entity.User;
 
 import java.math.BigInteger;
 import java.security.Principal;
+import java.util.List;
 
 /**
  * Created by kuangjun on 2016/5/7.
@@ -33,7 +34,7 @@ public interface UserService {
 
     void update(User user);
 
-    User getUserByNickName(String nickName);
+    List<User> getUserByNickName(String nickName);
 
     User getUserById(BigInteger id);
 }
