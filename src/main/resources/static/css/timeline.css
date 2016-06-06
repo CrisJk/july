@@ -630,3 +630,15 @@ article>div>p {
     -moz-transition: .5s;
     -webkit-transition: .5s;
 }
+
+.hwinherit {
+    height: inherit;
+    width: inherit;
+}
+
+.defaultAvatar {
+    width:90px;
+    height:90px;
+    background-image: url("../images/default.png");
+    background-size:cover;
+}
