@@ -1,0 +1,13 @@
+.fa {
+    line-height: inherit;
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: inherit;
+    -webkit-font-smoothing: antialiased;
+    display: inline-block;
+    text-rendering: auto;
+}
+
+a:hover, a:focus {
+    color: #777;
+    text-decoration: none;
+}

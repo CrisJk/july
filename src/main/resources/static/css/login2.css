@@ -5,7 +5,13 @@ body {
 	font-family:"Microsoft Yahei";
 	font-size:12px;
 	margin:0;
-	background: #fff url(../images/5.jpg) 50% 0 no-repeat;}
+}
+
+.backgroundimage {
+	background: #fff url(../images/5.jpg) 50% 0 no-repeat;
+	background-size: inherit;
+}
+
 ul {
 	padding:0;
 	margin:0;
@@ -17,7 +23,8 @@ a {
 	text-decoration:none;
 }
 a:hover {
-	text-decoration:none;color:#f00;
+	text-decoration:none;
+	color:#3A6BAD;
 }
 .cl{ clear: both;}
 input[type="text"]:focus, input[type="password"]:focus {
@@ -229,7 +236,7 @@ h1 sup{
 .web_login .reg_form {
 	width: 350px;
 	margin-top:10px;
-	margin-left:50px ;
+	margin-left:30px ;
 }
 .web_login .inputstyle2 {border-radius:2px;width:210px;}
 .web_login .input-tips2 {

@@ -13,56 +13,130 @@
     <script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
     <script type="text/javascript"
             src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+    <link  th:href="@{/css/register.css}" type="text/css"rel="stylesheet" />
+    <link  th:href="@{/font-awesome/css/font-awesome.min.css}" type="text/css"rel="stylesheet" />
 </head>
-<body>
-<div th:if="${notBind eq 'notBind'}">
-    <h1>绑定本地用户</h1>
-    <h2>绑定已注册邮箱</h2>
-    <form th:action="@{/bindUser}" method="post">
-        <input type="hidden" name="identity" th:value="${identity}" />
-        <input type="hidden" name="type" th:value="${type}" />
-        <div><label> 邮箱 : <input type="text" name=b_email"/> </label></div>
-        <div><label> 密码: <input type="password" name="b_password"/> </label></div>
-        <div><input type="submit" value="提交"/></div>
-    </form>
-</div>
-<div th:if="${notBind eq 'new user'}">
-    <h1>注册</h1>
-</div>
-    <h2>新建用户</h2>
-    <form name="form" th:action="@{/register}" method="post" th:object="${form}">
-        <div class="form_group">
-            <label class="form_label">邮箱</label>
-            <input type="email" class="form_control" th:field="*{email}" placeholder="邮箱" required />
-            <div th:if="${#fields.hasErrors('email')}" class="alert alert-danger" th:errors="*{email}"></div>
-        </div>
-        <div class="form_group">
-            <label class="form_label">密码</label>
-            <input type="password" class="form_control" th:field="*{password}" placeholder="密码" required />
-            <div th:if="${#fields.hasErrors('password')}" class="alert alert-danger" th:errors="*{password}"></div>
-        </div>
-        <div class="form_group">
-            <label class="form_label">确认密码</label>
-            <input type="password" class="form_control" th:field="*{passwordRepeated}" placeholder="密码" required />
-            <div th:if="${#fields.hasErrors('passwordRepeated')}" class="alert alert-danger" th:errors="*{passwordRepeated}"></div>
-        </div>
-        <div class="form_group">
-            <label class="form_label">昵称</label>
-            <input type="text" class="form_control" th:field="*{nickname}" placeholder="姓名" required />
-            <div th:if="${#fields.hasErrors('nickname')}" class="alert alert-danger" th:errors="*{nickname}"></div>
-        </div>
-        <div class="form_group">
-            <div class="center">
-                <button type="submit" class="btn btn-primary">注册</button>
-                <button type="reset" class="btn btn-default">重置</button>
-            </div>
-        </div>
-    </form>
+<body style="background-color: #ededef">
 
-<div sec:authorize="isAuthenticated()">
-    <a href="#" onclick="logout();">Logout</a>
-    <h1>hello <span sec:authentication="name"></span></h1>
+<div style="background-color:white; margin-top:150px; margin-left:auto; margin-right:auto; width:900px; border:1px solid #D8D4D4; padding:30px">
+
+    <div style="min-height: 200px">
+        <div style="display: inline-block; width:400px; border-right:1px solid #D8D4D4; padding-right:20px; height:300px">
+            <form th:action="@{/bindUser}" method="post">
+                <div class="input-group" style="margin-left:auto;margin-right:auto;margin-bottom:15px;">
+                    <h3 style="font-size: 18px;
+    color: #1C80D6;
+    margin-top: 0px;
+    padding-top: 15px">
+                        <span sec:authentication="name"></span> 欢迎加入July
+                        <span sec:authorize="isAuthenticated()">
+                            <a class="glyphicon glyphicon-share-alt" title="登出" style="margin-left:10px; color:#777" href="#" onclick="logout();"></a>
+                        </span>
+                    </h3>
+                    <div style="height:40px;font-size: 20px;
+    margin-top: 45px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid;
+    border-bottom-color: lightgray;
+    width: 370px;
+    text-align: center;color: #777777">绑定已有账号</div>
+                </div>
+                <div class="input-group" style="margin-bottom:20px">
+                    <label class="input-group-addon" for="username"><i class="fa fa-user"></i></label>
+                    <input type="text" class="form-control" id="username" name="b_email" placeholder="邮箱" required />
+                </div>
+                <div class="input-group" style="margin-bottom:20px">
+                    <label for="password" class="input-group-addon"><i class="fa fa-lock"></i></label>
+                    <input type="password" class="form-control" id="password" name="b_password" placeholder="密码" required />
+                </div>
+                <div class="input-group" style="margin-left:auto; margin-right:auto; margin-top:20px">
+                    <button type="submit" class="btn btn-primary" style="float:right; width:100px">登录</button>
+                </div>
+            </form>
+        </div>
+        <div style="display: inline-block; width:420px; padding-left:20px">
+            <form name="form" th:action="@{/register}" method="post" th:object="${form}">
+                <div class="input-group" style="margin-left:auto;margin-right:auto;margin-bottom:10px;">
+                    <div style="height: 40px;
+    font-size: 20px;
+    border-bottom: 1px solid #D8D4D4;
+    width: 400px;
+    text-align: center;margin-bottom: 10px;color: #777777">新建账号</div>
+                </div>
+                <div class="input-group" style="margin-bottom:20px">
+                    <label class="input-group-addon" for="username"><i class="fa fa-user"></i></label>
+                    <input type="email" class="form-control" th:field="*{email}" placeholder="邮箱" required />
+
+                </div>
+                <div th:if="${#fields.hasErrors('email')}" class="alert alert-danger" th:errors="*{email}"></div>
+                <div class="input-group" style="margin-bottom:20px">
+                    <label class="input-group-addon" for="username"><i class="fa fa-user"></i></label>
+                    <input type="text" class="form-control" th:field="*{nickname}" placeholder="昵称" required />
+                    <div th:if="${#fields.hasErrors('nickname')}" class="alert alert-danger" th:errors="*{nickname}"></div>
+                </div>
+                <div class="input-group" style="margin-bottom:20px">
+                    <label for="password" class="input-group-addon"><i class="fa fa-lock"></i></label>
+                    <input type="password" class="form-control" th:field="*{password}" placeholder="密码" required />
+                    <div th:if="${#fields.hasErrors('password')}" class="alert alert-danger" th:errors="*{password}"></div>
+                </div>
+                <div class="input-group" style="margin-bottom:20px">
+                    <label for="password" class="input-group-addon"><i class="fa fa-lock"></i></label>
+                    <input type="password" class="form-control" th:field="*{passwordRepeated}" placeholder="重复密码" required />
+                    <div th:if="${#fields.hasErrors('passwordRepeated')}" class="alert alert-danger" th:errors="*{passwordRepeated}"></div>
+                </div>
+                <div class="input-group" style="margin-left:auto; margin-right:auto; margin-top:20px">
+                    <button type="submit" class="btn btn-primary" style="float:right; width:100px">注册</button>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
+
+
+    <!--<div th:if="${notBind eq 'notBind'}">-->
+        <!--<h1>绑定本地用户</h1>-->
+        <!--<h2>绑定已注册邮箱</h2>-->
+        <!--<form th:action="@{/bindUser}" method="post">-->
+            <!--<input type="hidden" name="identity" th:value="${identity}" />-->
+            <!--<input type="hidden" name="type" th:value="${type}" />-->
+            <!--<div><label> 邮箱 : <input type="text" name=b_email"/> </label></div>-->
+            <!--<div><label> 密码: <input type="password" name="b_password"/> </label></div>-->
+            <!--<div><input type="submit" value="提交"/></div>-->
+        <!--</form>-->
+    <!--</div>-->
+    <!--<div th:if="${notBind eq 'new user'}">-->
+        <!--<h1>注册</h1>-->
+    <!--</div>-->
+    <!--<h2>新建用户</h2>-->
+    <!--<form name="form" th:action="@{/register}" method="post" th:object="${form}">-->
+        <!--<div class="form_group">-->
+            <!--<label class="form_label">邮箱</label>-->
+            <!--<input type="email" class="form_control" th:field="*{email}" placeholder="邮箱" required />-->
+            <!--<div th:if="${#fields.hasErrors('email')}" class="alert alert-danger" th:errors="*{email}"></div>-->
+        <!--</div>-->
+        <!--<div class="form_group">-->
+            <!--<label class="form_label">密码</label>-->
+            <!--<input type="password" class="form_control" th:field="*{password}" placeholder="密码" required />-->
+            <!--<div th:if="${#fields.hasErrors('password')}" class="alert alert-danger" th:errors="*{password}"></div>-->
+        <!--</div>-->
+        <!--<div class="form_group">-->
+            <!--<label class="form_label">确认密码</label>-->
+            <!--<input type="password" class="form_control" th:field="*{passwordRepeated}" placeholder="密码" required />-->
+            <!--<div th:if="${#fields.hasErrors('passwordRepeated')}" class="alert alert-danger" th:errors="*{passwordRepeated}"></div>-->
+        <!--</div>-->
+        <!--<div class="form_group">-->
+            <!--<label class="form_label">昵称</label>-->
+            <!--<input type="text" class="form_control" th:field="*{nickname}" placeholder="姓名" required />-->
+            <!--<div th:if="${#fields.hasErrors('nickname')}" class="alert alert-danger" th:errors="*{nickname}"></div>-->
+        <!--</div>-->
+        <!--<div class="form_group">-->
+            <!--<div class="center">-->
+                <!--<button type="submit" class="btn btn-primary">注册</button>-->
+                <!--<button type="reset" class="btn btn-default">重置</button>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</form>-->
+
 <script>
     var csrfParameter = $("meta[name='_csrf_parameter']").attr("content");
     var csrfHeader = $("meta[name='_csrf_header']").attr("content");
