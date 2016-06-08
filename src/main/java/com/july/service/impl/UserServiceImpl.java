@@ -2,6 +2,7 @@ package com.july.service.Impl;
 
 import com.july.controller.form.UserCreateForm;
 import com.july.entity.Account;
+import com.july.entity.Moment;
 import com.july.entity.User;
 import com.july.entity.VerificationToken;
 import com.july.repository.UserRepository;
@@ -20,13 +21,21 @@ import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.stereotype.Service;
 import java.math.BigInteger;
 import java.security.Principal;
-import java.util.Calendar;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by kuangjun on 2016/5/7.
  */
+
+class ComparatorMoment implements Comparator
+{
+    public int compare(Object obj0,Object obj1)
+    {
+        Moment moment0 = (Moment)obj0;
+        Moment moment1 = (Moment)obj1;
+        return moment0.getId().compareTo(moment1.getId());
+    }
+}
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -151,6 +160,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void update(User user) {
+        List<Moment> timeline = user.getTimeline();
+        ComparatorMoment comparator=new ComparatorMoment();
+        Collections.sort(timeline, comparator);
+        user.setTimeline(timeline);
         userRepository.save(user);
     }
 

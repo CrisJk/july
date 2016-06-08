@@ -141,41 +141,55 @@
                     </div>
                 </div>
                 <div class="w-load2" id="loadfirst" style="display: none;"><div class="load">加载中</div></div>
-
-                <div class="m-mlist">
-                    <div class="mlistimg" style="float: left; margin-right:20px">
-                        <div class="w-img" style="z-index:1;">
-                            <a target="_blank"><img th:src='@{/resource/view/{resourceId}(resourceId=${user.avatarAddress})}' style="width: 70px; height: 70px; border-radius: 5px;"></a>
-                        </div>
-                    </div>
-                    <article id="post-2582" class="block post">
-                        <span class="round-date red">
-                                    <span class="month">4月</span>
-                                    <span class="day">16</span>
-                        </span>
-                        <header class="entry-header">
-                            <p class="title">
-                                <a href="#" rel="bookmark">一朵炒鸡萌的表情面板</a>
-                            </p>
-                            <p class="article-meta"><i class="fa fa-heart-o"></i>发表于 2016年4月16日</p>
-                            <div class="article-content red">
-                                <p></p>
+                <div th:each="moment:${time_line}">
+                    <div class="m-mlist">
+                        <div class="mlistimg" style="float: left; margin-right:20px">
+                            <div class="w-img" style="z-index:1;">
+                                <a target="_blank"><img th:src='@{/resource/view/{resourceId}(resourceId=${moment.user.avatarAddress})}' style="width: 70px; height: 70px; border-radius: 5px;"></a>
                             </div>
-                        </header>
-                        <!-- .entry-header -->
-                        <div class="article-content red">
-                            <p>换掉多说之后评论一直不方便插♂入表情，所以造了个简单的轮子。</p>
-                            <p>支持颜文字、Emoji、图片等，支持移动端，表情数据从一个可以自定义的json接口读取。</p>
-                            <p>使用方法见GitHub，喜欢就给个star吧~</p>
                         </div>
-                        <div style="height:10px"></div>
-                        <div class="article-content red">
-                            <p class="more"><a href="#" title="一朵炒鸡萌的表情面板" target="_blank">阅读全文
-                                &gt;&gt;</a></p>
+                        <div th:if="${moment.type=='music'}">
+                            音乐
                         </div>
-                    </article><!-- #post -->
-
+                        <div th:if="${moment.type=='picture'}">
+                            图片
+                        </div>
+                        <div th:if="${moment.type=='video'}">
+                            视频
+                        </div>
+                        <!--文字-->
+                        <article id="post-2582" class="block post">
+                        <span class="round-date red">
+                            <span class="month">4月</span>
+                            <span class="day">16</span>
+                        </span>
+                            <header class="entry-header">
+                                <p class="title">
+                                    <a href="#" rel="bookmark">一朵炒鸡萌的表情面板</a>
+                                </p>
+                                <p class="article-meta"><i class="fa fa-heart-o"></i>发表于 2016年4月16日</p>
+                                <div class="article-content red">
+                                    <p></p>
+                                </div>
+                            </header>
+                            <!-- .entry-header -->
+                            <div class="article-content red">
+                                <p>换掉多说之后评论一直不方便插♂入表情，所以造了个简单的轮子。</p>
+                                <p>支持颜文字、Emoji、图片等，支持移动端，表情数据从一个可以自定义的json接口读取。</p>
+                                <p>使用方法见GitHub，喜欢就给个star吧~</p>
+                            </div>
+                            <div style="height:10px"></div>
+                            <div class="article-content red">
+                                <p class="more"><a href="#" title="一朵炒鸡萌的表情面板" target="_blank">阅读全文
+                                    &gt;&gt;</a></p>
+                            </div>
+                        </article><!-- #post -->
+                    </div>
                 </div>
+
+                <a th:href="@{timeline.html(aim_user_id=${user.id},current_page=${current_page-1},page_size=${page_size})}">上一页</a>
+                <a th:href="@{timeline.html(aim_user_id=${user.id},current_page=${current_page+1},page_size=${page_size})}">下一页</a>
+
             </div>
 
             <div class="m-menu" style="padding-top:5px">
