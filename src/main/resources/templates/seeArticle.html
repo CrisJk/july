@@ -6,12 +6,18 @@
     <title>哈哈</title>
 </head>
 <body>
-<div id = "article1" th:text ="${article}" style="display:none">  </div>
-<div><span id = "insert">   </span></div>
+<div th:each="moment:${moment}">
+    <div class = "article1" th:text ="${moment.article}" style = "display: none">   </div>
+    <span class = "insert" ></span>
+</div>
+</body>
 </body>
 <script>
-
-    var ue  = document.getElementById('article1') ;
-    document.getElementById('insert').innerHTML=document.getElementById('article1').textContent;
-    </script>
+        var ue = document.getElementsByClassName('article1');
+        var we =document.getElementsByClassName('insert') ;
+        for(var i = 0 ;i<we.length ; i++){
+            we[i].innerHTML = ue[i].textContent;
+        }
+        //document.getElementById('insert').innerHTML = document.getElementById('article1').textContent;
+</script>
 </html>

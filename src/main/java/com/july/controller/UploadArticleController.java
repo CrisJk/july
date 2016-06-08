@@ -70,8 +70,9 @@ public class UploadArticleController {
         User user = userService.getUserById(userId) ;
         ModelAndView mav = new ModelAndView("seeArticle") ;
         List<Moment> moment = momentRepository.findByCreater(user) ;
-        String article = moment.get(2).getArticle() ;
-        mav.addObject("article",article) ;
+        System.out.println(moment.size());
+       //String article = moment.get(2).getArticle() ;
+        mav.addObject("moment",moment) ;
         return  mav ;
     }
 }
