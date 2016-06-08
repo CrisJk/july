@@ -123,13 +123,16 @@ public class UserController {
     }
 
     //根据昵称列出用户
+
     @RequestMapping(value="/listUserByNickName", method = RequestMethod.GET)
     public ModelAndView listUserByNickName(
-            @RequestParam(value="nickname",required = false,defaultValue = "新浪") String nickname
+            @RequestParam(value="nickname",required = false,defaultValue = "新浪") String nickname,
+            @RequestParam(value="page_size",defaultValue = "1") int page_size,
+            @RequestParam(value="current_page",defaultValue="1") int current_page
             )
     {
         ModelAndView mav = new ModelAndView("listUserByNickName");
-
+        mav.addObject("nickname",nickname);
         System.out.println("UserController: ************************已进入**********************");
         System.out.println("UserController: "+nickname+"******************************************");
 
@@ -138,7 +141,7 @@ public class UserController {
         System.out.println("UserController current_user:"+current_user.toString());
 
         mav.addObject("current_user",current_user);
-        Pageable pageable = new PageRequest(0,1);
+        Pageable pageable = new PageRequest(current_page,page_size);
         Page<User> aim_page_users = userService.getUserByNickNameInPage(nickname,pageable);
         System.out.println("UserController:\n"+aim_page_users);
         //mav.addObject("aim_users",aim_users);
@@ -157,14 +160,14 @@ public class UserController {
                 else aim_users.get(i).setIs_followed("NO");
             }
             mav.addObject("aim_users",aim_users);
-            mav.addObject("current_page",aim_page_users.getNumber());
-            mav.addObject("page_size",aim_page_users.getSize());
+            mav.addObject("total_pages",aim_page_users.getTotalPages());//总页数
+            mav.addObject("current_page",aim_page_users.getNumber());//当前页
+            mav.addObject("page_size",aim_page_users.getSize());//每页显示的数量
         }
         mav.addObject("type",type);
         System.out.println("UserController: "+mav.toString());
         return mav;
     }
-
 
     @RequestMapping({ "/user", "/me" })
     @ResponseBody

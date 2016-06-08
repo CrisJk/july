@@ -173,7 +173,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public Page<User> getUserByNickNameInPage(String nickname, Pageable pageable)
     {
-        Page<User> users = userRepository.findByNickName( nickname, pageable);
+        Page<User> users = userRepository.findByNickname( nickname, pageable);
         if(users!=null&&users.getTotalElements()!=0) return users;
         else return null;
     }
