@@ -12,6 +12,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.stereotype.Controller;
@@ -135,14 +138,16 @@ public class UserController {
         System.out.println("UserController current_user:"+current_user.toString());
 
         mav.addObject("current_user",current_user);
-        List<User> aim_users = userService.getUserByNickName(nickname);
+        Pageable pageable = new PageRequest(0,1);
+        Page<User> aim_page_users = userService.getUserByNickNameInPage(nickname,pageable);
+        System.out.println("UserController:\n"+aim_page_users);
         //mav.addObject("aim_users",aim_users);
 
-        if(aim_users != null&&aim_users.size()!=0)
+        if(aim_page_users != null)
         {
             type = 1;
-
-            for(int i=0;i<aim_users.size();i++)
+            List<User> aim_users = aim_page_users.getContent();
+            for(int i=0;i<aim_page_users.getSize();i++)
             {
                 List<String> aim_user_followers = aim_users.get(i).getFollowers();
                 if(aim_user_followers!=null&&aim_user_followers.contains(current_user.getEmail()))
@@ -152,6 +157,8 @@ public class UserController {
                 else aim_users.get(i).setIs_followed("NO");
             }
             mav.addObject("aim_users",aim_users);
+            mav.addObject("current_page",aim_page_users.getNumber());
+            mav.addObject("page_size",aim_page_users.getSize());
         }
         mav.addObject("type",type);
         System.out.println("UserController: "+mav.toString());

@@ -9,6 +9,8 @@ import com.july.repository.VerificationTokenRepository;
 import com.july.service.AccountService;
 import com.july.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -16,7 +18,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.stereotype.Service;
-
 import java.math.BigInteger;
 import java.security.Principal;
 import java.util.Calendar;
@@ -162,8 +163,19 @@ public class UserServiceImpl implements UserService {
             return null;
         }
     }
+
     @Override
     public User getUserById(BigInteger id) {
         return userRepository.findOne(id);
     }
+
+    //以分页方式，按昵称搜索
+    @Override
+    public Page<User> getUserByNickNameInPage(String nickname, Pageable pageable)
+    {
+        Page<User> users = userRepository.findByNickName( nickname, pageable);
+        if(users!=null&&users.getTotalElements()!=0) return users;
+        else return null;
+    }
+
 }
