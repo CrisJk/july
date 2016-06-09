@@ -2,6 +2,8 @@ package com.july.service;
 
 import com.july.controller.form.UserCreateForm;
 import com.july.entity.User;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.math.BigInteger;
 import java.security.Principal;
@@ -35,6 +37,9 @@ public interface UserService {
     void update(User user);
 
     List<User> getUserByNickName(String nickName);
+
+    //以分页方式，按昵称搜索
+    Page<User> getUserByNickNameInPage(String nickname, Pageable pageable);
 
     User getUserById(BigInteger id);
 }

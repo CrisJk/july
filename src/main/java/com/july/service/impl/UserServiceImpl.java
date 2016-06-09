@@ -2,6 +2,7 @@ package com.july.service.Impl;
 
 import com.july.controller.form.UserCreateForm;
 import com.july.entity.Account;
+import com.july.entity.Moment;
 import com.july.entity.User;
 import com.july.entity.VerificationToken;
 import com.july.repository.UserRepository;
@@ -9,6 +10,8 @@ import com.july.repository.VerificationTokenRepository;
 import com.july.service.AccountService;
 import com.july.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -16,16 +19,23 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.stereotype.Service;
-
 import java.math.BigInteger;
 import java.security.Principal;
-import java.util.Calendar;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by kuangjun on 2016/5/7.
  */
+
+class ComparatorMoment implements Comparator
+{
+    public int compare(Object obj0,Object obj1)
+    {
+        Moment moment0 = (Moment)obj0;
+        Moment moment1 = (Moment)obj1;
+        return moment0.getId().compareTo(moment1.getId());
+    }
+}
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -150,6 +160,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void update(User user) {
+        List<Moment> timeline = user.getTimeline();
+        ComparatorMoment comparator=new ComparatorMoment();
+        Collections.sort(timeline, comparator);
+        user.setTimeline(timeline);
         userRepository.save(user);
     }
 
@@ -162,8 +176,19 @@ public class UserServiceImpl implements UserService {
             return null;
         }
     }
+
     @Override
     public User getUserById(BigInteger id) {
         return userRepository.findOne(id);
     }
+
+    //以分页方式，按昵称搜索
+    @Override
+    public Page<User> getUserByNickNameInPage(String nickname, Pageable pageable)
+    {
+        Page<User> users = userRepository.findByNickname( nickname, pageable);
+        if(users!=null&&users.getTotalElements()!=0) return users;
+        else return null;
+    }
+
 }
