@@ -30,12 +30,16 @@ public class TimelineController {
             @RequestParam(value="page_size",defaultValue = "1") int page_size,
             @RequestParam(value="aim_user_id",required=false) BigInteger aim_user_id
                                      ) {
+
         ModelAndView mav = new ModelAndView("timeline");
         User user = null;
         if(aim_user_id!=null) user = userService.getUserById(aim_user_id);
         else user = userService.getSessionUser();
-        //得到它的时间线
 
+        mav.addObject("aim_user",user);
+        mav.addObject("current_user",userService.getSessionUser());
+
+        //得到它的时间线
         List<Moment> timeline = user.getTimeline();
         System.out.println(timeline.size());
         int total_page = (timeline.size()+page_size-1)/page_size;
@@ -50,14 +54,14 @@ public class TimelineController {
         System.out.println("end:***"+end);
         for( int i = (current_page-1)*page_size; i < end ;i++ )
         {
-            System.out.println(i+"***************");
+            //System.out.println(i+"***************");
             result_timeline.add(timeline.get(i));
         }
         mav.addObject("timeline",result_timeline);
         mav.addObject("current_page",current_page);
         mav.addObject("page_size",page_size);
         mav.addObject("total_page",total_page);
-        mav.addObject("user", user);
+
         System.out.println(mav);
         return mav;
     }

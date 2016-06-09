@@ -49,4 +49,9 @@ public class Resource extends AbstractDocument {
         this.name = name;
     }
 
+    public String toString()
+    {
+
+        return "\nResource:[identity:"+identity+"\ttype:"+type+"\tname:"+name+"]\n";
+    }
 }

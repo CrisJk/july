@@ -98,4 +98,8 @@ public class Moment extends AbstractDocument {
         this.type = type;
     }
 
+    public String toString()
+    {
+        return "Moment:[User:"+creater.toString()+"\n]";
+    }
 }
