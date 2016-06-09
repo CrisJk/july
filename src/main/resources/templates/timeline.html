@@ -9,6 +9,7 @@
     <meta name="_csrf_parameter" th:content="${_csrf.parameterName}" />
 
     <title>JULY - 记录生活，发现美好</title>
+
     <!--弹窗通用资源链接-->
     <link rel="stylesheet" type="text/css"
           href="/webjars/bootstrap/css/bootstrap.min.css" />
@@ -16,6 +17,10 @@
     <script type="text/javascript"
             src="/webjars/bootstrap/js/bootstrap.min.js"></script>
     <!--弹窗通用资源链接结束-->
+    <!--Wang editor-->
+    <link rel = "stylesheet" type="text/css" href="dist/css/wangEditor.css">
+    <script type="text/javascript" src="dist/js/wangEditor.min.js"></script>
+    <!--Wangeditor结束-->
     <!-- Fine Uploader New/Modern CSS file
     ====================================================================== -->
     <link th:href="@{/css/gallary/fine-uploader-new.css}" rel="stylesheet">
@@ -130,7 +135,7 @@
                 <div id="publishBarArea" class="publishBarArea">
                     <ul id="publishPostBar" class="m-nav2">
                         <li class="user"><a href="#" id="addAvatar"><strong>上传头像</strong></a></li>
-                        <li><a  class="publishlink n21" href="#">文字</a></li>
+                        <li><a  class="publishlink n21" id="addArticle"  0href="addArticle">文字</a></li>
                         <li><a class="publishlink n22" id="addPictures" href="#">图片</a></li>
                         <li><a class="publishlink n23" id="addMusic" href="#">音乐</a></li>
                         <li><a class="publishlink publishlink-video n24" id="addVideo" href="#">视频</a></li>
@@ -354,8 +359,38 @@
     </div>
     <!--上传视频弹窗结束-->
 
+    <!--上传文字弹窗-->
+    <div class="modal fade" id="addArticleForm" tabindex="-1" role="dialog">
+        <div class="modal-dialog" style="width:700px" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"
+                            aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title text-center" id="myArticleAddLabel"><span class="glyphicon glyphicon-Label" style="margin-right:5px"></span>上传文字</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-horizontal form_pop">
+                        <div style = "width:100%;">
+                            <form th:action="@{/saveArticle}" method ="post">
+                                <textarea id = "textarea1" name = "article" style="height:220px"></textarea>
+                                <input type = "submit" class="btn btn-success" value="发布"/>
+                            </form>
+                        </div>
 
-<script>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--上传图片弹窗结束-->
+
+
+    <script>
     //add conditions pop up
     $(document).ready(function(){
         $("#addAvatar").click(function(){
@@ -369,6 +404,9 @@
         });
         $("#addVideo").click(function(){
             $("#addVideoForm").modal('show');
+        });
+        $("#addArticle").click(function(){
+            $("#addArticleForm").modal('show') ;
         });
     });
 </script>
@@ -423,7 +461,11 @@
 </script>
 <!--Custom Timeline js-->
 <script th:src="@{/js/timeline.js}"></script>
-
+    <script>
+        wangEditor.config.mapAk =  'xI4iY6ZxYkUWGvQEhGERfkfa55vquqFr';
+        var editor = new wangEditor('textarea1') ;
+        editor.create();
+    </script>
 </div>
 </body>
 </html>
