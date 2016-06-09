@@ -54,7 +54,7 @@ public class UploadArticleController {
             userService.update(user);
             //todo:关注本用户的人的时间线添加该动态
             logger.info("Moment save successfully!");
-            return "redirect:/" ;
+            return "redirect:/timeline" ;
         }
         catch (Exception ex) {
             ex.printStackTrace();
@@ -70,8 +70,6 @@ public class UploadArticleController {
         User user = userService.getUserById(userId) ;
         ModelAndView mav = new ModelAndView("seeArticle") ;
         List<Moment> moment = momentRepository.findByCreater(user) ;
-        System.out.println(moment.size());
-       //String article = moment.get(2).getArticle() ;
         mav.addObject("moment",moment) ;
         return  mav ;
     }
