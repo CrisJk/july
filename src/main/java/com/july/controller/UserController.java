@@ -126,7 +126,7 @@ public class UserController {
     //根据昵称列出用户
 
     @RequestMapping(value={"/listUserByNickname"}, method = RequestMethod.GET)
-    public ModelAndView listUserByNickName(
+    public ModelAndView listUserByNickname(
             @RequestParam(value="nickname",required = false,defaultValue = "QQ") String nickname,
             @RequestParam(value="page_size",defaultValue = "5") int page_size,
             @RequestParam(value="current_page",defaultValue="1") int current_page

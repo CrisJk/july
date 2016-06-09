@@ -31,6 +31,8 @@
     ====================================================================== -->
     <script th:src="@{/js/gallary/fine-uploader.js}"></script>
 
+    <script th:src="@{/js/listUsers.js}"></script>
+
     <!--<link th:href="@{/css/common.css}" type="text/css" rel="stylesheet"/>-->
     <!--Custom Timeline CSS-->
     <link th:href="@{/css/timeline.css}" type="text/css" rel="stylesheet"/>
@@ -120,7 +122,8 @@
                             <form class="xtag">
                                 <a href="#" class="btn xtag"></a>
                                 <label class="xtag" style="display:none;">搜索感兴趣的人、事</label>
-                                <input type="text" placeholder="搜索感兴趣的人、事" class="xtag" onfocus="this.isfocus = true;"/>
+                                <input type="text" id="for_search" placeholder="搜索感兴趣的人、事" class="xtag" onfocus="this.isfocus = true;"
+                                       onkeypress="if(event.keyCode==13)search()"/>
                             </form>
                         </div>
                     </div>

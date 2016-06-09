@@ -2,6 +2,7 @@
 <html lang="zh-CN" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
                      xmlns:sec="http://www.w3.org/1999/xhtml">
 <script th:src="@{/js/followControl.js}"></script>
+<script th:src="@{/js/listUsers.js}"></script>
 <script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
 <head>
     <meta charset="UTF-8">
@@ -46,7 +47,8 @@
                             <form class="xtag">
                                 <a href="#" class="btn xtag"></a>
                                 <label class="xtag" style="display:none;">搜索感兴趣的人、事</label>
-                                <input type="text" placeholder="搜索感兴趣的人、事" class="xtag" onfocus="this.isfocus = true;"/>
+                                <input type="text" id="for_search" placeholder="搜索感兴趣的人、事" class="xtag" onfocus="this.isfocus = true;"
+                                       onkeypress="if(event.keyCode==13)search()"/>
                             </form>
                         </div>
                     </div>
