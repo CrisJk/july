@@ -3,7 +3,6 @@
  */
 function follow( aim_user_email ,type,current_user_email)
 {
-    alert(aim_user_email);
     $.ajax({
         url: "/followControlInJson",
         type:"GET",
@@ -16,12 +15,13 @@ function follow( aim_user_email ,type,current_user_email)
         async : false,
         cache:true,
         success:function(data){
-            alert("success");
-            alert(data.success);
+            //alert("success");
+            location.reload();
+            //alert(data.success);
         },
         error:function(data){
             alert("error");
-            alert(data.success);
+            //alert(data.success);
         }
     });
 }

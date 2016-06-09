@@ -1,0 +1,17 @@
+.box {
+    margin: 0 auto 40px;
+    padding: 25px 30px;
+    background: #fff;
+    overflow: hidden;
+    box-shadow: 0 0 7px 0 rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: 0 0 7px 0 rgba(0, 0, 0, 0.2);
+    -webkit-box-shadow: 0 0 7px 0 rgba(0, 0, 0, 0.2);
+    -o-box-shadow: 0 0 7px 0 rgba(0, 0, 0, 0.2);
+    margin-top: 10px;
+}
+
+.searchResult {
+    font-size:20px;
+    color:#555;
+    font-weight:500;
+}

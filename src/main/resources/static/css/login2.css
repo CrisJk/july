@@ -27,7 +27,7 @@ a:hover {
 	color:#3A6BAD;
 }
 .cl{ clear: both;}
-input[type="text"]:focus, input[type="password"]:focus {
+input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focus {
 	outline:none;
 }
 input::-ms-clear {
@@ -229,10 +229,7 @@ h1 sup{
 	margin-top: 15px;
 	margin-bottom: 10px;border:1px solid #eee;border-radius:3px;
 }
-.web_login input.inputstyle2:focus, .web_login input.inputstyle:focus {
-	border: 1px solid #5796f;
-	box-shadow: 0 0 0;
-}
+
 .web_login .reg_form {
 	width: 350px;
 	margin-top:10px;

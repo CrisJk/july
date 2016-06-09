@@ -57,11 +57,11 @@
         <div style="display: inline-block; width:420px; padding-left:20px">
             <form name="form" th:action="@{/register}" method="post" th:object="${form}">
 
-                <div class="input-group" style="margin-left:auto;margin-right:auto;margin-bottom:10px;">
+                <div th:if="${#fields.hasAnyErrors()}" class="input-group" style="margin-left:auto;margin-right:auto;margin-bottom:10px;">
                     <div class="alert alert-danger">
-                        <div th:if="${#fields.hasErrors('email')}"  th:errors="*{email}"></div>
-                        <div th:if="${#fields.hasErrors('nickname')}"  th:errors="*{nickname}"></div>
-                        <div th:if="${#fields.hasErrors('password')}"  th:errors="*{password}"></div>
+                        <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
+                        <div th:if="${#fields.hasErrors('nickname')}" th:errors="*{nickname}"></div>
+                        <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
                         <div th:if="${#fields.hasErrors('passwordRepeated')}" th:errors="*{passwordRepeated}"></div>
                     </div>
                     <div style="height: 40px;
