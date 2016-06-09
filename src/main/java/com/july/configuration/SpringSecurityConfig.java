@@ -79,7 +79,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/", "/index", "/login/**", "/register","/css/**",  "/js/**","/images/**","/registrationConfirm","/waitForEmailValidate","/webjars/**").permitAll()
                 .anyRequest().authenticated()
             .and().exceptionHandling().authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/"))
-            .and().formLogin().loginPage("/").usernameParameter("username").passwordParameter("password").defaultSuccessUrl("/").permitAll()
+            .and().formLogin().loginPage("/").usernameParameter("username").passwordParameter("password").defaultSuccessUrl("/timeline").permitAll()
             .and().logout().logoutSuccessUrl("/").permitAll()
             .and().addFilterBefore(ssoFilter(), BasicAuthenticationFilter.class)
                 .addFilterAfter(checkUserFilter(), FilterSecurityInterceptor.class);

@@ -125,14 +125,14 @@ public class UserController {
 
     //根据昵称列出用户
 
-    @RequestMapping(value="/listUserByNickName", method = RequestMethod.GET)
+    @RequestMapping(value={"/listUserByNickname"}, method = RequestMethod.GET)
     public ModelAndView listUserByNickName(
             @RequestParam(value="nickname",required = false,defaultValue = "新浪") String nickname,
             @RequestParam(value="page_size",defaultValue = "1") int page_size,
             @RequestParam(value="current_page",defaultValue="1") int current_page
             )
     {
-        ModelAndView mav = new ModelAndView("listUserByNickName");
+        ModelAndView mav = new ModelAndView("listUsers");
         mav.addObject("nickname",nickname);
         System.out.println("UserController: ************************已进入**********************");
         System.out.println("UserController: "+nickname+"******************************************");

@@ -35,7 +35,9 @@ public class TimelineController {
         if(aim_user_id!=null) user = userService.getUserById(aim_user_id);
         else user = userService.getSessionUser();
         //得到它的时间线
+
         List<Moment> timeline = user.getTimeline();
+        System.out.println(timeline.size());
         int total_page = (timeline.size()+page_size-1)/page_size;
 
         //得到当前page，即current_page
@@ -45,8 +47,10 @@ public class TimelineController {
         //根据分页信息得到时间线
         List<Moment> result_timeline = new ArrayList<>();
         int end = (current_page*page_size <= timeline.size()) ? current_page*page_size : timeline.size();
-        for( int i = (current_page-1)*page_size + 1; i < end ;i++ )
+        System.out.println("end:***"+end);
+        for( int i = (current_page-1)*page_size; i < end ;i++ )
         {
+            System.out.println(i+"***************");
             result_timeline.add(timeline.get(i));
         }
         mav.addObject("timeline",result_timeline);

@@ -15,7 +15,7 @@ import java.util.List;
  * Created by sherrypan on 16-5-25.
  */
 @Repository
-public interface UserRepository extends PagingAndSortingRepository<User, BigInteger> {
+public interface UserRepository extends MongoRepository<User, BigInteger> {
 
     List<User> findByEmail(String email);
 
