@@ -132,14 +132,16 @@
     <div class="g-bd">
         <div class="g-bdc">
             <div class="g-mn" id="main">
-                <div id="publishBarArea" class="publishBarArea">
-                    <ul id="publishPostBar" class="m-nav2">
-                        <li class="user"><a href="#" id="addAvatar"><strong>上传头像</strong></a></li>
-                        <li><a  class="publishlink n21" id="addArticle"  0href="addArticle">文字</a></li>
-                        <li><a class="publishlink n22" id="addPictures" href="#">图片</a></li>
-                        <li><a class="publishlink n23" id="addMusic" href="#">音乐</a></li>
-                        <li><a class="publishlink publishlink-video n24" id="addVideo" href="#">视频</a></li>
-                    </ul>
+                <div th:if="${current_user.id==aim_user.id}">
+                    <div id="publishBarArea" class="publishBarArea">
+                        <ul id="publishPostBar" class="m-nav2">
+                            <li class="user"><a href="#" id="addAvatar"><strong>上传头像</strong></a></li>
+                            <li><a  class="publishlink n21" id="addArticle"  0href="addArticle">文字</a></li>
+                            <li><a class="publishlink n22" id="addPictures" href="#">图片</a></li>
+                            <li><a class="publishlink n23" id="addMusic" href="#">音乐</a></li>
+                            <li><a class="publishlink publishlink-video n24" id="addVideo" href="#">视频</a></li>
+                        </ul>
+                    </div>
                 </div>
                 <div id="cannonentrybanner" class="m-cannonentrybanner a-slide a-slide-do">
                     <div id="cannonentrybannerslide" class="m-mlist slide cannonentrybannerslide">
@@ -148,18 +150,19 @@
                 <div class="w-load2" id="loadfirst" style="display: none;"><div class="load">加载中</div></div>
 
                 <div th:each="moment:${timeline}">
-                    <div class="m-mlist">
+                    <div class="m-mlist" >
                         <div class="mlistimg" style="float: left; margin-right:20px">
                             <div class="w-img" style="z-index:1;">
                                 <a target="_blank"><img th:src='@{/resource/view/{resourceId}(resourceId=${moment.creater.avatarAddress})}' style="width: 70px; height: 70px; border-radius: 5px;"></a>
                             </div>
                         </div>
+                        <div>
                         <!-- <label th:text="${moment.type}"></label>-->
                         <div th:if="${moment.type=='music'}"> <!--音乐-->
 
                         </div>
 
-                        <div th:if="${moment.type=='pictures'}"> <!--图片-->
+                        <div th:if="${moment.type=='pictures'}" style="width:500px; height: 50px; border-radius: 5px;"> <!--图片-->
                             <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
                                 <!-- Indicators -->
                                 <ol class="carousel-indicators">
@@ -227,6 +230,7 @@
                                 </div>
                             </article>
                         </div>
+                        </div>
 
                     </div>
                 </div>
@@ -240,22 +244,22 @@
                 <div class="menum">
                     <ul>
                         <li class="first large">
-                            <div class="large-fontsize">昵称</div>
+                            <div class="large-fontsize"><label th:text="${current_user.nickname}"></label></div>
                         </li>
                         <li class="small">
                             <div class="crtp"></div>
                             <span class="icn icn-9"></span>
                             <span class="txt">文章</span>
-                            <span class="inf inf-1">0</span>
+                            <span class="inf inf-1"><label th:text="${total_articles}"></label></span>
                         </li>
                         <li class="small">
                             <span class="icn icn-1"></span>
-                            <span class="txt">关注</span>
-                            <span class="inf inf-1">0</span></li>
+                            <span class="txt"><a th:href="@{listFollowings.html}" >关注</a></span>
+                            <span class="inf inf-1"><label th:text="${total_followings}"></label></span></li>
                         <li class="small">
                             <span class="icn icn-13"></span>
-                            <span class="txt">粉丝</span>
-                            <span class="inf inf-1">0</span>
+                            <span class="txt"><a th:href="@{listFollowers.html}">粉丝</a></span>
+                            <span class="inf inf-1"><label th:text="${total_followers}"></label></span>
                         </li>
                     </ul>
                 </div>

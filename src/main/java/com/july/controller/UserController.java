@@ -137,7 +137,7 @@ public class UserController {
         System.out.println("UserController: ************************已进入**********************");
         System.out.println("UserController: "+nickname+"******************************************");
 
-        int type = 0;
+        int num = 0;
         User current_user = userService.getSessionUser();
         System.out.println("UserController current_user:"+current_user.toString());
 
@@ -149,7 +149,7 @@ public class UserController {
 
         if(aim_page_users != null)
         {
-            type = 1;
+            num = 1;
             List<User> aim_users = aim_page_users.getContent();
             for(int i=0;i<aim_page_users.getSize();i++)
             {
@@ -165,7 +165,8 @@ public class UserController {
             mav.addObject("current_page",aim_page_users.getNumber());//当前页
             mav.addObject("page_size",aim_page_users.getSize());//每页显示的数量
         }
-        mav.addObject("type",type);
+        mav.addObject("num",num);
+        mav.addObject("type","nickname");
         System.out.println("UserController: "+mav.toString());
         return mav;
     }

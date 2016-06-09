@@ -55,11 +55,11 @@
         </div>
     </div>
     <div class="box" style="width:640px; min-height:300px">
-        <div th:if="${type==0}">
+        <div th:if="${num==0}">
             <label class="searchResult">没有搜索到相关结果</label>
             <hr>
         </div>
-        <div th:if="${type==1}">
+        <div th:if="${num==1}">
             <div class="list-group">
                 <!--style="font-size: 20px;color: #555;font-weight:500"-->
                 <label class="searchResult" style="font-size: 20px;color: #555;font-weight:500">搜索到 <span th:text="${#lists.size(aim_users)}"></span> 个相关结果</label>
