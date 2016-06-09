@@ -43,7 +43,7 @@ public class TimelineController {
 
         //得到它的时间线
         List<Moment> timeline = user.getTimeline();
-        System.out.println(timeline.size());
+        System.out.println("timeline_size:"+timeline.size());
         int total_page = (timeline.size()+page_size-1)/page_size;
 
         //得到当前page，即current_page
