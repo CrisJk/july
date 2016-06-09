@@ -56,33 +56,37 @@
         </div>
         <div style="display: inline-block; width:420px; padding-left:20px">
             <form name="form" th:action="@{/register}" method="post" th:object="${form}">
-                <div class="input-group" style="margin-left:auto;margin-right:auto;margin-bottom:10px;">
+
+                <div th:if="${#fields.hasAnyErrors()}" class="input-group" style="margin-left:auto;margin-right:auto;margin-bottom:10px;">
+                    <div class="alert alert-danger">
+                        <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
+                        <div th:if="${#fields.hasErrors('nickname')}" th:errors="*{nickname}"></div>
+                        <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
+                        <div th:if="${#fields.hasErrors('passwordRepeated')}" th:errors="*{passwordRepeated}"></div>
+                    </div>
                     <div style="height: 40px;
     font-size: 20px;
     border-bottom: 1px solid #D8D4D4;
     width: 400px;
     text-align: center;margin-bottom: 10px;color: #777777">新建账号</div>
                 </div>
+
                 <div class="input-group" style="margin-bottom:20px">
                     <label class="input-group-addon" for="username"><i class="fa fa-user"></i></label>
                     <input type="email" class="form-control" th:field="*{email}" placeholder="邮箱" required />
 
                 </div>
-                <div th:if="${#fields.hasErrors('email')}" class="alert alert-danger" th:errors="*{email}"></div>
                 <div class="input-group" style="margin-bottom:20px">
                     <label class="input-group-addon" for="username"><i class="fa fa-user"></i></label>
                     <input type="text" class="form-control" th:field="*{nickname}" placeholder="昵称" required />
-                    <div th:if="${#fields.hasErrors('nickname')}" class="alert alert-danger" th:errors="*{nickname}"></div>
                 </div>
                 <div class="input-group" style="margin-bottom:20px">
                     <label for="password" class="input-group-addon"><i class="fa fa-lock"></i></label>
                     <input type="password" class="form-control" th:field="*{password}" placeholder="密码" required />
-                    <div th:if="${#fields.hasErrors('password')}" class="alert alert-danger" th:errors="*{password}"></div>
                 </div>
                 <div class="input-group" style="margin-bottom:20px">
                     <label for="password" class="input-group-addon"><i class="fa fa-lock"></i></label>
                     <input type="password" class="form-control" th:field="*{passwordRepeated}" placeholder="重复密码" required />
-                    <div th:if="${#fields.hasErrors('passwordRepeated')}" class="alert alert-danger" th:errors="*{passwordRepeated}"></div>
                 </div>
                 <div class="input-group" style="margin-left:auto; margin-right:auto; margin-top:20px">
                     <button type="submit" class="btn btn-primary" style="float:right; width:100px">注册</button>

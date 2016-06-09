@@ -89,8 +89,8 @@
                     <li>
                         <div class="uinArea" id="uinArea2">
                             <div class="inputOuter">
-                                <input class="inputstyle" type="email" th:field="*{email}" id="user" name="user"  placeholder="常用邮箱" />
-                                <div th:if="${#fields.hasErrors('email')}" class="alert alert-danger" th:errors="*{email}"></div>
+                                <input type="email" th:field="*{email}" name="user" placeholder="常用邮箱" class="inputstyle"/>
+                                <div th:if="${#fields.hasErrors('email')}",class="alert alert-danger" th:errors="*{email}"></div>
                             </div>
                         </div>
                     </li>
