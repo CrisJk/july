@@ -89,11 +89,13 @@ public class FollowController {
     {
         ModelAndView mav = new ModelAndView("/listUsers");
         User current_user =  userService.getSessionUser();
+        current_user = userService.getUserById(current_user.getId());
+        mav.addObject("current_user",current_user);
         List<String> follower_email = current_user.getFollowers();
         if(follower_email!=null)
         {
             List<User> followers = new ArrayList<>();
-            for(int i = 0 ; i < followers.size(); i ++ )
+            for(int i = 0 ; i < follower_email.size(); i ++ )
             {
                 User tmp = userService.getUserByEmail(follower_email.get(i));
                 List<String> tmp_followers = tmp.getFollowers();
@@ -119,19 +121,24 @@ public class FollowController {
     {
         ModelAndView mav = new ModelAndView("/listUsers");
         User current_user =  userService.getSessionUser();
+        current_user = userService.getUserById(current_user.getId());
+        mav.addObject("current_user",current_user);
         List<String> following_email = current_user.getFollowings();
+        System.out.println("listFollowing:"+following_email.size());
         if(following_email!=null)
         {
-            List<User> followerings = new ArrayList<>();
-            for(int i = 0 ; i < followerings.size(); i ++ )
+            List<User> followings = new ArrayList<>();
+            for(int i = 0 ; i < following_email.size(); i ++ )
             {
                 User tmp = userService.getUserByEmail(following_email.get(i));
+                System.out.println(tmp);
                 tmp.setIs_followed("YES");
-                followerings.add(tmp);
+                followings.add(tmp);
             }
-            mav.addObject("aim_users",followerings);
+            mav.addObject("aim_users",followings);
             mav.addObject("num",1);
             mav.addObject("type","followings");
+            System.out.println(mav);
         }
         else
         {
