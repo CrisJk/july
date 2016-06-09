@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:display="http://www.w3.org/1999/xhtml"
+      xmlns:visibility="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>哈哈</title>
+</head>
+<body>
+<div th:each="moment:${moment}">
+    <div class = "article1" th:text ="${moment.article}" style = "display: none">   </div>
+    <span class = "insert" ></span>
+</div>
+</body>
+</body>
+<script>
+        var ue = document.getElementsByClassName('article1');
+        var we =document.getElementsByClassName('insert') ;
+        for(var i = 0 ;i<we.length ; i++){
+            we[i].innerHTML = ue[i].textContent;
+        }
+        //document.getElementById('insert').innerHTML = document.getElementById('article1').textContent;
+</script>
+</html>

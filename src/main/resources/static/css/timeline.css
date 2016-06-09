@@ -518,7 +518,7 @@ ul .small {
     height: 70px;
 }
 
-.block {
+.my_block {
     position: relative;
     background: #fff;
     padding: 15px;
@@ -528,7 +528,7 @@ ul .small {
     margin-left: 80px;
 }
 
-.post.block {
+.post.my_block {
     margin-bottom: 40px;
 }
 
