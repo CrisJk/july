@@ -40,8 +40,9 @@ public class UploadArticleController {
     @RequestMapping(value="/saveArticle",method = RequestMethod.POST)
     String uploadArticle(@RequestParam String article)
     {
-        logger.info("Enter");
+        logger.info("Enter saveArticle");
         BigInteger userId = userService.getSessionUser().getId();
+        logger.info("userId: "+userId) ;
         User user = userService.getUserById(userId) ;
         Moment moment = new Moment("article",user) ;
         moment.setArticle(article);

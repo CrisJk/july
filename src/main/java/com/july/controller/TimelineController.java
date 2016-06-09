@@ -3,6 +3,8 @@ package com.july.controller;
 import com.july.entity.Moment;
 import com.july.entity.User;
 import com.july.service.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
@@ -21,6 +23,8 @@ import java.util.List;
 @Controller
 public class TimelineController {
 
+
+    private final Logger logger = LoggerFactory.getLogger(getClass()) ;
     @Autowired
     UserService userService;
 
@@ -35,7 +39,9 @@ public class TimelineController {
         User user = null;
         if(aim_user_id!=null) user = userService.getUserById(aim_user_id);
         else user = userService.getSessionUser();
-
+        logger.info("enter timeline");
+        logger.info(user.getEmail());
+        logger.info(user.getNickname()) ;
         mav.addObject("aim_user",user);
         mav.addObject("current_user",userService.getSessionUser());
 
