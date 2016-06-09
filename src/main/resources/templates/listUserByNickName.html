@@ -20,84 +20,11 @@
     <script type="text/javascript"
             src="/webjars/bootstrap/js/bootstrap.min.js"></script>
     <!--弹窗通用资源链接结束-->
-    <!-- Fine Uploader New/Modern CSS file
-    ====================================================================== -->
-    <link th:href="@{/css/gallary/fine-uploader-new.css}" rel="stylesheet">
-    <!-- Fine Uploader Custom CSS file
-    ====================================================================== -->
-    <link th:href="@{/css/gallary/custom.css}" rel="stylesheet">
-    <!-- Fine Uploader JS file
-    ====================================================================== -->
-    <script th:src="@{/js/gallary/fine-uploader.js}"></script>
 
-    <!--<link th:href="@{/css/common.css}" type="text/css" rel="stylesheet"/>-->
+    <!--Custom Search CSS-->
+    <link th:href="@{/css/search.css}" type="text/css" rel="stylesheet"/>
     <!--Custom Timeline CSS-->
     <link th:href="@{/css/timeline.css}" type="text/css" rel="stylesheet"/>
-
-    <script type="text/template" id="qq-template-manual-trigger">
-        <div class="qq-uploader-selector qq-uploader" qq-drop-area-text="Drop files here">
-            <div class="qq-total-progress-bar-container-selector qq-total-progress-bar-container">
-                <div role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" class="qq-total-progress-bar-selector qq-progress-bar qq-total-progress-bar"></div>
-            </div>
-            <div class="qq-upload-drop-area-selector qq-upload-drop-area" qq-hide-dropzone>
-                <span class="qq-upload-drop-area-text-selector"></span>
-            </div>
-            <div class="buttons">
-                <div class="qq-upload-button-selector qq-upload-button">
-                    <div>选择文件</div>
-                </div>
-                <button type="button" id="trigger-upload" class="btn btn-primary">
-                    <i class="icon-upload icon-white"></i> 上传
-                </button>
-            </div>
-            <span class="qq-drop-processing-selector qq-drop-processing">
-                <span>Processing dropped files...</span>
-                <span class="qq-drop-processing-spinner-selector qq-drop-processing-spinner"></span>
-            </span>
-            <ul class="qq-upload-list-selector qq-upload-list" aria-live="polite" aria-relevant="additions removals">
-                <li>
-                    <div class="qq-progress-bar-container-selector">
-                        <div role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" class="qq-progress-bar-selector qq-progress-bar"></div>
-                    </div>
-                    <span class="qq-upload-spinner-selector qq-upload-spinner"></span>
-                    <img class="qq-thumbnail-selector" qq-max-size="100" qq-server-scale>
-                    <span class="qq-upload-file-selector qq-upload-file"></span>
-                    <span class="qq-edit-filename-icon-selector qq-edit-filename-icon" aria-label="Edit filename"></span>
-                    <input class="qq-edit-filename-selector qq-edit-filename" tabindex="0" type="text">
-                    <span class="qq-upload-size-selector qq-upload-size"></span>
-                    <button type="button" class="qq-btn qq-upload-cancel-selector qq-upload-cancel">取消</button>
-                    <button type="button" class="qq-btn qq-upload-retry-selector qq-upload-retry">重试</button>
-                    <button type="button" class="qq-btn qq-upload-delete-selector qq-upload-delete">删除</button>
-                    <span role="status" class="qq-upload-status-text-selector qq-upload-status-text"></span>
-                </li>
-            </ul>
-
-            <dialog class="qq-alert-dialog-selector">
-                <div class="qq-dialog-message-selector"></div>
-                <div class="qq-dialog-buttons">
-                    <button type="button" class="qq-cancel-button-selector">Close</button>
-                </div>
-            </dialog>
-
-            <dialog class="qq-confirm-dialog-selector">
-                <div class="qq-dialog-message-selector"></div>
-                <div class="qq-dialog-buttons">
-                    <button type="button" class="qq-cancel-button-selector">No</button>
-                    <button type="button" class="qq-ok-button-selector">Yes</button>
-                </div>
-            </dialog>
-
-            <dialog class="qq-prompt-dialog-selector">
-                <div class="qq-dialog-message-selector"></div>
-                <input type="text" />
-                <div class="qq-dialog-buttons">
-                    <button type="button" class="qq-cancel-button-selector">取消</button>
-                    <button type="button" class="qq-ok-button-selector">Ok</button>
-                </div>
-            </dialog>
-        </div>
-    </script>
-
 </head>
 
 <body  style="background-color: #ededef">
@@ -105,10 +32,10 @@
     <div class="row">
         <div class="g-hd">
             <div id="julyheadbar" class="g-hdc">
-                <h1 class="m-logo"><a href="#"><span style="display:none">JULY - 记录生活</span></a></h1>
+                <h1 class="m-logo"><a href="/"><span style="display:none">JULY - 记录生活</span></a></h1>
                 <div class="m-nav" id="topbar">
                     <ul class="nav1 tbtag">
-                        <li class="j-crt"><a href="#">首页</a></li>
+                        <li class="j-crt"><a href="/">首页</a></li>
                         <li><a href="#">文字</a></li>
                         <li><a href="#">图片</a></li>
                         <li><a href="#">音乐</a></li>
@@ -127,47 +54,40 @@
             </div>
         </div>
     </div>
-    <div class="g-bd">
-        <tr>
-            <div th:if="${type==0}">
-                <td> <lable> 未发现此用户</lable> </td>
-            </div>
-            <div th:if="${type==1}">
-                <div class="list-group">
-                    <div th:each="aim_user:${aim_users}">
-
-                        <div class="col-lg-2"></div>
-                        <div class="col-lg-1">
-                            <img class="media-object" data-src="" alt="64*64" src="/images/100.jpg" style="width:64px;height:64px;">
-                        </div>
-                        <div class="col-lg-4">
-                            <a href="#" class="list-group-item">
-                                <h4 class="list-group-item-heading">
-                                    <span  th:text="${aim_user.nickname}"></span>
-                                </h4>
-                                <p class="list-group-item-text" th:text="${aim_user.email}"></p>
-                            </a>
-                        </div>
-                        <div class="col-lg-5">
-                            <div th:if="${aim_user.is_followed=='YES'}">
-                                <button style="width:60px;height:62px;color:green" class="btn btn-default btn-link glyphicon glyphicon-star" ></button>
-                                <button style="width:60px;height:62px;color:black" class="btn btn-default btn-link " th:onclick="'javascript:follow(\'' + ${aim_user.email} + '\',0,\'' + ${current_user.email} + '\')'">取消关注</button>
-                            </div>
-                            <div th:if="${aim_user.is_followed=='NO'}">
-                                <button style="width:60px;height:62px;color:red" class="btn btn-default btn-link glyphicon glyphicon-star-empty" ></button>
-                                <button style="width:60px;height:62px;color:black" class="btn btn-default btn-link " th:onclick="'javascript:follow(\'' + ${aim_user.email} + '\',1,\'' + ${current_user.email} + '\')'">关注</button>
-                            </div>
-                        </div>
-                        <br />
-                        <br />
-                        <br />
-                        <br />
+    <div class="box" style="width:640px; min-height:300px">
+        <div th:if="${type==0}">
+            <label class="searchResult">没有搜索到相关结果</label>
+            <hr>
+        </div>
+        <div th:if="${type==1}">
+            <div class="list-group">
+                <!--style="font-size: 20px;color: #555;font-weight:500"-->
+                <label class="searchResult" style="font-size: 20px;color: #555;font-weight:500">搜索到 <span th:text="${#lists.size(aim_users)}"></span> 个相关结果</label>
+                <hr>
+                <div th:each="aim_user:${aim_users}">
+                    <div class="col-lg-2">
+                        <img class="media-object" data-src="" alt="64*64" th:src='@{/resource/view/{resourceId}(resourceId=${aim_user.avatarAddress})}' style="width: 65px; height: 65px; border-radius: 5px;">
+                    </div>
+                    <div class="col-lg-7">
+                        <h4 class="list-group-item-heading">
+                            <span th:text="${aim_user.nickname}"></span>
+                        </h4>
+                        <p class="list-group-item-text">
+                            <span class="glyphicon glyphicon-envelope" style="color: grey;"></span> <span th:text="${aim_user.email}"></span>
+                        </p>
+                    </div>
+                    <div class="col-lg-2">
+                        <button th:if="${aim_user.is_followed=='YES'}" class="btn btn-default" th:onclick="'javascript:follow(\'' + ${aim_user.email} + '\',0,\'' + ${current_user.email} + '\')'">
+                            <span class="glyphicon glyphicon-star"></span> 取消关注
+                        </button>
+                        <button th:if="${aim_user.is_followed=='NO'}" class="btn btn-default" th:onclick="'javascript:follow(\'' + ${aim_user.email} + '\',1,\'' + ${current_user.email} + '\')'">
+                            <span class="glyphicon glyphicon-star-empty"></span> 关注
+                        </button>
                     </div>
                 </div>
             </div>
-        </tr>
+        </div>
     </div>
-
 </div>
 
 </body>

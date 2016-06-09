@@ -69,8 +69,9 @@ public class UserController {
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public String handleUserCreateForm(@Valid @ModelAttribute("form") UserCreateForm form, BindingResult bindingResult, HttpServletRequest request, RedirectAttributes redirectAttributes) throws ServletException {
+        String referer = request.getHeader("Referer");
         if (bindingResult.hasErrors()) {
-            return "register";
+            return "redirect:"+ referer;
         }
         try {
             if (userService.getUserByEmail(form.getEmail()) != null) {
@@ -93,11 +94,11 @@ public class UserController {
                 }
                 eventPublisher.publishEvent(new OnRegistrationCompleteEvent(user, appUrl));
             } catch (Exception me) {
-                return "register";
+                return "redirect:"+ referer;
             }
         } catch (DataIntegrityViolationException e) {
             bindingResult.reject("email.exists", "邮箱已存在！");
-            return "register";
+            return "redirect:"+ referer;
         }
         redirectAttributes.addFlashAttribute("message", "注册成功!");
         logger.info("Register successfully");
