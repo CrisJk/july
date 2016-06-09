@@ -26,12 +26,15 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
  * Created by sherrypan on 16-5-29.
  */
+
 @Controller
 public class UserController {
 
@@ -116,6 +119,45 @@ public class UserController {
         return "redirect:/";
     }
 
+    //根据昵称列出用户
+    @RequestMapping(value="/listUserByNickName", method = RequestMethod.GET)
+    public ModelAndView listUserByNickName(
+            @RequestParam(value="nickname",required = false,defaultValue = "新浪") String nickname
+            )
+    {
+        ModelAndView mav = new ModelAndView("listUserByNickName");
+
+        System.out.println("UserController: ************************已进入**********************");
+        System.out.println("UserController: "+nickname+"******************************************");
+
+        int type = 0;
+        User current_user = userService.getSessionUser();
+        System.out.println("UserController current_user:"+current_user.toString());
+
+        mav.addObject("current_user",current_user);
+        List<User> aim_users = userService.getUserByNickName(nickname);
+        //mav.addObject("aim_users",aim_users);
+
+        if(aim_users != null&&aim_users.size()!=0)
+        {
+            type = 1;
+
+            for(int i=0;i<aim_users.size();i++)
+            {
+                List<String> aim_user_followers = aim_users.get(i).getFollowers();
+                if(aim_user_followers!=null&&aim_user_followers.contains(current_user.getEmail()))
+                {
+                    aim_users.get(i).setIs_followed("YES");
+                }
+                else aim_users.get(i).setIs_followed("NO");
+            }
+            mav.addObject("aim_users",aim_users);
+        }
+        mav.addObject("type",type);
+        System.out.println("UserController: "+mav.toString());
+        return mav;
+    }
+
 
     @RequestMapping({ "/user", "/me" })
     @ResponseBody
@@ -150,7 +192,6 @@ public class UserController {
             } else {
                 user.setFacebookAccount(account);
             }
-            System.out.println(user.getGithubAccount().getIdentity());
             userService.update(user);
             logger.info("Bind local user successfully.");
         } else {

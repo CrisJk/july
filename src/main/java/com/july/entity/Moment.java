@@ -5,7 +5,6 @@ import org.springframework.data.mongodb.core.index.TextIndexed;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.math.BigInteger;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Date;
@@ -18,7 +17,8 @@ import java.util.List;
 public class Moment extends AbstractDocument {
 
     //资源路径
-    private List<String> resources = new ArrayList<String>();
+    @DBRef
+    private List<Resource> resources = new ArrayList<Resource>();
 
     //文章内容
     @TextIndexed
@@ -66,11 +66,11 @@ public class Moment extends AbstractDocument {
         this.createdDate = createdDate;
     }
 
-    public List<String> getResources() {
+    public List<Resource> getResources() {
         return resources;
     }
 
-    public void setResources(List<String> resources) {
+    public void setResources(List<Resource> resources) {
         this.resources = resources;
     }
 

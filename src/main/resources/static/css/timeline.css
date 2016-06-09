@@ -398,6 +398,7 @@
     border-color: #DBDBDD;
     border-width: 2px;
     border-radius: 2px;
+    padding-left: 0px;
 }
 
 .m-menu li {
@@ -628,4 +629,16 @@ article>div>p {
     -o-transition: .5s;
     -moz-transition: .5s;
     -webkit-transition: .5s;
+}
+
+.hwinherit {
+    height: inherit;
+    width: inherit;
+}
+
+.defaultAvatar {
+    width:90px;
+    height:90px;
+    background-image: url("../images/default.png");
+    background-size:cover;
 }

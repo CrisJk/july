@@ -5,12 +5,14 @@ import com.july.entity.User;
 
 import java.math.BigInteger;
 import java.security.Principal;
+import java.util.List;
 
 /**
  * Created by kuangjun on 2016/5/7.
  */
 
 public interface UserService {
+
 
     User getUserByEmail(String email);
 
@@ -32,14 +34,7 @@ public interface UserService {
 
     void update(User user);
 
-    void addFollower(User current_user,User user);
-
-    void removeFollower(User current_user,User user);
-
-    void addFollowing(User current_user,User user);
-
-    void removeFollowing(User current_user, User user);
+    List<User> getUserByNickName(String nickName);
 
     User getUserById(BigInteger id);
-
 }

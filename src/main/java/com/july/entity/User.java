@@ -26,18 +26,14 @@ public class User extends AbstractDocument {
     //头像地址
     private String avatarAddress;
 
-
-
     @DBRef
     private List<Moment> timeline = new ArrayList<Moment>();
 
-    //粉丝
-    @DBRef
-    private List<User> followers = new ArrayList<User>();
+    //粉丝 存的是emali
+    private List<String> followers = new ArrayList<String>();
 
-    //关注
-    @DBRef
-    private List<User> followings = new ArrayList<User>();
+    //关注 存的是email
+    private List<String> followings = new ArrayList<String>();
 
     private boolean enabled;
 
@@ -46,6 +42,11 @@ public class User extends AbstractDocument {
 
     @DBRef
     private Account githubAccount;
+
+
+
+    //这个属性用在进行昵称搜索时，当前用户与该用户的关注关系判断，其余位置不起作用，可随时更改
+    public String is_followed;
 
     public User() {
         super();
@@ -112,47 +113,25 @@ public class User extends AbstractDocument {
 
     public void setTimeline(List<Moment> timeline) { this.timeline = timeline; }
 
-    public List<User> getFollowers() { return followers; }
-
-    public void setFollowers(List<User> followers) { this.followers = followers; }
-
-    public List<User> getFollowings() { return followings; }
-
-    public void setFollowings(List<User> followings) { this.followings = followings; }
-
-    public void addFollower( User user )
+    public List<String> getFollowers()
     {
-        followers.add(user);
+        return followers;
     }
 
-    public void addFollowing( User user )
-    {
-        followings.add(user);
-        List<Moment> tmpTimeLine = user.getTimeline();
-        for( int i = 0; i < tmpTimeLine.size(); i ++ )
-        {
-            timeline.add(tmpTimeLine.get(i));
-        }
+    public void setFollowers(List<String> followers) { this.followers = followers; }
+
+    public List<String> getFollowings() {
+        return followings;
     }
 
-    public void removeFollower( User user )
-    {
-        followers.remove(user);
-    }
+    public void setFollowings(List<String> followings) { this.followings = followings; }
 
-    public void removeFollowing( User user )
-    {
-        followings.remove(user);
-        List<Moment> tmpTimeLine = user.getTimeline();
-        for( int i = 0; i < tmpTimeLine.size(); i ++ )
-        {
-            timeline.remove(tmpTimeLine.get(i));
-        }
-    }
+    public String is_followed() { return is_followed;}
+
+    public void setIs_followed(String is_followed) {this.is_followed = is_followed;}
+
     @Override
     public String toString() {
-        return "User [id=" + id + ", email=" + email + ", nickname=" + nickname + "]";
+        return "User [id=" + id + ", email=" + email + ", nickname=" + nickname + ", is_followed=" + is_followed + "]";
     }
-
-
 }

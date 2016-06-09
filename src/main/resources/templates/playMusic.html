@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>音乐 - july</title>
+
 <!--弹窗通用资源链接-->
     <link rel="stylesheet" type="text/css"
           href="/webjars/bootstrap/css/bootstrap.min.css" />
@@ -18,9 +19,13 @@
     <a id="btnAdd">添加音乐按钮</a>
 <!--弹窗触发按钮结束-->
 
-<div id="player1" class="aplayer"></div>
 
-<!--弹窗主体内容-->
+<div id="player1" class="aplayer"></div>
+<script th:inline="javascript">
+    var musicUrl = [[@{/resource/view/{resourceId}(resourceId='5753fd03640ebcf172c68383')}]];
+</script>
+
+    <!--上传音乐弹窗-->
     <div class="modal fade" id="musicAddForm" tabindex="-1" role="dialog">
         <div class="modal-dialog" style="width:500px" role="document">
             <div class="modal-content">
@@ -29,27 +34,33 @@
                             aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
-                    <h4 class="modal-title text-center" id="myConditionsAddLabel">在这里添加标题</h4>
+                    <h4 class="modal-title text-center" id="myConditionsAddLabel">上传音乐文件</h4>
                 </div>
                 <div class="modal-body">
                     <div class="form-horizontal form_pop">
-                        <form th:action="@{/moment/upload}" method="post" enctype="multipart/form-data">
+                        <form th:action="@{/resource/upload} + '?' + ${_csrf.parameterName} + '=' + ${_csrf.token}" method="post" enctype="multipart/form-data">
                             <input type="hidden" name="type" value="music" />
-                            <label>选择音乐文件</label>
-                            <input id="fileupload1" type="file" name="files" />
-                            <input id="fileupload2" type="file" name="files" />
-                            <input id="fileupload3" type="file" name="files" />
-                            <input type="submit" value="上传">
+                            <div class="input-group">
+                                <span class="input-group-btn">
+                                    <span class="btn btn-primary" onclick="$(this).parent().find('input[type=file]').click();">浏览本地文件</span>
+                                    <input id="fileupload1" type="file" name="files" onchange="$(this).parent().parent().find('.form-control').html($(this).val().split(/[\\|/]/).pop());" style="display: none"/>
+                                </span>
+                                <span class="form-control"></span>
+                            </div>
+                            <span style="font-size:11px; margin:10px">支持OGG、MP3、WAV格式</span>
+                            <input type="submit" class="btn btn-default" style="margin-top:10px; width:100px; margin-left:15px" value="上传">
                         </form>
 
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" data-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
     </div>
+    <!--上传音乐弹窗结束-->
+
     <script>
         //add conditions pop up
         $(document).ready(function(){
@@ -58,6 +69,7 @@
             });
         });
     </script>
+
 <!--弹窗主体内容结束-->
 
 <script src="../js/APlayer.min.js"></script>

@@ -43,7 +43,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getUserByEmail(String email) {
+        //System.out.println("UserServiceImpl: ENTER");
         List<User> users = userRepository.findByEmail(email);
+        //System.out.println("UserServiceImpl: "+users.size());
         if(users != null && users.size() == 1){
             User user = users.get(0);
             return user;
@@ -86,7 +88,6 @@ public class UserServiceImpl implements UserService {
         return null;
     }
 
-    @Override
     public User getOAuthUser(Principal principal, String type) {
         UserDetails userDetails = (UserDetails) ((OAuth2Authentication) principal).getUserAuthentication().getDetails();
         User user;
@@ -152,31 +153,17 @@ public class UserServiceImpl implements UserService {
         userRepository.save(user);
     }
 
-    public void addFollower(User current_user, User user) {
-        current_user.addFollower(user);
-        userRepository.save(current_user);
-    }
-
     @Override
-    public void removeFollower(User current_user, User user) {
-        current_user.removeFollower(user);
-        userRepository.save(current_user);
-    }
-
-    @Override
-    public void addFollowing(User current_user, User user) {
-        current_user.addFollowing(user);
-        userRepository.save(current_user);
-    }
-
-    @Override
-    public void removeFollowing(User current_user, User user) {
-        current_user.removeFollowing(user);
-        userRepository.save(current_user);
+    public List<User> getUserByNickName(String nickName) {
+        List<User> users = userRepository.findByNickname(nickName);
+        if(users != null && users.size()!=0){
+            return users;
+        }else{
+            return null;
+        }
     }
     @Override
     public User getUserById(BigInteger id) {
         return userRepository.findOne(id);
     }
-
 }
