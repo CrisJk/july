@@ -35,6 +35,7 @@
 
     <!--<link th:href="@{/css/common.css}" type="text/css" rel="stylesheet"/>-->
     <!--Custom Timeline CSS-->
+    <link th:href="@{/css/style.css}" type="text/css" rel = "stylesheet">
     <link th:href="@{/css/timeline.css}" type="text/css" rel="stylesheet"/>
 
     <script type="text/template" id="qq-template-manual-trigger">
@@ -103,6 +104,11 @@
 
 </head>
 <body style="background-color: #ededef">
+
+
+
+
+
 <div class="container-fluid">
     <div class="row">
         <div class="g-hd">
@@ -139,7 +145,7 @@
                     <div id="publishBarArea" class="publishBarArea">
                         <ul id="publishPostBar" class="m-nav2">
                             <li class="user"><a href="#" id="addAvatar"><strong>上传头像</strong></a></li>
-                            <li><a  class="publishlink n21" id="addArticle"  0href="addArticle">文字</a></li>
+                            <li><a  class="publishlink n21" id="addArticle"  href="#">文字</a></li>
                             <li><a class="publishlink n22" id="addPictures" href="#">图片</a></li>
                             <li><a class="publishlink n23" id="addMusic" href="#">音乐</a></li>
                             <li><a class="publishlink publishlink-video n24" id="addVideo" href="#">视频</a></li>
@@ -206,32 +212,57 @@
 
                             </div>
                             <div th:if="${moment.type=='article'}"><!--文字-->
-                                <article id="post-2582" class="block post">
-                                 <span class="round-date red">
-                                      <span class="month">4月</span>
-                                      <span class="day">16</span>
-                                 </span>
-                                    <header class="entry-header">
-                                        <p class="title">
-                                            <a href="#" rel="bookmark">一朵炒鸡萌的表情面板</a>
-                                        </p>
-                                        <p class="article-meta"><i class="fa fa-heart-o"></i>发表于 2016年4月16日</p>
-                                        <div class="article-content red">
-                                            <p></p>
-                                        </div>
-                                    </header>
-                                    <!-- .entry-header -->
-                                    <div class="article-content red">
-                                        <p>换掉多说之后评论一直不方便插♂入表情，所以造了个简单的轮子。</p>
-                                        <p>支持颜文字、Emoji、图片等，支持移动端，表情数据从一个可以自定义的json接口读取。</p>
-                                        <p>使用方法见GitHub，喜欢就给个star吧~</p>
+                                <!--textbox-->
+                                <div class="wrap">
+                                    <div class="mainleft">
+                                        <div class="list content">
+                                            <div class="item">
+
+                                                <div class="r">
+                                                    <div class="m">
+                                                        <div class="t position"><span class="jiao"></span>
+                                                        </div>
+
+                                                        <div class="my_meta" >
+                                                            <article id="post-2582">
+                                                                <header class="entry-header">
+                                                                    <p class="my_title" style="margin-bottom: 5px;">
+                                                                        <a href="#"  style="font-size:15px;color:#00B2EE" rel="bookmark" th:text="${moment.creater.nickname}"></a>
+                                                                    </p>
+
+                                                                    <div class="article-content red">
+                                                                        <p></p>
+                                                                    </div>
+                                                                </header>
+                                                                <!-- .entry-header -->
+                                                                <div class="article-content red" style="color:#000000">
+                                                                    <div class = "article1" th:text ="${moment.article}" style = "display: none">   </div>
+                                                                    <span class = "insert" ></span>
+                                                                </div>
+                                                                <p class="article-meta" style="margin-left:300px ;margin-bottom:5px;color:#00B2EE;"><i class="fa fa-heart-o"></i>发表于 2016年4月16日</p>
+                                                                <div style="height:10px"></div>
+                                                                <div class="article-content red">
+                                                                    <p class="more"><a style="color: #FFFFFF" href="#" title="一朵炒鸡萌的表情面板" target="_blank">阅读全文
+                                                                        &gt;&gt;</a></p>
+                                                                </div>
+                                                            </article>
+                                                            <div class="clear"></div>
+                                                        </div>
+
+
+
+                                                    </div>
+                                                    <div class="b">
+
+                                                    </div>
+                                                </div>
+                                                <div class="clear"></div>
+                                            </div>
+                                        </div><!--//list end-->
                                     </div>
-                                    <div style="height:10px"></div>
-                                    <div class="article-content red">
-                                        <p class="more"><a href="#" title="一朵炒鸡萌的表情面板" target="_blank">阅读全文
-                                            &gt;&gt;</a></p>
-                                    </div>
-                                </article>
+                                    <div class="clear"></div>
+                                </div>
+                                <!--end textbox-->
                             </div>
                         </div>
 
@@ -524,6 +555,16 @@
         var editor = new wangEditor('textarea1') ;
         editor.create();
     </script>
+    <!--富文本js-->
+    <script>
+        var ue = document.getElementsByClassName('article1');
+        var we =document.getElementsByClassName('insert') ;
+        for(var i = 0 ;i<we.length ; i++){
+            we[i].innerHTML = ue[i].textContent;
+        }
+        //document.getElementById('insert').innerHTML = document.getElementById('article1').textContent;
+    </script>
+    <!---->
 </div>
 </body>
 </html>
