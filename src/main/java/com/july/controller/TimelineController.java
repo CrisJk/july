@@ -31,7 +31,7 @@ public class TimelineController {
     @RequestMapping("/timeline")
     public ModelAndView showTimeline(
             @RequestParam(value="current_page",defaultValue = "1") int current_page,
-            @RequestParam(value="page_size",defaultValue = "1") int page_size,
+            @RequestParam(value="page_size",defaultValue = "3") int page_size,
             @RequestParam(value="aim_user_id",required=false) BigInteger aim_user_id
                                      ) {
 
@@ -41,7 +41,7 @@ public class TimelineController {
         else user = userService.getSessionUser();
         logger.info("enter timeline");
         logger.info(user.getEmail());
-        logger.info(user.getNickname()) ;
+        System.out.println("******"+user.getId()+"*************") ;
         mav.addObject("aim_user",user);
         mav.addObject("current_user",userService.getSessionUser());
 
