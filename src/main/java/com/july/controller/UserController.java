@@ -127,7 +127,7 @@ public class UserController {
 
     @RequestMapping(value={"/listUserByNickname"}, method = RequestMethod.GET)
     public ModelAndView listUserByNickname(
-            @RequestParam(value="nickname",required = false,defaultValue = "QQ") String nickname,
+            @RequestParam(value="nickname") String nickname,
             @RequestParam(value="page_size",defaultValue = "5") int page_size,
             @RequestParam(value="current_page",defaultValue="1") int current_page
             )
@@ -140,8 +140,14 @@ public class UserController {
 
         /*计算页数*/
         if(current_page<1) current_page = 1;
-        int total_pages = ( userService.getUserByNickName(nickname).size() + page_size ) / page_size;
-        if(current_page >total_pages && total_pages!= 0 ) current_page = total_pages;
+        int total_pages;
+        List<User> users = userService.getUserByNickName(nickname);
+        if (users != null) {
+            total_pages = (users.size() + page_size) / page_size;
+        } else {
+            total_pages = 1;
+        }
+        if(current_page > total_pages && total_pages!= 0 ) current_page = total_pages;
 
         int num = 0;
         User current_user = userService.getSessionUser();
