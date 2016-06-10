@@ -13,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 
 /**
  * Created by sherrypan on 16-6-3.
@@ -56,6 +57,14 @@ public class ResourceService {
 
     public void saveResource(Resource resource) {
         resourceRepository.save(resource);
+    }
+
+    public Resource getResourceByIdentity(String identity) {
+        List<Resource> resourceList = resourceRepository.findByIdentity(identity);
+        if (resourceList != null && resourceList.size() == 1) {
+            return resourceList.get(0);
+        }
+        return null;
     }
 
 }

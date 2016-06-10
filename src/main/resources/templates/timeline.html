@@ -145,7 +145,7 @@
                     <div id="publishBarArea" class="publishBarArea">
                         <ul id="publishPostBar" class="m-nav2">
                             <li class="user"><a href="#" id="addAvatar"><strong>上传头像</strong></a></li>
-                            <li><a  class="publishlink n21" id="addArticle"  href="#">文字</a></li>
+                            <li><a  class="publishlink n21" id="addArticle" href="#">文字</a></li>
                             <li><a class="publishlink n22" id="addPictures" href="#">图片</a></li>
                             <li><a class="publishlink n23" id="addMusic" href="#">音乐</a></li>
                             <li><a class="publishlink publishlink-video n24" id="addVideo" href="#">视频</a></li>
@@ -161,7 +161,10 @@
                 <div th:each="moment:${timeline}">
                     <div class="m-mlist" >
                         <div class="mlistimg" style="float: left; margin-right:20px">
-                            <div class="w-img" style="z-index:1;">
+                            <div class="w-img" style="z-index:1;" th:if="${moment.creater.avatarAddress} == null">
+                                <a target="_blank"><img src='/images/default.png' style="width: 70px; height: 70px; border-radius: 5px;"></a>
+                            </div>
+                            <div class="w-img" style="z-index:1;" th:if="${moment.creater.avatarAddress} != null">
                                 <a target="_blank"><img th:src='@{/resource/view/{resourceId}(resourceId=${moment.creater.avatarAddress})}' style="width: 70px; height: 70px; border-radius: 5px;"></a>
                             </div>
                         </div>
@@ -169,50 +172,131 @@
                             <!-- <label th:text="${moment.type}"></label>-->
                             <div th:if="${moment.type=='music'}"> <!--音乐-->
 
+                                <!--框-->
+                                <div class="wrap">
+                                    <div class="mainleft">
+                                        <div class="list content">
+                                            <div class="item">
+
+                                                <div class="r">
+                                                    <div class="m">
+                                                        <div class="t position"><span class="jiao"></span>
+                                                        </div>
+
+                                                        <div class="my_meta" >
+                                                            这里填内容
+                                                            <div class="clear"></div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="b">
+
+                                                    </div>
+                                                </div>
+                                                <div class="clear"></div>
+                                            </div>
+                                        </div><!--//list end-->
+                                    </div>
+                                    <div class="clear"></div>
+                                </div>
+                                <!--end 框-->
+
                             </div>
 
                             <div th:if="${moment.type=='pictures'}" style="width:500px; height: 50px; border-radius: 5px;"> <!--图片-->
-                                <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
-                                    <!-- Indicators -->
-                                    <ol class="carousel-indicators">
-                                        <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-                                        <div th:with="cnt=0">
-                                            <div th:each="picture:${moment.resources}" >
-                                                <div th:if="${cnt!=0}">
-                                                    <label th:text="${cnt}"></label>
-                                                    <li data-target="#carousel-example-generic" data-slide-to="1"></li>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </ol>
-
-                                    <!-- Wrapper for slides -->
-                                    <div class="carousel-inner" role="listbox">
-                                        <div th:each="picture:${moment.resources}">
+                                <!--框-->
+                                <div class="wrap">
+                                    <div class="mainleft">
+                                        <div class="list content">
                                             <div class="item">
-                                                <img th:src='@{/resource/view/{resourceId}(resourceId=${picture.identity})}' alt="picture">
-                                                <div class="carousel-caption"></div><!--图片文字内容-->
-                                            </div>
-                                        </div>
-                                    </div>
 
-                                    <!-- Controls -->
-                                    <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
-                                        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-                                        <span class="sr-only">Previous</span>
-                                    </a>
-                                    <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
-                                        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-                                        <span class="sr-only">Next</span>
-                                    </a>
+                                                <div class="r">
+                                                    <div class="m">
+                                                        <div class="t position"><span class="jiao"></span>
+                                                        </div>
+
+                                                        <div class="my_meta" >
+                                                                <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+                                                                    <!-- Indicators -->
+                                                                    <ol class="carousel-indicators">
+                                                                        <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+                                                                        <div th:with="cnt=0">
+                                                                            <div th:each="picture:${moment.resources}" >
+                                                                                <div th:if="${cnt!=0}">
+                                                                                    <label th:text="${cnt}"></label>
+                                                                                    <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </ol>
+
+                                                                    <!-- Wrapper for slides -->
+                                                                    <div class="carousel-inner" role="listbox">
+                                                                        <div th:each="picture:${moment.resources}">
+                                                                            <div class="item">
+                                                                                <img th:src='@{/resource/view/{resourceId}(resourceId=${picture.identity})}' alt="picture">
+                                                                                <div class="carousel-caption"></div><!--图片文字内容-->
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <!-- Controls -->
+                                                                    <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+                                                                        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                                                                        <span class="sr-only">Previous</span>
+                                                                    </a>
+                                                                    <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+                                                                        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                                                                        <span class="sr-only">Next</span>
+                                                                    </a>
+                                                                </div>
+
+                                                            <div class="clear"></div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="b">
+
+                                                    </div>
+                                                </div>
+                                                <div class="clear"></div>
+                                            </div>
+                                        </div><!--//list end-->
+                                    </div>
+                                    <div class="clear"></div>
                                 </div>
+                                <!--end 框-->
                             </div>
 
                             <div th:if="${moment.type=='video'}"><!--视频-->
+                                <!--框-->
+                                <div class="wrap">
+                                    <div class="mainleft">
+                                        <div class="list content">
+                                            <div class="item">
 
+                                                <div class="r">
+                                                    <div class="m">
+                                                        <div class="t position"><span class="jiao"></span>
+                                                        </div>
+
+                                                        <div class="my_meta" >
+                                                            这里填内容
+                                                            <div class="clear"></div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="b">
+
+                                                    </div>
+                                                </div>
+                                                <div class="clear"></div>
+                                            </div>
+                                        </div><!--//list end-->
+                                    </div>
+                                    <div class="clear"></div>
+                                </div>
+                                <!--end 框-->
                             </div>
                             <div th:if="${moment.type=='article'}"><!--文字-->
-                                <!--textbox-->
+                                <!--框-->
                                 <div class="wrap">
                                     <div class="mainleft">
                                         <div class="list content">
@@ -248,9 +332,6 @@
                                                             </article>
                                                             <div class="clear"></div>
                                                         </div>
-
-
-
                                                     </div>
                                                     <div class="b">
 
@@ -262,16 +343,14 @@
                                     </div>
                                     <div class="clear"></div>
                                 </div>
-                                <!--end textbox-->
+                                <!--end 框-->
                             </div>
                         </div>
-
                     </div>
                 </div>
 
                 <a th:href="@{timeline.html(aim_user_id=${aim_user.id},current_page=${current_page-1},page_size=${page_size})}">上一页</a>
                 <a th:href="@{timeline.html(aim_user_id=${aim_user.id},current_page=${current_page+1},page_size=${page_size})}">下一页</a>
-
             </div>
 
             <div class="m-menu" style="padding-top:5px">
@@ -297,9 +376,7 @@
                         </li>
                     </ul>
                 </div>
-
             </div>
-
         </div>
     </div>
     <div class="m-loadm" id="loadmore" style="display:none">
@@ -361,12 +438,16 @@
                 </div>
                 <div class="modal-body">
                     <div class="form-horizontal form_pop">
-                        <form id="picturesUploadForm" th:action="@{/pictures/upload} + '?' + ${_csrf.parameterName} + '=' + ${_csrf.token}" method="post" enctype="multipart/form-data">
+
+                        <!--th:action="@{/pictures/upload} + '?' + ${_csrf.parameterName} + '=' + ${_csrf.token}"-->
+
+                        <form id="picturesUploadForm" method="post" onsubmit="return validate()">
                             <input type="hidden" name="type" value="pictures" />
                             <!-- Fine Uploader DOM Element
                             ====================================================================== -->
-                            <div id="fine-uploader-manual-trigger"></div>
+                            <input id="" type="submit" value="Done">
                         </form>
+                        <div id="fine-uploader-manual-trigger"></div>
 
                     </div>
                 </div>
@@ -459,7 +540,7 @@
                             aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
-                    <h4 class="modal-title text-center" id="myArticleAddLabel"><span class="glyphicon glyphicon-Label" style="margin-right:5px"></span>上传文字</h4>
+                    <h4 class="modal-title text-center" id="myArticleAddLabel"><span class="glyphicon glyphicon-edit" style="margin-right:5px"></span>上传文字</h4>
                 </div>
                 <div class="modal-body">
                     <div class="form-horizontal form_pop">
@@ -478,7 +559,7 @@
             </div>
         </div>
     </div>
-    <!--上传图片弹窗结束-->
+    <!--上传文字弹窗结束-->
 
 
     <script>
@@ -500,23 +581,38 @@
                 $("#addArticleForm").modal('show') ;
             });
         });
-    </script>
-    <!-- code to create an instance of Fine Uploader and bind to the DOM/template
-        ====================================================================== -->
-    <script>
-        var csrfParameter = $("meta[name='_csrf_parameter']").attr("content");
-        var csrfHeader = $("meta[name='_csrf_header']").attr("content");
-        var csrfToken = $("meta[name='_csrf']").attr("content");
-        var manualUploader = new qq.FineUploader({
-            element: document.getElementById('fine-uploader-manual-trigger'),
-            template: 'qq-template-manual-trigger',
-            request: {
-                endpoint: '/pictures/upload',
-                method: "POST"
-            },
-            form:{
-                element:'picturesUploadForm'
-            },
+</script>
+<!-- code to create an instance of Fine Uploader and bind to the DOM/template
+    ====================================================================== -->
+<script>
+    var csrfParameter = $("meta[name='_csrf_parameter']").attr("content");
+    var csrfHeader = $("meta[name='_csrf_header']").attr("content");
+    var csrfToken = $("meta[name='_csrf']").attr("content");
+    var context = '${context}';
+
+    var fileIds = [];
+    var manualUploader = new qq.FineUploader({
+        element: document.getElementById('fine-uploader-manual-trigger'),
+        template: 'qq-template-manual-trigger',
+        request: {
+            endpoint: '/qqPicture/upload?' + csrfParameter + '=' + csrfToken,
+            method: "POST"
+        },
+        form:{
+            element:'picturesUploadForm'
+        },
+        thumbnails: {
+            placeholders: {
+                waitingPath: '/images/placeholders/waiting-generic.png',
+                notAvailablePath: '/images/placeholders/not_available-generic.png'
+            }
+        },
+        autoUpload: false,
+        debug: true,
+        validation: {
+            allowedExtensions: ['jpeg', 'jpg', 'txt', 'png', 'odt'],
+            itemLimit: 3000000
+        },
             thumbnails: {
                 placeholders: {
                     waitingPath: '/images/placeholders/waiting-generic.png',
@@ -550,6 +646,36 @@
     </script>
     <!--Custom Timeline js-->
     <script th:src="@{/js/timeline.js}"></script>
+    <script>
+            onAllComplete: function(successful, failed) {
+            },
+            showMessage: function(message) {
+            }
+        }
+    });
+    $('#trigger-upload').on('click', function(){
+        manualUploader.uploadStoredFiles();
+    });
+
+    function validate() {
+        $.ajax({
+            cache: true,
+            type: "GET",
+            url: '/pictures/upload?' + csrfParameter + '=' + csrfToken,
+            data: {
+                'ids': JSON.stringify(fileIds)
+            },
+            success: function (returnData) {
+                if (returnData.success) {
+                    window.location.href = "/timeline";
+                } else {
+                    alert("Error");
+                }
+            },
+            dataType: "json"
+        });
+    }
+    </script>
     <script>
         wangEditor.config.mapAk =  'xI4iY6ZxYkUWGvQEhGERfkfa55vquqFr';
         var editor = new wangEditor('textarea1') ;

@@ -7,13 +7,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Service;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,20 +32,17 @@ public class TimelineController {
     public ModelAndView showTimeline(
             @RequestParam(value="current_page",defaultValue = "1") int current_page,
             @RequestParam(value="page_size",defaultValue = "3") int page_size,
-            @RequestParam(value="aim_user_id",required=false) BigInteger aim_user_id
-                                     )
+            @RequestParam(value="aim_user_id",required=false) BigInteger aim_user_id,
+            HttpServletRequest request)
     {
         ModelAndView mav = new ModelAndView("timeline");
         User current_user = userService.getSessionUser();
         current_user = userService.getUserById(current_user.getId());
-        User user = null;
+        BigInteger userId = null;
+        if(aim_user_id!=null) userId = aim_user_id;
+        else userId = userService.getSessionUser().getId();
 
-        if(aim_user_id!=null) user = userService.getUserById(aim_user_id);
-        else user = userService.getSessionUser();
-        logger.info("enter timeline");
-        logger.info(user.getEmail());
-        System.out.println("******"+user.getId()+"*************") ;
-
+        User user = userService.getUserById(userId);
         //得到它的时间线
         List<Moment> timeline = user.getTimeline();
 
@@ -81,6 +77,7 @@ public class TimelineController {
         mav.addObject("total_followings",current_user.getFollowings().size());
         mav.addObject("aim_user",user);
         mav.addObject("current_user",current_user);
+        mav.addObject("context", request.getContextPath());
         System.out.println(mav);
         return mav;
     }
@@ -94,7 +91,5 @@ public class TimelineController {
     public String showVideo() {
         return "playVideo";
     }
-
-
 
 }

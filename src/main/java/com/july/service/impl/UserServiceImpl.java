@@ -12,6 +12,9 @@ import com.july.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.mongodb.core.MongoOperations;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -38,6 +41,9 @@ class ComparatorMoment implements Comparator
 }
 @Service
 public class UserServiceImpl implements UserService {
+
+    @Autowired
+    MongoOperations mongoOperations;
 
     @Autowired
     private AccountService accountService;

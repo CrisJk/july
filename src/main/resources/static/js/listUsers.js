@@ -4,7 +4,7 @@
 function search()
 {
     var nickname = document.getElementById("for_search").value;
-    alert(nickname);
+    //alert(nickname);
     window.open('listUserByNickname?nickname=' + nickname);
     //window.location.href = 'listUserByNickname?nickname=' + nickname;
     return false;
