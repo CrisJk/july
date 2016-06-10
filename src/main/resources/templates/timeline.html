@@ -171,7 +171,7 @@
                             <div th:if="${moment.type=='pictures'}" > <!--图片-->
 
                                 <article class="block post">
-                                    <header class="entry-header" style="text-align: center;">
+                                    <header class="entry-header" style="text-align: center;margin-bottom:15px">
                                         <h4 class="title">
                                             <a href="#" rel="bookmark">一朵炒鸡萌的表情面板</a>
                                         </h4>
@@ -249,9 +249,12 @@
                         </div>
                     </div>
                 </div>
-
-                <a th:href="@{timeline.html(aim_user_id=${aim_user.id},current_page=${current_page-1},page_size=${page_size})}">上一页</a>
-                <a th:href="@{timeline.html(aim_user_id=${aim_user.id},current_page=${current_page+1},page_size=${page_size})}">下一页</a>
+                <div style="display:inline-block;text-align:center;width:100%;margin-left:40px;">
+                    <div class="pagination" style="text-align:center">
+                        <a style="border-top-left-radius:3px;border-bottom-left-radius:3px" th:href="@{timeline.html(aim_user_id=${aim_user.id},current_page=${current_page-1},page_size=${page_size})}">上一页</a>
+                        <a style="border-top-right-radius:3px;border-bottom-right-radius:3px" th:href="@{timeline.html(aim_user_id=${aim_user.id},current_page=${current_page+1},page_size=${page_size})}">下一页</a>
+                    </div>
+                </div>
             </div>
 
             <div class="m-menu" style="padding-top:5px">
@@ -339,17 +342,15 @@
                 </div>
                 <div class="modal-body">
                     <div class="form-horizontal form_pop">
-
-                        <!--th:action="@{/pictures/upload} + '?' + ${_csrf.parameterName} + '=' + ${_csrf.token}"-->
-
+                        <!-- Fine Uploader DOM Element
+                            ====================================================================== -->
+                        <div id="fine-uploader-manual-trigger"></div>
                         <form id="picturesUploadForm" method="post" onsubmit="return validate()">
                             <input type="hidden" name="type" value="pictures" />
-                            <!-- Fine Uploader DOM Element
-                            ====================================================================== -->
-                            <input id="" type="submit" value="Done">
+                            <div style="display:inline-block;margin-top:10px;text-align:center;width:100%">
+                                <input type="submit" class="btn btn-default" style="width:100px" value="确认">
+                            </div>
                         </form>
-                        <div id="fine-uploader-manual-trigger"></div>
-
                     </div>
                 </div>
                 <div class="modal-footer">

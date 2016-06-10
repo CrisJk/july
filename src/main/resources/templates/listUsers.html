@@ -64,7 +64,15 @@
         <div th:if="${num==1}">
             <div class="list-group">
                 <!--style="font-size: 20px;color: #555;font-weight:500"-->
-                <label class="searchResult" style="font-size: 20px;color: #555;font-weight:500">搜索到 <span th:text="${#lists.size(aim_users)}"></span> 个相关结果</label>
+                <div th:if="${type=='nickname'}">
+                    <label class="searchResult" style="font-size: 20px;color: #555;font-weight:500">搜索到 <span th:text="${#lists.size(aim_users)}"></span> 个相关结果</label>
+                </div>
+                <div th:if="${type=='following'}">
+                    <label class="searchResult" style="font-size: 20px;color: #555;font-weight:500">共有 <span th:text="${#lists.size(aim_users)}"></span> 个关注</label>
+                </div>
+                <div th:if="${type=='follower'}">
+                    <label class="searchResult" style="font-size: 20px;color: #555;font-weight:500">共有 <span th:text="${#lists.size(aim_users)}"></span> 个粉丝</label>
+                </div>
                 <hr>
                 <div th:each="aim_user:${aim_users}" style="margin-bottom:100px">
                     <div class="col-lg-2" th:if="${aim_user.avatarAddress} == null">
@@ -89,6 +97,12 @@
                         <button th:if="${aim_user.is_followed=='NO'}" class="btn btn-default" th:onclick="'javascript:follow(\'' + ${aim_user.email} + '\',1,\'' + ${current_user.email} + '\')'">
                             <span class="glyphicon glyphicon-star-empty"></span> 关注
                         </button>
+                    </div>
+                </div>
+                <div style="display:inline-block;text-align:center;width:100%" th:if="${type=='nickname'}">
+                    <div class="pagination" style="text-align:center">
+                        <a style="border-top-left-radius:3px;border-bottom-left-radius:3px" th:href="@{/listUserByNickname(nickname=${nickname},current_page=${current_page-1},page_size=${page_size})}">上一页</a>
+                        <a style="border-top-right-radius:3px;border-bottom-right-radius:3px" th:href="@{/listUserByNickname(nickname=${nickname},current_page=${current_page+1},page_size=${page_size})}">下一页</a>
                     </div>
                 </div>
             </div>

@@ -642,3 +642,24 @@ article>div>p {
     background-image: url("../images/default.png");
     background-size:cover;
 }
+
+.pagination a, .pagination span {
+    position: relative;
+    float: left;
+    padding: 7px 12px;
+    margin-left: -1px;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: bold;
+    color: #666666;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background: #fff;
+    border: 1px solid #e5e5e5;
+    text-decoration: none;
+}

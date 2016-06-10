@@ -38,4 +38,7 @@ spring:
 config:
   json:
     path: classpath:static/config/config.json
+
+multipart:
+  maxFileSize: 10MB
 #spring.data.mongodb.uri: mongodb://<user>:<passwd>@<url>:<port>/<dbname>
