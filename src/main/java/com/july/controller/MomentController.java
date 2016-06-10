@@ -52,6 +52,7 @@ public class MomentController {
         List<Resource> resourceList = new ArrayList<>();
         try {
             if (files != null && files.length > 0) {
+                System.out.println("文件的个数共有"+ files.length +"个");
                 for (int i = 0; i < files.length; i++) {
                     MultipartFile file = files[i];
                     if (file == null || file.isEmpty()) continue;
@@ -64,13 +65,11 @@ public class MomentController {
                         resourceList.add(resource);
                     }
                 }
+                System.out.println("这条动态共有" + resourceList.size() + "个资源");
                 moment.setResources(resourceList);
                 momentService.save(moment);
                 //本用户时间线添加该动态
-                List<Moment> timeline = user.getTimeline();
-                timeline.add(moment);
-                user.setTimeline(timeline);
-                userService.update(user);
+                saveMomentInTimelineSelf(user, moment);
                 //todo:关注本用户的人的时间线添加该动态
 
                 logger.info("Moment with type " + type + " saved successfully.");
@@ -83,24 +82,86 @@ public class MomentController {
         }
     }
 
-    //发布动态（图片）
-    @RequestMapping(value = "/pictures/upload", method = RequestMethod.POST)
+    @RequestMapping(value = "/qqPicture/upload", method = RequestMethod.POST)
     @ResponseBody
-    public void handleFormUpload(@RequestParam String type,
-                                 @RequestParam("qqfile") MultipartFile[] files,
-                                 HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public void handleQqPictureUpload(@RequestParam String type,
+                                      @RequestParam(value="qqfile") MultipartFile file,
+                                      HttpServletResponse response) throws IOException {
         Gson gson = new Gson();
         JsonObject json1 = new JsonObject();
         BigInteger userId = userService.getSessionUser().getId();
         User user = userService.getUserById(userId);
         //上传动态(图片)
-        if (dealWithFiles(type, user, files)) {
-            json1.addProperty("success", true);
-            response.setCharacterEncoding("UTF-8");
-            response.setContentType("text");
-            response.getWriter().print(json1);
-            response.flushBuffer();
+        try {
+            if (file != null) {
+                String resourceIdentity = resourceService.save(file);
+                String filename = file.getOriginalFilename();
+                logger.info("resource Id = " + resourceIdentity);
+                if (resourceIdentity != null) {
+                    Resource resource = new Resource(resourceIdentity, file.getContentType(), filename);
+                    resourceService.saveResource(resource);
+                }
+                json1.addProperty("resourceId", resourceIdentity);
+                json1.addProperty("success", true);
+                response.setCharacterEncoding("UTF-8");
+                response.setContentType("text");
+                response.getWriter().print(json1);
+                response.flushBuffer();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return;
         }
+    }
+
+    //发布动态（图片）
+    @RequestMapping(value = "/pictures/upload", method = RequestMethod.GET)
+    @ResponseBody
+    public String handleFormUpload(@RequestParam("ids") List<String> ids) throws IOException {
+        Gson gson = new Gson();
+        JsonObject json1 = new JsonObject();
+        BigInteger userId = userService.getSessionUser().getId();
+        User user = userService.getUserById(userId);
+        String type = "pictures";
+        Moment moment = new Moment(type, user);
+        List<Resource> resourceList = new ArrayList<>();
+        //上传动态(图片)
+        System.out.println("总共有" + ids.size() + "张图片");
+
+
+        for (int i = 0; i < ids.size(); i++) {
+            String identity = ids.get(i).replace("[", "");
+            identity = identity.replace("]", "");
+            identity = identity.replace("\"", "");
+            Resource resource = resourceService.getResourceByIdentity(identity);   //new BigInteger(id, 16)
+            if (resource == null) {
+                logger.info("Error! can't find resource.");
+            } else {
+                resourceList.add(resource);
+            }
+        }
+        moment.setResources(resourceList);
+        momentService.save(moment);
+        //本用户时间线添加该动态
+        saveMomentInTimelineSelf(user, moment);
+        //todo:关注本用户的人的时间线添加该动态
+        saveMomentInTimelineFollow(user, moment);
+        logger.info("Moment with type " + type + " saved successfully.");
+        json1.addProperty("success", true);
+        return gson.toJson(json1);
+    }
+
+    //关注本用户的人的时间线添加动态
+    private void saveMomentInTimelineFollow(User user, Moment moment) {
+
+    }
+
+    //本用户时间线添加动态到时间线
+    private void saveMomentInTimelineSelf(User user, Moment moment) {
+        List<Moment> timeline = user.getTimeline();
+        timeline.add(moment);
+        user.setTimeline(timeline);
+        userService.update(user);
     }
 
     //上传头像

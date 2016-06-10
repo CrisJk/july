@@ -139,7 +139,7 @@
                     <div id="publishBarArea" class="publishBarArea">
                         <ul id="publishPostBar" class="m-nav2">
                             <li class="user"><a href="#" id="addAvatar"><strong>上传头像</strong></a></li>
-                            <li><a  class="publishlink n21" id="addArticle"  0href="addArticle">文字</a></li>
+                            <li><a  class="publishlink n21" id="addArticle" href="#">文字</a></li>
                             <li><a class="publishlink n22" id="addPictures" href="#">图片</a></li>
                             <li><a class="publishlink n23" id="addMusic" href="#">音乐</a></li>
                             <li><a class="publishlink publishlink-video n24" id="addVideo" href="#">视频</a></li>
@@ -155,92 +155,103 @@
                 <div th:each="moment:${timeline}">
                     <div class="m-mlist" >
                         <div class="mlistimg" style="float: left; margin-right:20px">
-                            <div class="w-img" style="z-index:1;">
+                            <div class="w-img" style="z-index:1;" th:if="${moment.creater.avatarAddress} == null">
+                                <a target="_blank"><img src='/images/default.png' style="width: 70px; height: 70px; border-radius: 5px;"></a>
+                            </div>
+                            <div class="w-img" style="z-index:1;" th:if="${moment.creater.avatarAddress} != null">
                                 <a target="_blank"><img th:src='@{/resource/view/{resourceId}(resourceId=${moment.creater.avatarAddress})}' style="width: 70px; height: 70px; border-radius: 5px;"></a>
                             </div>
                         </div>
-                        <div>
-                        <!-- <label th:text="${moment.type}"></label>-->
-                        <div th:if="${moment.type=='music'}"> <!--音乐-->
+                        <div style="overflow: hidden;background-color:white; padding:15px; border-radius:5px">
+                            <!-- <label th:text="${moment.type}"></label>-->
+                            <div th:if="${moment.type=='music'}"> <!--音乐-->
 
-                        </div>
+                            </div>
 
-                        <div th:if="${moment.type=='pictures'}" style="width:500px; height: 50px; border-radius: 5px;"> <!--图片-->
-                            <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
-                                <!-- Indicators -->
-                                <ol class="carousel-indicators">
-                                    <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-                                    <div th:with="cnt=0">
-                                        <div th:each="picture:${moment.resources}" >
-                                            <div th:if="${cnt!=0}">
-                                                <label th:text="${cnt}"></label>
-                                                <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+                            <div th:if="${moment.type=='pictures'}" > <!--图片-->
+
+                                <article class="block post">
+                                    <header class="entry-header" style="text-align: center;">
+                                        <h4 class="title">
+                                            <a href="#" rel="bookmark">一朵炒鸡萌的表情面板</a>
+                                        </h4>
+                                        <p class="article-meta"><i class="fa fa-heart-o"></i>发表于 2016年4月16日</p>
+                                        <div class="article-content red">
+                                            <p></p>
+                                        </div>
+                                    </header>
+                                    <!-- .entry-header -->
+                                    <div class="article-content red">
+                                        <div th:each="picture:${moment.resources}">
+                                            <div style="text-align: center">
+                                                <img th:src='@{/resource/view/{resourceId}(resourceId=${picture.identity})}' alt="picture" style="max-width:500px">
+                                                <p style="margin-top:5px"></p><!--图片文字内容-->
                                             </div>
                                         </div>
                                     </div>
-                                </ol>
-
-                                <!-- Wrapper for slides -->
-                                <div class="carousel-inner" role="listbox">
-                                    <div th:each="picture:${moment.resources}">
-                                        <div class="item">
-                                            <img th:src='@{/resource/view/{resourceId}(resourceId=${picture.identity})}' alt="picture">
-                                            <div class="carousel-caption"></div><!--图片文字内容-->
-                                        </div>
+                                    <div style="height:10px"></div>
+                                    <div class="article-content red">
+                                        <span style="margin-left: 30px;color: #555;">
+                                            <span class="glyphicon glyphicon-bookmark"></span><span style="margin-left:5px">图片</span>
+                                            <span style="margin-right:10px"></span>
+                                            <span th:if="${moment.creater.id==current_user.id}">
+                                                <span class="glyphicon glyphicon-trash"></span><span style="margin-left:5px">删除</span>
+                                            </span>
+                                            <span style="margin-right:40px;float: right">
+                                                  <span class="glyphicon glyphicon-heart-empty" style="font-size:18px;position:relative;top:4px"></span><span style="margin-left:10px" th:text="${moment.like}"></span>
+                                            </span>
+                                        </span>
+                                        <!--<p class="more"><a href="#" title="一朵炒鸡萌的表情面板" target="_blank">阅读全文>&gt;</a></p>-->
                                     </div>
-                                </div>
+                                </article>
+                            </div>
 
-                                <!-- Controls -->
-                                <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
-                                    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-                                    <span class="sr-only">Previous</span>
-                                </a>
-                                <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
-                                    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-                                    <span class="sr-only">Next</span>
-                                </a>
+                            <div th:if="${moment.type=='video'}"><!--视频-->
+
+                            </div>
+
+                            <div th:if="${moment.type=='article'}"><!--文字-->
+                                <article id="post-2582" class="block post">
+                                     <span class="round-date red">
+                                          <span class="month">4月</span>
+                                          <span class="day">16</span>
+                                     </span>
+                                    <header class="entry-header">
+                                        <p class="title">
+                                            <a href="#" rel="bookmark">一朵炒鸡萌的表情面板</a>
+                                        </p>
+                                        <p class="article-meta"><i class="fa fa-heart-o"></i>发表于 2016年4月16日</p>
+                                        <div class="article-content red">
+                                            <p></p>
+                                        </div>
+                                    </header>
+                                    <!-- .entry-header -->
+                                    <div class="article-content red">
+                                        <p>换掉多说之后评论一直不方便插♂入表情，所以造了个简单的轮子。</p>
+                                        <p>支持颜文字、Emoji、图片等，支持移动端，表情数据从一个可以自定义的json接口读取。</p>
+                                        <p>使用方法见GitHub，喜欢就给个star吧~</p>
+                                    </div>
+                                    <div style="height:10px"></div>
+                                    <div class="article-content red">
+                                        <p class="more"><a href="#" title="一朵炒鸡萌的表情面板" target="_blank">阅读全文
+                                            &gt;&gt;</a></p>
+                                    </div>
+                                </article>
+                                <!--<article id="post-2582" class="block post">
+                                     <span class="round-date red">
+                                          <span class="month">4月</span>
+                                          <span class="day">16</span>
+                                     </span>
+                                    <div class = "article1" th:text ="${moment.article}" style = "display: none">   </div>
+                                    <span class = "insert" ></span>
+                                    </article>-->
                             </div>
                         </div>
-
-                        <div th:if="${moment.type=='video'}"><!--视频-->
-
-                        </div>
-                        <div th:if="${moment.type=='article'}"><!--文字-->
-                            <article id="post-2582" class="block post">
-                                 <span class="round-date red">
-                                      <span class="month">4月</span>
-                                      <span class="day">16</span>
-                                 </span>
-                                <header class="entry-header">
-                                    <p class="title">
-                                        <a href="#" rel="bookmark">一朵炒鸡萌的表情面板</a>
-                                    </p>
-                                    <p class="article-meta"><i class="fa fa-heart-o"></i>发表于 2016年4月16日</p>
-                                    <div class="article-content red">
-                                        <p></p>
-                                    </div>
-                                </header>
-                                <!-- .entry-header -->
-                                <div class="article-content red">
-                                    <p>换掉多说之后评论一直不方便插♂入表情，所以造了个简单的轮子。</p>
-                                    <p>支持颜文字、Emoji、图片等，支持移动端，表情数据从一个可以自定义的json接口读取。</p>
-                                    <p>使用方法见GitHub，喜欢就给个star吧~</p>
-                                </div>
-                                <div style="height:10px"></div>
-                                <div class="article-content red">
-                                    <p class="more"><a href="#" title="一朵炒鸡萌的表情面板" target="_blank">阅读全文
-                                        &gt;&gt;</a></p>
-                                </div>
-                            </article>
-                        </div>
-                        </div>
-
                     </div>
                 </div>
 
                 <a th:href="@{timeline.html(aim_user_id=${aim_user.id},current_page=${current_page-1},page_size=${page_size})}">上一页</a>
                 <a th:href="@{timeline.html(aim_user_id=${aim_user.id},current_page=${current_page+1},page_size=${page_size})}">下一页</a>
-
             </div>
 
             <div class="m-menu" style="padding-top:5px">
@@ -266,9 +277,7 @@
                         </li>
                     </ul>
                 </div>
-
             </div>
-
         </div>
     </div>
     <div class="m-loadm" id="loadmore" style="display:none">
@@ -330,12 +339,16 @@
                 </div>
                 <div class="modal-body">
                     <div class="form-horizontal form_pop">
-                        <form id="picturesUploadForm" th:action="@{/pictures/upload} + '?' + ${_csrf.parameterName} + '=' + ${_csrf.token}" method="post" enctype="multipart/form-data">
+
+                        <!--th:action="@{/pictures/upload} + '?' + ${_csrf.parameterName} + '=' + ${_csrf.token}"-->
+
+                        <form id="picturesUploadForm" method="post" onsubmit="return validate()">
                             <input type="hidden" name="type" value="pictures" />
                             <!-- Fine Uploader DOM Element
                             ====================================================================== -->
-                            <div id="fine-uploader-manual-trigger"></div>
+                            <input id="" type="submit" value="Done">
                         </form>
+                        <div id="fine-uploader-manual-trigger"></div>
 
                     </div>
                 </div>
@@ -428,7 +441,7 @@
                             aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
-                    <h4 class="modal-title text-center" id="myArticleAddLabel"><span class="glyphicon glyphicon-Label" style="margin-right:5px"></span>上传文字</h4>
+                    <h4 class="modal-title text-center" id="myArticleAddLabel"><span class="glyphicon glyphicon-edit" style="margin-right:5px"></span>上传文字</h4>
                 </div>
                 <div class="modal-body">
                     <div class="form-horizontal form_pop">
@@ -447,7 +460,7 @@
             </div>
         </div>
     </div>
-    <!--上传图片弹窗结束-->
+    <!--上传文字弹窗结束-->
 
 
     <script>
@@ -476,12 +489,14 @@
     var csrfParameter = $("meta[name='_csrf_parameter']").attr("content");
     var csrfHeader = $("meta[name='_csrf_header']").attr("content");
     var csrfToken = $("meta[name='_csrf']").attr("content");
+    var context = '${context}';
 
+    var fileIds = [];
     var manualUploader = new qq.FineUploader({
         element: document.getElementById('fine-uploader-manual-trigger'),
         template: 'qq-template-manual-trigger',
         request: {
-            endpoint: '/pictures/upload',
+            endpoint: '/qqPicture/upload?' + csrfParameter + '=' + csrfToken,
             method: "POST"
         },
         form:{
@@ -503,21 +518,45 @@
             onComplete: function(id, name, responseJSON, maybeXhr) {
                 if(responseJSON.success==true)
                 {
-                    //alert("successfully uploaded");
+                    fileIds.push(responseJSON.resourceId);
+                }
+                else {
+                    alert("false");
                 }
             },
             onCancel: function(id, name) {
             },
             onError: function(id, name, reason, maybeXhrOrXdr) {
             },
-            onAllComplete: function(succeeded, failed) {
+            onAllComplete: function(successful, failed) {
+            },
+            showMessage: function(message) {
             }
         }
     });
-
     $('#trigger-upload').on('click', function(){
         manualUploader.uploadStoredFiles();
     });
+
+    function validate() {
+        $.ajax({
+            cache : true,
+            type : "GET",
+            url : '/pictures/upload?' + csrfParameter + '=' + csrfToken,
+            data : {
+                'ids': JSON.stringify(fileIds)
+            },
+            success : function(returnData) {
+                if (returnData.success) {
+                    window.location.href = "/timeline";
+                } else {
+                    alert("Error");
+                }
+            },
+            dataType: "json"
+        });
+    };
+    
 </script>
 <!--Custom Timeline js-->
 <script th:src="@{/js/timeline.js}"></script>
@@ -525,6 +564,15 @@
         wangEditor.config.mapAk =  'xI4iY6ZxYkUWGvQEhGERfkfa55vquqFr';
         var editor = new wangEditor('textarea1') ;
         editor.create();
+    </script>
+<!-- 显示富文本-->
+    <script>
+        var ue = document.getElementsByClassName('article1');
+        var we =document.getElementsByClassName('insert') ;
+        for(var i = 0 ;i<we.length ; i++){
+            we[i].innerHTML = ue[i].textContent;
+        }
+        //document.getElementById('insert').innerHTML = document.getElementById('article1').textContent;
     </script>
 </div>
 </body>

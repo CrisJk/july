@@ -28,7 +28,7 @@
     <link th:href="@{/css/timeline.css}" type="text/css" rel="stylesheet"/>
 </head>
 
-<body  style="background-color: #ededef">
+<body  style="background-color: #ededef;font-family:'Microsoft YaHei'">
 <div class="container-fluid">
     <div class="row">
         <div class="g-hd">
@@ -66,10 +66,14 @@
                 <!--style="font-size: 20px;color: #555;font-weight:500"-->
                 <label class="searchResult" style="font-size: 20px;color: #555;font-weight:500">搜索到 <span th:text="${#lists.size(aim_users)}"></span> 个相关结果</label>
                 <hr>
-                <div th:each="aim_user:${aim_users}">
-                    <div class="col-lg-2">
-                        <img class="media-object" data-src="" alt="64*64" th:src='@{/resource/view/{resourceId}(resourceId=${aim_user.avatarAddress})}' style="width: 65px; height: 65px; border-radius: 5px;">
+                <div th:each="aim_user:${aim_users}" style="margin-bottom:100px">
+                    <div class="col-lg-2" th:if="${aim_user.avatarAddress} == null">
+                        <img class="media-object" data-src="" alt="头像" src='/images/default.png' style="width: 65px; height: 65px; border-radius: 5px;">
                     </div>
+                    <div class="col-lg-2" th:if="${aim_user.avatarAddress} != null">
+                        <img class="media-object" data-src="" alt="头像" th:src='@{/resource/view/{resourceId}(resourceId=${aim_user.avatarAddress})}' style="width: 65px; height: 65px; border-radius: 5px;">
+                    </div>
+
                     <div class="col-lg-7">
                         <h4 class="list-group-item-heading">
                             <span th:text="${aim_user.nickname}"></span>
@@ -78,7 +82,7 @@
                             <span class="glyphicon glyphicon-envelope" style="color: grey;"></span> <span th:text="${aim_user.email}"></span>
                         </p>
                     </div>
-                    <div class="col-lg-2">
+                    <div class="col-lg-3">
                         <button th:if="${aim_user.is_followed=='YES'}" class="btn btn-default" th:onclick="'javascript:follow(\'' + ${aim_user.email} + '\',0,\'' + ${current_user.email} + '\')'">
                             <span class="glyphicon glyphicon-star"></span> 取消关注
                         </button>
