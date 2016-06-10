@@ -22,17 +22,17 @@ public class UserCreateForm {
 
     private Account facebookAcount = null;
 
-    private List<User> followers = null;
+    private List<String> followers = null;
 
-    private List<User> followings = null;
+    private List<String> followings = null;
 
-    public List<User> getFollowers(){return followers;}
+    public List<String> getFollowers(){return followers;}
 
-    public void setFollowers(List<User> followers){this.followers=followers;}
+    public void setFollowers(List<String> followers){this.followers=followers;}
 
-    public List<User> getfollowings(){return followings;}
+    public List<String> getFollowings(){return followings;}
 
-    public void setfollowings(List<User> followings){this.followings=followings;}
+    public void setFollowings(List<String> followings){this.followings=followings;}
 
     public String getEmail() {
         return email;

@@ -31,6 +31,8 @@
     ====================================================================== -->
     <script th:src="@{/js/gallary/fine-uploader.js}"></script>
 
+    <script th:src="@{/js/listUsers.js}"></script>
+
     <!--<link th:href="@{/css/common.css}" type="text/css" rel="stylesheet"/>-->
     <!--Custom Timeline CSS-->
     <link th:href="@{/css/timeline.css}" type="text/css" rel="stylesheet"/>
@@ -120,7 +122,8 @@
                             <form class="xtag">
                                 <a href="#" class="btn xtag"></a>
                                 <label class="xtag" style="display:none;">搜索感兴趣的人、事</label>
-                                <input type="text" placeholder="搜索感兴趣的人、事" class="xtag" onfocus="this.isfocus = true;"/>
+                                <input type="text" id="for_search" placeholder="搜索感兴趣的人、事" class="xtag" onfocus="this.isfocus = true;"
+                                       onkeypress="if(event.keyCode==13)search()"/>
                             </form>
                         </div>
                     </div>
@@ -132,14 +135,16 @@
     <div class="g-bd">
         <div class="g-bdc">
             <div class="g-mn" id="main">
-                <div id="publishBarArea" class="publishBarArea">
-                    <ul id="publishPostBar" class="m-nav2">
-                        <li class="user"><a href="#" id="addAvatar"><strong>上传头像</strong></a></li>
-                        <li><a  class="publishlink n21" id="addArticle"  0href="addArticle">文字</a></li>
-                        <li><a class="publishlink n22" id="addPictures" href="#">图片</a></li>
-                        <li><a class="publishlink n23" id="addMusic" href="#">音乐</a></li>
-                        <li><a class="publishlink publishlink-video n24" id="addVideo" href="#">视频</a></li>
-                    </ul>
+                <div th:if="${current_user.id==aim_user.id}">
+                    <div id="publishBarArea" class="publishBarArea">
+                        <ul id="publishPostBar" class="m-nav2">
+                            <li class="user"><a href="#" id="addAvatar"><strong>上传头像</strong></a></li>
+                            <li><a  class="publishlink n21" id="addArticle"  0href="addArticle">文字</a></li>
+                            <li><a class="publishlink n22" id="addPictures" href="#">图片</a></li>
+                            <li><a class="publishlink n23" id="addMusic" href="#">音乐</a></li>
+                            <li><a class="publishlink publishlink-video n24" id="addVideo" href="#">视频</a></li>
+                        </ul>
+                    </div>
                 </div>
                 <div id="cannonentrybanner" class="m-cannonentrybanner a-slide a-slide-do">
                     <div id="cannonentrybannerslide" class="m-mlist slide cannonentrybannerslide">
@@ -148,63 +153,64 @@
                 <div class="w-load2" id="loadfirst" style="display: none;"><div class="load">加载中</div></div>
 
                 <div th:each="moment:${timeline}">
-                    <div class="m-mlist">
+                    <div class="m-mlist" >
                         <div class="mlistimg" style="float: left; margin-right:20px">
                             <div class="w-img" style="z-index:1;">
                                 <a target="_blank"><img th:src='@{/resource/view/{resourceId}(resourceId=${moment.creater.avatarAddress})}' style="width: 70px; height: 70px; border-radius: 5px;"></a>
                             </div>
                         </div>
-                        <!-- <label th:text="${moment.type}"></label>-->
-                        <div th:if="${moment.type=='music'}"> <!--音乐-->
+                        <div>
+                            <!-- <label th:text="${moment.type}"></label>-->
+                            <div th:if="${moment.type=='music'}"> <!--音乐-->
 
-                        </div>
+                            </div>
 
-                        <div th:if="${moment.type=='pictures'}"> <!--图片-->
-                            <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
-                                <!-- Indicators -->
-                                <ol class="carousel-indicators">
-                                    <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-                                    <div th:with="cnt=0">
-                                        <div th:each="picture:${moment.resources}" >
-                                            <div th:if="${cnt!=0}">
-                                                <label th:text="${cnt}"></label>
-                                                <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+                            <div th:if="${moment.type=='pictures'}" style="width:500px; height: 50px; border-radius: 5px;"> <!--图片-->
+                                <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+                                    <!-- Indicators -->
+                                    <ol class="carousel-indicators">
+                                        <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+                                        <div th:with="cnt=0">
+                                            <div th:each="picture:${moment.resources}" >
+                                                <div th:if="${cnt!=0}">
+                                                    <label th:text="${cnt}"></label>
+                                                    <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </ol>
+
+                                    <!-- Wrapper for slides -->
+                                    <div class="carousel-inner" role="listbox">
+                                        <div th:each="picture:${moment.resources}">
+                                            <div class="item">
+                                                <img th:src='@{/resource/view/{resourceId}(resourceId=${picture.identity})}' alt="picture">
+                                                <div class="carousel-caption"></div><!--图片文字内容-->
                                             </div>
                                         </div>
                                     </div>
-                                </ol>
 
-                                <!-- Wrapper for slides -->
-                                <div class="carousel-inner" role="listbox">
-                                    <div th:each="picture:${moment.resources}">
-                                        <div class="item">
-                                            <img th:src='@{/resource/view/{resourceId}(resourceId=${picture.identity})}' alt="picture">
-                                            <div class="carousel-caption"></div><!--图片文字内容-->
-                                        </div>
-                                    </div>
+                                    <!-- Controls -->
+                                    <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+                                        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                                        <span class="sr-only">Previous</span>
+                                    </a>
+                                    <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+                                        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                                        <span class="sr-only">Next</span>
+                                    </a>
                                 </div>
-
-                                <!-- Controls -->
-                                <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
-                                    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-                                    <span class="sr-only">Previous</span>
-                                </a>
-                                <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
-                                    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-                                    <span class="sr-only">Next</span>
-                                </a>
                             </div>
-                        </div>
 
-                        <div th:if="${moment.type=='video'}"><!--视频-->
+                            <div th:if="${moment.type=='video'}"><!--视频-->
 
-                        </div>
+                            </div>
                             <div th:if="${moment.type=='article'}"><!--文字-->
                                 <article id="post-2582" class="block post">
-                                     <span class="round-date red">
-                                          <span class="month">4月</span>
-                                          <span class="day">16</span>
-                                     </span>
+                                 <span class="round-date red">
+                                      <span class="month">4月</span>
+                                      <span class="day">16</span>
+                                 </span>
                                     <header class="entry-header">
                                         <p class="title">
                                             <a href="#" rel="bookmark">一朵炒鸡萌的表情面板</a>
@@ -226,17 +232,11 @@
                                             &gt;&gt;</a></p>
                                     </div>
                                 </article>
-                                <!--<article id="post-2582" class="block post">
-                                     <span class="round-date red">
-                                          <span class="month">4月</span>
-                                          <span class="day">16</span>
-                                     </span>
-                                    <div class = "article1" th:text ="${moment.article}" style = "display: none">   </div>
-                                    <span class = "insert" ></span>
-                                    </article>-->
                             </div>
                         </div>
+
                     </div>
+                </div>
 
                 <a th:href="@{timeline.html(aim_user_id=${aim_user.id},current_page=${current_page-1},page_size=${page_size})}">上一页</a>
                 <a th:href="@{timeline.html(aim_user_id=${aim_user.id},current_page=${current_page+1},page_size=${page_size})}">下一页</a>
@@ -247,22 +247,22 @@
                 <div class="menum">
                     <ul>
                         <li class="first large">
-                            <div class="large-fontsize">昵称</div>
+                            <div class="large-fontsize"><label th:text="${current_user.nickname}"></label></div>
                         </li>
                         <li class="small">
                             <div class="crtp"></div>
                             <span class="icn icn-9"></span>
                             <span class="txt">文章</span>
-                            <span class="inf inf-1">0</span>
+                            <span class="inf inf-1"><label th:text="${total_articles}"></label></span>
                         </li>
                         <li class="small">
                             <span class="icn icn-1"></span>
-                            <span class="txt">关注</span>
-                            <span class="inf inf-1">0</span></li>
+                            <span class="txt"><a th:href="@{listFollowings.html}" >关注</a></span>
+                            <span class="inf inf-1"><label th:text="${total_followings}"></label></span></li>
                         <li class="small">
                             <span class="icn icn-13"></span>
-                            <span class="txt">粉丝</span>
-                            <span class="inf inf-1">0</span>
+                            <span class="txt"><a th:href="@{listFollowers.html}">粉丝</a></span>
+                            <span class="inf inf-1"><label th:text="${total_followers}"></label></span>
                         </li>
                     </ul>
                 </div>
@@ -451,89 +451,78 @@
 
 
     <script>
-    //add conditions pop up
-    $(document).ready(function(){
-        $("#addAvatar").click(function(){
-            $("#addAvatarForm").modal('show');
+        //add conditions pop up
+        $(document).ready(function(){
+            $("#addAvatar").click(function(){
+                $("#addAvatarForm").modal('show');
+            });
+            $("#addPictures").click(function(){
+                $("#addPicturesForm").modal('show');
+            });
+            $("#addMusic").click(function(){
+                $("#addMusicForm").modal('show');
+            });
+            $("#addVideo").click(function(){
+                $("#addVideoForm").modal('show');
+            });
+            $("#addArticle").click(function(){
+                $("#addArticleForm").modal('show') ;
+            });
         });
-        $("#addPictures").click(function(){
-            $("#addPicturesForm").modal('show');
-        });
-        $("#addMusic").click(function(){
-            $("#addMusicForm").modal('show');
-        });
-        $("#addVideo").click(function(){
-            $("#addVideoForm").modal('show');
-        });
-        $("#addArticle").click(function(){
-            $("#addArticleForm").modal('show') ;
-        });
-    });
-</script>
-<!-- code to create an instance of Fine Uploader and bind to the DOM/template
-    ====================================================================== -->
-<script>
-    var csrfParameter = $("meta[name='_csrf_parameter']").attr("content");
-    var csrfHeader = $("meta[name='_csrf_header']").attr("content");
-    var csrfToken = $("meta[name='_csrf']").attr("content");
-
-    var manualUploader = new qq.FineUploader({
-        element: document.getElementById('fine-uploader-manual-trigger'),
-        template: 'qq-template-manual-trigger',
-        request: {
-            endpoint: '/pictures/upload',
-            method: "POST"
-        },
-        form:{
-            element:'picturesUploadForm'
-        },
-        thumbnails: {
-            placeholders: {
-                waitingPath: '/images/placeholders/waiting-generic.png',
-                notAvailablePath: '/images/placeholders/not_available-generic.png'
-            }
-        },
-        autoUpload: false,
-        debug: true,
-        validation: {
-            allowedExtensions: ['jpeg', 'jpg', 'txt', 'png', 'odt'],
-            itemLimit: 3000000
-        },
-        callbacks: {
-            onComplete: function(id, name, responseJSON, maybeXhr) {
-                if(responseJSON.success==true)
-                {
-                    //alert("successfully uploaded");
+    </script>
+    <!-- code to create an instance of Fine Uploader and bind to the DOM/template
+        ====================================================================== -->
+    <script>
+        var csrfParameter = $("meta[name='_csrf_parameter']").attr("content");
+        var csrfHeader = $("meta[name='_csrf_header']").attr("content");
+        var csrfToken = $("meta[name='_csrf']").attr("content");
+        var manualUploader = new qq.FineUploader({
+            element: document.getElementById('fine-uploader-manual-trigger'),
+            template: 'qq-template-manual-trigger',
+            request: {
+                endpoint: '/pictures/upload',
+                method: "POST"
+            },
+            form:{
+                element:'picturesUploadForm'
+            },
+            thumbnails: {
+                placeholders: {
+                    waitingPath: '/images/placeholders/waiting-generic.png',
+                    notAvailablePath: '/images/placeholders/not_available-generic.png'
                 }
             },
-            onCancel: function(id, name) {
+            autoUpload: false,
+            debug: true,
+            validation: {
+                allowedExtensions: ['jpeg', 'jpg', 'txt', 'png', 'odt'],
+                itemLimit: 3000000
             },
-            onError: function(id, name, reason, maybeXhrOrXdr) {
-            },
-            onAllComplete: function(succeeded, failed) {
+            callbacks: {
+                onComplete: function(id, name, responseJSON, maybeXhr) {
+                    if(responseJSON.success==true)
+                    {
+                        //alert("successfully uploaded");
+                    }
+                },
+                onCancel: function(id, name) {
+                },
+                onError: function(id, name, reason, maybeXhrOrXdr) {
+                },
+                onAllComplete: function(succeeded, failed) {
+                }
             }
-        }
-    });
-
-    $('#trigger-upload').on('click', function(){
-        manualUploader.uploadStoredFiles();
-    });
-</script>
-<!--Custom Timeline js-->
-<script th:src="@{/js/timeline.js}"></script>
+        });
+        $('#trigger-upload').on('click', function(){
+            manualUploader.uploadStoredFiles();
+        });
+    </script>
+    <!--Custom Timeline js-->
+    <script th:src="@{/js/timeline.js}"></script>
     <script>
         wangEditor.config.mapAk =  'xI4iY6ZxYkUWGvQEhGERfkfa55vquqFr';
         var editor = new wangEditor('textarea1') ;
         editor.create();
-    </script>
-<!-- 显示富文本-->
-    <script>
-        var ue = document.getElementsByClassName('article1');
-        var we =document.getElementsByClassName('insert') ;
-        for(var i = 0 ;i<we.length ; i++){
-            we[i].innerHTML = ue[i].textContent;
-        }
-        //document.getElementById('insert').innerHTML = document.getElementById('article1').textContent;
     </script>
 </div>
 </body>

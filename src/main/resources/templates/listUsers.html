@@ -2,6 +2,7 @@
 <html lang="zh-CN" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
                      xmlns:sec="http://www.w3.org/1999/xhtml">
 <script th:src="@{/js/followControl.js}"></script>
+<script th:src="@{/js/listUsers.js}"></script>
 <script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
 <head>
     <meta charset="UTF-8">
@@ -46,7 +47,8 @@
                             <form class="xtag">
                                 <a href="#" class="btn xtag"></a>
                                 <label class="xtag" style="display:none;">搜索感兴趣的人、事</label>
-                                <input type="text" placeholder="搜索感兴趣的人、事" class="xtag" onfocus="this.isfocus = true;"/>
+                                <input type="text" id="for_search" placeholder="搜索感兴趣的人、事" class="xtag" onfocus="this.isfocus = true;"
+                                       onkeypress="if(event.keyCode==13)search()"/>
                             </form>
                         </div>
                     </div>
@@ -55,11 +57,11 @@
         </div>
     </div>
     <div class="box" style="width:640px; min-height:300px">
-        <div th:if="${type==0}">
+        <div th:if="${num==0}">
             <label class="searchResult">没有搜索到相关结果</label>
             <hr>
         </div>
-        <div th:if="${type==1}">
+        <div th:if="${num==1}">
             <div class="list-group">
                 <!--style="font-size: 20px;color: #555;font-weight:500"-->
                 <label class="searchResult" style="font-size: 20px;color: #555;font-weight:500">搜索到 <span th:text="${#lists.size(aim_users)}"></span> 个相关结果</label>

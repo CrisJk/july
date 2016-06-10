@@ -126,34 +126,46 @@ public class UserController {
     //根据昵称列出用户
 
     @RequestMapping(value={"/listUserByNickname"}, method = RequestMethod.GET)
-    public ModelAndView listUserByNickName(
-            @RequestParam(value="nickname",required = false,defaultValue = "新浪") String nickname,
-            @RequestParam(value="page_size",defaultValue = "1") int page_size,
+    public ModelAndView listUserByNickname(
+            @RequestParam(value="nickname",required = false,defaultValue = "QQ") String nickname,
+            @RequestParam(value="page_size",defaultValue = "5") int page_size,
             @RequestParam(value="current_page",defaultValue="1") int current_page
             )
     {
+
         ModelAndView mav = new ModelAndView("listUsers");
         mav.addObject("nickname",nickname);
         System.out.println("UserController: ************************已进入**********************");
         System.out.println("UserController: "+nickname+"******************************************");
 
-        int type = 0;
+        /*计算页数*/
+        if(current_page<1) current_page = 1;
+        int total_pages = ( userService.getUserByNickName(nickname).size() + page_size ) / page_size;
+        if(current_page >total_pages && total_pages!= 0 ) current_page = total_pages;
+
+        int num = 0;
         User current_user = userService.getSessionUser();
         System.out.println("UserController current_user:"+current_user.toString());
 
         mav.addObject("current_user",current_user);
-        Pageable pageable = new PageRequest(current_page,page_size);
+        Pageable pageable = new PageRequest(current_page-1,page_size);
         Page<User> aim_page_users = userService.getUserByNickNameInPage(nickname,pageable);
-        System.out.println("UserController:\n"+aim_page_users);
         //mav.addObject("aim_users",aim_users);
 
         if(aim_page_users != null)
         {
-            type = 1;
+            //System.out.println("UserController:\n"+aim_page_users);
+            num = 1;
             List<User> aim_users = aim_page_users.getContent();
-            for(int i=0;i<aim_page_users.getSize();i++)
+            for(int i=0;i<aim_users.size();i++)
             {
+                //System.out.println("TEST:**************");
                 List<String> aim_user_followers = aim_users.get(i).getFollowers();
+                /*for( int k = 0; k < aim_user_followers.size(); k ++ )
+                {
+                    System.out.println(aim_user_followers.get(i));
+                }*/
+                //System.out.println(aim_users.get(i));
                 if(aim_user_followers!=null&&aim_user_followers.contains(current_user.getEmail()))
                 {
                     aim_users.get(i).setIs_followed("YES");
@@ -165,7 +177,8 @@ public class UserController {
             mav.addObject("current_page",aim_page_users.getNumber());//当前页
             mav.addObject("page_size",aim_page_users.getSize());//每页显示的数量
         }
-        mav.addObject("type",type);
+        mav.addObject("num",num);
+        mav.addObject("type","nickname");
         System.out.println("UserController: "+mav.toString());
         return mav;
     }

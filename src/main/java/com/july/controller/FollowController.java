@@ -12,7 +12,9 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
 import com.july.entity.User;
+import org.springframework.web.servlet.ModelAndView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -81,4 +83,69 @@ public class FollowController {
         }
         return gson.toJson(jo);
     }
+
+    @RequestMapping(value="listFollowers", method = RequestMethod.GET)
+    public ModelAndView listFollowers()
+    {
+        ModelAndView mav = new ModelAndView("/listUsers");
+        User current_user =  userService.getSessionUser();
+        current_user = userService.getUserById(current_user.getId());
+        mav.addObject("current_user",current_user);
+        List<String> follower_email = current_user.getFollowers();
+        if(follower_email!=null)
+        {
+            List<User> followers = new ArrayList<>();
+            for(int i = 0 ; i < follower_email.size(); i ++ )
+            {
+                User tmp = userService.getUserByEmail(follower_email.get(i));
+                List<String> tmp_followers = tmp.getFollowers();
+                if(tmp_followers!=null && tmp_followers.contains(current_user.getEmail()))
+                {
+                    tmp.setIs_followed("YES");
+                }
+                else tmp.setIs_followed("NO");
+                followers.add(tmp);
+            }
+            mav.addObject("aim_users",followers);
+            mav.addObject("num",1);
+            mav.addObject("type","followers");
+        }
+        else
+        {
+            mav.addObject("num",0);
+        }
+        return mav;
+    }
+    @RequestMapping(value="listFollowings", method = RequestMethod.GET)
+    public ModelAndView listFollowings()
+    {
+        ModelAndView mav = new ModelAndView("/listUsers");
+        User current_user =  userService.getSessionUser();
+        current_user = userService.getUserById(current_user.getId());
+        mav.addObject("current_user",current_user);
+        List<String> following_email = current_user.getFollowings();
+        System.out.println("listFollowing:"+following_email.size());
+        if(following_email!=null)
+        {
+            List<User> followings = new ArrayList<>();
+            for(int i = 0 ; i < following_email.size(); i ++ )
+            {
+                User tmp = userService.getUserByEmail(following_email.get(i));
+                System.out.println(tmp);
+                tmp.setIs_followed("YES");
+                followings.add(tmp);
+            }
+            mav.addObject("aim_users",followings);
+            mav.addObject("num",1);
+            mav.addObject("type","followings");
+            System.out.println(mav);
+        }
+        else
+        {
+            mav.addObject("num",0);
+        }
+        return mav;
+    }
+
+
 }
