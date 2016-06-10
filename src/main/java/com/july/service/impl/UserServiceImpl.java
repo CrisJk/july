@@ -33,7 +33,7 @@ class ComparatorMoment implements Comparator
     {
         Moment moment0 = (Moment)obj0;
         Moment moment1 = (Moment)obj1;
-        return moment0.getId().compareTo(moment1.getId());
+        return moment1.getId().compareTo(moment0.getId());
     }
 }
 @Service
