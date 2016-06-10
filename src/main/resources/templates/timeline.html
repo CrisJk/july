@@ -37,6 +37,22 @@
     <!--Custom Timeline CSS-->
     <link th:href="@{/css/style.css}" type="text/css" rel = "stylesheet">
     <link th:href="@{/css/timeline.css}" type="text/css" rel="stylesheet"/>
+    <style>
+        .my_meta{
+            position:relative;
+        }
+        .post-2582{
+            max-height:287px;
+            overflow:hidden;
+        }
+        .more{
+            position:absolute;
+            bottom:30px;
+            left:0;
+            right:0;
+        }
+        .wrap .mainleft .list .item .r .m .my_meta{margin:22px; padding:20px 30px 70px; line-height:25px; color:#999;}
+    </style>
 
     <script type="text/template" id="qq-template-manual-trigger">
         <div class="qq-uploader-selector qq-uploader" qq-drop-area-text="Drop files here">
@@ -224,7 +240,7 @@
                                                         </div>
 
                                                         <div class="my_meta" >
-                                                            <article id="post-2582">
+                                                            <article class="post-2582">
                                                                 <header class="entry-header">
                                                                     <p class="my_title" style="margin-bottom: 5px;">
                                                                         <a href="#"  style="font-size:15px;color:#00B2EE" rel="bookmark" th:text="${moment.creater.nickname}"></a>
@@ -242,7 +258,7 @@
                                                                 <p class="article-meta" style="margin-left:300px ;margin-bottom:5px;color:#00B2EE;"><i class="fa fa-heart-o"></i>发表于 2016年4月16日</p>
                                                                 <div style="height:10px"></div>
                                                                 <div class="article-content red">
-                                                                    <p class="more"><a style="color: #FFFFFF" href="#" title="一朵炒鸡萌的表情面板" target="_blank">阅读全文
+                                                                    <p class="more"><a style="color: #FFFFFF" href="javascript:void(0)" title="一朵炒鸡萌的表情面板">阅读全文
                                                                         &gt;&gt;</a></p>
                                                                 </div>
                                                             </article>
@@ -565,6 +581,20 @@
         //document.getElementById('insert').innerHTML = document.getElementById('article1').textContent;
     </script>
     <!---->
+    <script>
+        var more = $('.more a');
+        more.on('click',function(){
+            var post = $(this).parent().parent().parent();
+            if(post.hasClass("open")){
+                post.css('max-height','287px').removeClass("open");
+                $(this).text("阅读全文>>");
+            }
+            else{
+                post.animate({"max-height":'2000px'},500).addClass("open");
+                $(this).text("<<收起文章");
+            }
+        })
+    </script>
 </div>
 </body>
 </html>
