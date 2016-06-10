@@ -126,8 +126,8 @@ public class UserController {
     //根据昵称列出用户
 
     @RequestMapping(value={"/listUserByNickname"}, method = RequestMethod.GET)
-    public ModelAndView listUserByNickName(
-            @RequestParam(value="nickname",required = false,defaultValue = "新浪") String nickname,
+    public ModelAndView listUserByNickname(
+            @RequestParam(value="nickname",required = false,defaultValue = "QQ") String nickname,
             @RequestParam(value="page_size",defaultValue = "5") int page_size,
             @RequestParam(value="current_page",defaultValue="1") int current_page
             )
@@ -154,12 +154,18 @@ public class UserController {
 
         if(aim_page_users != null)
         {
-            System.out.println("UserController:\n"+aim_page_users);
+            //System.out.println("UserController:\n"+aim_page_users);
             num = 1;
             List<User> aim_users = aim_page_users.getContent();
             for(int i=0;i<aim_users.size();i++)
             {
+                //System.out.println("TEST:**************");
                 List<String> aim_user_followers = aim_users.get(i).getFollowers();
+                /*for( int k = 0; k < aim_user_followers.size(); k ++ )
+                {
+                    System.out.println(aim_user_followers.get(i));
+                }*/
+                //System.out.println(aim_users.get(i));
                 if(aim_user_followers!=null&&aim_user_followers.contains(current_user.getEmail()))
                 {
                     aim_users.get(i).setIs_followed("YES");

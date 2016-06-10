@@ -132,6 +132,11 @@ public class User extends AbstractDocument {
 
     @Override
     public String toString() {
-        return "User [id=" + id + ", email=" + email + ", nickname=" + nickname + ", is_followed=" + is_followed + "]";
+        String str = "User [id=" + id + ", email=" + email + ", nickname=" + nickname + ", is_followed=" + is_followed + "]";
+        for( int i = 0; i < followers.size(); i ++ )
+        {
+            str += followers.get(i);
+        }
+        return str;
     }
 }
