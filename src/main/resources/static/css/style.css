@@ -89,3 +89,32 @@
 
 .wrap .mainright ul#sidebar li#floatbox{}
 .wrap .mainright ul#sidebar li#floatbox div.rightbox{background:url(../images/icons.png) no-repeat -1px -695px #f3f3f3; padding:10px 13px;}
+
+.my_meta{
+    position:relative;
+}
+.post-2582{
+    max-height:287px;
+    overflow:hidden;
+}
+.more{
+    position:absolute;
+    bottom:30px;
+    left:0;
+    right:0;
+}
+
+.my_meta{
+    position:relative;
+}
+.post-2582{
+    max-height:287px;
+    overflow:hidden;
+}
+.more{
+    position:absolute;
+    bottom:30px;
+    left:0;
+    right:0;
+}
+.wrap .mainleft .list .item .r .m .my_meta{margin:22px; padding:20px 30px 70px; line-height:25px; color:#999;}
