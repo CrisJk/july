@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -498,8 +498,15 @@
                     <ul>
                         <li class="first large">
                             <div class="large-fontsize">
-                                <label th:text="${current_user.nickname}" style="margin-bottom:0px"></label>
-                                <p th:text="${current_user.email}" style="font-weight:500;font-size:12px;line-height:1"></p>
+                                <div style="float:left">
+                                    <label th:text="${current_user.nickname}" style="margin-bottom:0px"></label>
+                                    <p th:text="${current_user.email}" style="font-weight:500;font-size:12px;line-height:1"></p>
+                                </div>
+                                <div style="float:right">
+                                    <span sec:authorize="isAuthenticated()">
+                                        <a class="glyphicon glyphicon-share-alt" title="登出" style="text-decoration:none; margin-left:10px; color:#777" href="#" onclick="logout();"></a>
+                                    </span>
+                                </div>
                             </div>
                         </li>
                         <li class="small">
@@ -802,6 +809,19 @@
             });
         }
 
+        //logout
+        function logout() {
+            var data = {};
+            data[csrfParameter] = csrfToken;
+            $.ajax({
+                url: '/logout',
+                type: "POST",
+                data: data,
+                success: function(response) {
+                    window.location = "/";
+                }
+            });
+        }
     </script>
 
     <!--Custom Timeline js-->
