@@ -1,3 +1,8 @@
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, form, fieldset, input, button, textarea, p, blockquote, th, td {
+    padding: 0;
+    margin: 0;
+}
+
 .g-hd {
     height: 82px;
     margin-bottom: 30px;
@@ -616,6 +621,7 @@ article>div>p {
 
 .article-content.red>.more a {
     background-color: #63696D;
+    color:#000000;
 }
 
 .more a {
@@ -641,4 +647,35 @@ article>div>p {
     height:90px;
     background-image: url("../images/default.png");
     background-size:cover;
+}
+
+.pagination a, .pagination span {
+    position: relative;
+    float: left;
+    padding: 7px 12px;
+    margin-left: -1px;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: bold;
+    color: #666666;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background: #fff;
+    border: 1px solid #e5e5e5;
+    text-decoration: none;
+}
+
+.m-mlist .isayt {
+    height: 24px;
+    overflow: hidden;
+    background-position: 0 0;
+}
+.m-mlist .isayt, .m-mlist .isayt3, .m-mlist .isaym, .m-mlist .isaym2, .m-mlist .isaym3, .m-mlist .isayb, .m-mlist .isayc, .m-activity .m-nav2 {
+    background: url(../rsc/img/isay24.png?021) no-repeat 999px 999px;
+    _background: url(../rsc/img/isay.png?021) no-repeat 999px 999px;
 }

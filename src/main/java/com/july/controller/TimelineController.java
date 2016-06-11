@@ -39,7 +39,6 @@ public class TimelineController {
         User current_user = userService.getSessionUser();
         current_user = userService.getUserById(current_user.getId());
         BigInteger userId = null;
-
         if(aim_user_id!=null) userId = aim_user_id;
         else userId = userService.getSessionUser().getId();
 
