@@ -94,21 +94,7 @@
     position:relative;
 }
 .post-2582{
-    max-height:287px;
-    overflow:hidden;
-}
-.more{
-    position:absolute;
-    bottom:30px;
-    left:0;
-    right:0;
-}
-
-.my_meta{
-    position:relative;
-}
-.post-2582{
-    max-height:287px;
+    max-height:600px;
     overflow:hidden;
 }
 .more{

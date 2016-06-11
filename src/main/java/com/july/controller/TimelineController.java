@@ -44,7 +44,13 @@ public class TimelineController {
 
         User user = userService.getUserById(userId);
         //得到它的时间线
-        List<Moment> timeline = user.getTimeline();
+        List<Moment> timelines = user.getTimeline();
+        List<Moment> timeline = new ArrayList<>();
+        for (int i = 0; i < timelines.size(); i++) {
+            if (timelines.get(i).isStatus() == true) {
+                timeline.add(timelines.get(i));
+            }
+        }
 
         int total_page = (timeline.size()+page_size-1)/page_size;
 
@@ -68,11 +74,10 @@ public class TimelineController {
         for( int i = 0 ; i < timeline.size(); i ++ )
         {
             Moment tmpMoment = timeline.get(i);
-            if(tmpMoment.isStatus()) total_articles++;
+            if(tmpMoment.getCreater().getId().equals(current_user.getId()) && tmpMoment.isStatus()) total_articles++;
         }
         mav.addObject("total_articles",total_articles); //文章数
 
-        List<String> followerss = current_user.getFollowers();
         System.out.println(current_user.getFollowers().size());
         mav.addObject("total_followers",current_user.getFollowers().size());
         mav.addObject("total_followings",current_user.getFollowings().size());

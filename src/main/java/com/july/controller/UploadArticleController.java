@@ -27,8 +27,10 @@ public class UploadArticleController {
 
     @Autowired
     MomentService momentService ;
+
     @Autowired
     UserService userService ;
+
     @Autowired
     MomentRepository momentRepository ;
 
@@ -37,6 +39,7 @@ public class UploadArticleController {
     {
         return "saveArticle" ;
     }
+
     @RequestMapping(value="/saveArticle",method = RequestMethod.POST)
     String uploadArticle(@RequestParam String article)
     {
@@ -54,6 +57,7 @@ public class UploadArticleController {
             user.setTimeline(timeline);
             userService.update(user);
             //todo:关注本用户的人的时间线添加该动态
+            saveMomentInTimelineFollow(user, moment);
             logger.info("Moment save successfully!");
             return "redirect:/timeline" ;
         }
@@ -62,6 +66,18 @@ public class UploadArticleController {
             return null ;
         }
 
+    }
+
+    //关注本用户的人的时间线添加动态
+    private void saveMomentInTimelineFollow(User user, Moment moment) {
+        List<String> followers = user.getFollowers();
+        for(int i = 0; i < followers.size(); i ++ )
+        {
+            User tmp_aim_follower = userService.getUserByEmail(followers.get(i));
+            List<Moment> tmp_aim_timeline = tmp_aim_follower.getTimeline();
+            tmp_aim_timeline.add(moment);
+            userService.update(tmp_aim_follower);
+        }
     }
 
     @RequestMapping(value="/seeArticle",method=RequestMethod.GET)
@@ -74,4 +90,5 @@ public class UploadArticleController {
         mav.addObject("moment",moment) ;
         return  mav ;
     }
+
 }

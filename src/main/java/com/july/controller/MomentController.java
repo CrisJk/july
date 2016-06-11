@@ -70,8 +70,7 @@ public class MomentController {
                 momentService.save(moment);
                 //本用户时间线添加该动态
                 saveMomentInTimelineSelf(user, moment);
-                //todo:关注本用户的人的时间线添加该动态
-
+                saveMomentInTimelineFollow(user, moment);
                 logger.info("Moment with type " + type + " saved successfully.");
                 return true;
             }
@@ -132,6 +131,7 @@ public class MomentController {
             String identity = ids.get(i).replace("[", "");
             identity = identity.replace("]", "");
             identity = identity.replace("\"", "");
+
             Resource resource = resourceService.getResourceByIdentity(identity);   //new BigInteger(id, 16)
             if (resource == null) {
                 logger.info("Error! can't find resource.");
@@ -143,7 +143,6 @@ public class MomentController {
         momentService.save(moment);
         //本用户时间线添加该动态
         saveMomentInTimelineSelf(user, moment);
-        //todo:关注本用户的人的时间线添加该动态
         saveMomentInTimelineFollow(user, moment);
         logger.info("Moment with type " + type + " saved successfully.");
         json1.addProperty("success", true);
