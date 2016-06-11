@@ -31,7 +31,7 @@ public class TimelineController {
     @RequestMapping(value="/timeline", method = RequestMethod.GET)
     public ModelAndView showTimeline(
             @RequestParam(value="current_page",defaultValue = "1") int current_page,
-            @RequestParam(value="page_size",defaultValue = "3") int page_size,
+            @RequestParam(value="page_size",defaultValue = "10") int page_size,
             @RequestParam(value="aim_user_id",required=false) BigInteger aim_user_id,
             HttpServletRequest request)
     {

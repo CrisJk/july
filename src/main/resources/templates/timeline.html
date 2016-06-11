@@ -250,7 +250,9 @@
                                                                         <span class="glyphicon glyphicon-bookmark"></span><span style="margin-left:5px">音乐</span>
                                                                         <span style="margin-right:10px"></span>
                                                                         <span th:if="${moment.creater.id==current_user.id}">
-                                                                            <span class="glyphicon glyphicon-trash"></span><span style="margin-left:5px">删除</span>
+                                                                            <button th:onclick="'deleteMoment(\'' + ${moment.id} + '\')'" style="color:darkred" class="btn btn-default btn-link">
+                                                                                <span class="glyphicon glyphicon-trash"></span><span style="margin-left:5px">删除</span>
+                                                                            </button>
                                                                         </span>
                                                                         <span style="float: right">
                                                                               <span class="glyphicon glyphicon-heart-empty" style="font-size:18px;position:relative;top:4px"></span><span style="margin-left:10px" th:text="${moment.like}"></span>
@@ -385,7 +387,9 @@
                                                                         <span class="glyphicon glyphicon-bookmark"></span><span style="margin-left:5px">视频</span>
                                                                         <span style="margin-right:10px"></span>
                                                                         <span th:if="${moment.creater.id==current_user.id}">
-                                                                            <span class="glyphicon glyphicon-trash"></span><span style="margin-left:5px">删除</span>
+                                                                            <button th:onclick="'deleteMoment(\'' + ${moment.id} + '\')'" style="color:darkred" class="btn btn-default btn-link">
+                                                                                <span class="glyphicon glyphicon-trash"></span><span style="margin-left:5px">删除</span>
+                                                                            </button>
                                                                         </span>
                                                                         <span style="float: right">
                                                                               <span class="glyphicon glyphicon-heart-empty" style="font-size:18px;position:relative;top:4px"></span><span style="margin-left:10px" th:text="${moment.like}"></span>
@@ -452,7 +456,9 @@
                                                                         <span class="glyphicon glyphicon-bookmark"></span><span style="margin-left:5px">文章</span>
                                                                         <span style="margin-right:10px"></span>
                                                                         <span th:if="${moment.creater.id==current_user.id}">
-                                                                            <span class="glyphicon glyphicon-trash"></span><span style="margin-left:5px">删除</span>
+                                                                            <button th:onclick="'deleteMoment(\'' + ${moment.id} + '\')'" style="color:darkred" class="btn btn-default btn-link">
+                                                                                <span class="glyphicon glyphicon-trash"></span><span style="margin-left:5px">删除</span>
+                                                                            </button>
                                                                         </span>
                                                                         <span style="float: right">
                                                                               <span class="glyphicon glyphicon-heart-empty" style="font-size:18px;position:relative;top:4px"></span><span style="margin-left:10px" th:text="${moment.like}"></span>
