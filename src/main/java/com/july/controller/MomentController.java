@@ -128,7 +128,6 @@ public class MomentController {
         //上传动态(图片)
         System.out.println("总共有" + ids.size() + "张图片");
 
-
         for (int i = 0; i < ids.size(); i++) {
             String identity = ids.get(i).replace("[", "");
             identity = identity.replace("]", "");

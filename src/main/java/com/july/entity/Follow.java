@@ -8,8 +8,7 @@ import java.util.Set;
 /**
  * Created by sherrypan on 16-5-25.
  */
-public class Follow extends AbstractDocument {
-
+public class follow extends AbstractDocument {
     @DBRef
     @Indexed
     private User user;
