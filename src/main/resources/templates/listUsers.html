@@ -76,10 +76,14 @@
                 <hr>
                 <div th:each="aim_user:${aim_users}" style="margin-bottom:100px">
                     <div class="col-lg-2" th:if="${aim_user.avatarAddress} == null">
-                        <img class="media-object" data-src="" alt="头像" src='/images/default.png' style="width: 65px; height: 65px; border-radius: 5px;">
+                        <a th:href="|/timeline?aim_user_id=${aim_user.id}|">
+                             <img  class="media-object" data-src="" alt="头像" src='/images/default.png' style="width: 65px; height: 65px; border-radius: 5px;">
+                        </a>
                     </div>
                     <div class="col-lg-2" th:if="${aim_user.avatarAddress} != null">
-                        <img class="media-object" data-src="" alt="头像" th:src='@{/resource/view/{resourceId}(resourceId=${aim_user.avatarAddress})}' style="width: 65px; height: 65px; border-radius: 5px;">
+                        <a th:href="|/timeline?aim_user_id=${aim_user.id}|">
+                            <img class="media-object" data-src="" alt="头像" th:src='@{/resource/view/{resourceId}(resourceId=${aim_user.avatarAddress})}' style="width: 65px; height: 65px; border-radius: 5px;">
+                        </a>
                     </div>
 
                     <div class="col-lg-7">
