@@ -33,6 +33,10 @@
 
     <script th:src="@{/js/listUsers.js}"></script>
 
+    <!--music-->
+    <script th:src="@{/js/APlayer.min.js}"></script>
+    <!--<script src="../js/selfAPlayer.js"></script>-->
+
     <!--<link th:href="@{/css/common.css}" type="text/css" rel="stylesheet"/>-->
     <!--Custom Timeline CSS-->
     <link th:href="@{/css/style.css}" type="text/css" rel = "stylesheet">
@@ -196,12 +200,47 @@
                                                                 <!-- .entry-header -->
                                                                 <div class="article-content red">
                                                                     <div th:each="music:${moment.resources}">
-                                                                        <div style="text-align: center">
-
-
-                                                                            music.identity
-                                                                            <div id="player1" class="aplayer"></div>
-
+                                                                        <div>
+                                                                            <div th:id="${music.identity}" class="aplayer"></div>
+                                                                            <script th:inline="javascript">
+                                                                                var musicUrl = '/resource/view/' + [[${music.identity}]];
+                                                                                var ap1 = new APlayer({
+                                                                                    element: document.getElementById([[${music.identity}]]),
+                                                                                    narrow: false,
+                                                                                    autoplay: false,
+                                                                                    showlrc: false,
+                                                                                    mutex: true,
+                                                                                    theme: '#e6d0b2',
+                                                                                    music: {
+                                                                                        title: 'Preparation',
+                                                                                        author: 'Hans Zimmer/Richard Harvey',
+                                                                                        url: musicUrl,
+                                                                                        pic: 'http://devtest.qiniudn.com/Preparation.jpg'
+                                                                                    }
+                                                                                });
+                                                                                ap1.on('play', function () {
+                                                                                    console.log('play');
+                                                                                });
+                                                                                ap1.on('play', function () {
+                                                                                    console.log('play play');
+                                                                                });
+                                                                                ap1.on('pause', function () {
+                                                                                    console.log('pause');
+                                                                                });
+                                                                                ap1.on('canplay', function () {
+                                                                                    console.log('canplay');
+                                                                                });
+                                                                                ap1.on('playing', function () {
+                                                                                    console.log('playing');
+                                                                                });
+                                                                                ap1.on('ended', function () {
+                                                                                    console.log('ended');
+                                                                                });
+                                                                                ap1.on('error', function () {
+                                                                                    console.log('error');
+                                                                                });
+                                                                                ap1.init();
+                                                                            </script>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -762,10 +801,6 @@
         }
 
     </script>
-
-    <!--music-->
-    <script src="../js/APlayer.min.js"></script>
-    <script src="../js/selfAPlayer.js"></script>
 
     <!--Custom Timeline js-->
     <script th:src="@{/js/timeline.js}"></script>
