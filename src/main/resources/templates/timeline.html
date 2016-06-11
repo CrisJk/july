@@ -37,6 +37,7 @@
     <!--Custom Timeline CSS-->
     <link th:href="@{/css/style.css}" type="text/css" rel = "stylesheet">
     <link th:href="@{/css/timeline.css}" type="text/css" rel="stylesheet"/>
+    <link rel="stylesheet" th:href="@{css/APlayer.min.css}">
 
     <script type="text/template" id="qq-template-manual-trigger">
         <div class="qq-uploader-selector qq-uploader" qq-drop-area-text="Drop files here">
@@ -180,8 +181,45 @@
                                                         <div class="t position"><span class="jiao"></span>
                                                         </div>
 
-                                                        <div class="my_meta" >
-                                                            这里填内容
+                                                        <div class="my_meta" style="padding-bottom:30px;padding-top:0px">
+
+                                                            <article class="block post">
+                                                                <header class="entry-header" style="text-align: center;margin-bottom:10px">
+                                                                    <span style="text-align:left">
+                                                                        <p style="font-size:15px;color:#428BCA" th:text="${moment.creater.nickname}"></p>
+                                                                        <p class="article-meta" style="text-align:left;margin-bottom:5px;color:#555"><i class="fa fa-heart-o"></i><span th:text="${moment.createdDate} ? ${#dates.format(moment.createdDate, '发表于 yyyy年MM月dd日')}">发表于 2016年4月16日</span></p>
+                                                                    </span>
+                                                                    <div class="article-content red">
+                                                                        <p></p>
+                                                                    </div>
+                                                                </header>
+                                                                <!-- .entry-header -->
+                                                                <div class="article-content red">
+                                                                    <div th:each="music:${moment.resources}">
+                                                                        <div style="text-align: center">
+
+
+                                                                            music.identity
+                                                                            <div id="player1" class="aplayer"></div>
+
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div style="height:10px"></div>
+                                                                <div class="article-content red">
+                                                                    <span style="color: #555;">
+                                                                        <span class="glyphicon glyphicon-bookmark"></span><span style="margin-left:5px">音乐</span>
+                                                                        <span style="margin-right:10px"></span>
+                                                                        <span th:if="${moment.creater.id==current_user.id}">
+                                                                            <span class="glyphicon glyphicon-trash"></span><span style="margin-left:5px">删除</span>
+                                                                        </span>
+                                                                        <span style="float: right">
+                                                                              <span class="glyphicon glyphicon-heart-empty" style="font-size:18px;position:relative;top:4px"></span><span style="margin-left:10px" th:text="${moment.like}"></span>
+                                                                        </span>
+                                                                    </span>
+                                                                </div>
+                                                            </article>
+
                                                             <div class="clear"></div>
                                                         </div>
                                                     </div>
@@ -210,14 +248,17 @@
                                                         <div class="t position"><span class="jiao"></span>
                                                         </div>
 
-                                                        <div class="my_meta" >
+                                                        <div class="my_meta" style="padding-bottom:30px;padding-top:0px">
 
                                                             <article class="block post">
                                                                 <header class="entry-header" style="text-align: center;margin-bottom:10px">
-                                                                    <h4 class="title" style="color:#428bca">
-                                                                        一朵炒鸡萌的表情面板
-                                                                    </h4>
-                                                                    <p class="article-meta"><i class="fa fa-heart-o"></i>发表于 2016年4月16日</p>
+                                                                    <!--<h4 class="title" style="color:#428bca">-->
+                                                                        <!--一朵炒鸡萌的表情面板-->
+                                                                    <!--</h4>-->
+                                                                    <span style="text-align:left">
+                                                                        <p style="font-size:15px;color:#428BCA" th:text="${moment.creater.nickname}"></p>
+                                                                        <p class="article-meta" style="text-align:left;margin-bottom:5px;color:#555"><i class="fa fa-heart-o"></i><span th:text="${moment.createdDate} ? ${#dates.format(moment.createdDate, '发表于 yyyy年MM月dd日')}">发表于 2016年4月16日</span></p>
+                                                                    </span>
                                                                     <div class="article-content red">
                                                                         <p></p>
                                                                     </div>
@@ -277,8 +318,43 @@
                                                         <div class="t position"><span class="jiao"></span>
                                                         </div>
 
-                                                        <div class="my_meta" >
-                                                            这里填内容
+                                                        <div class="my_meta" style="padding-bottom:30px;padding-top:0px">
+                                                            <article class="block post">
+                                                                <header class="entry-header" style="text-align: center;margin-bottom:10px">
+                                                                    <span style="text-align:left">
+                                                                        <p style="font-size:15px;color:#428BCA" th:text="${moment.creater.nickname}"></p>
+                                                                        <p class="article-meta" style="text-align:left;margin-bottom:5px;color:#555"><i class="fa fa-heart-o"></i><span th:text="${moment.createdDate} ? ${#dates.format(moment.createdDate, '发表于 yyyy年MM月dd日')}">发表于 2016年4月16日</span></p>
+                                                                    </span>
+                                                                    <div class="article-content red">
+                                                                        <p></p>
+                                                                    </div>
+                                                                </header>
+                                                                <!-- .entry-header -->
+                                                                <div class="article-content red">
+                                                                    <div th:each="video:${moment.resources}">
+                                                                        <div style="text-align: center">
+                                                                            <video width="100%" controls>
+                                                                                <source th:src="@{/resource/view/{resourceId}(resourceId=${video.identity})}" >
+                                                                                你的浏览器不支持HTML5播放器
+                                                                            </video>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div style="height:10px"></div>
+                                                                <div class="article-content red">
+                                                                    <span style="color: #555;">
+                                                                        <span class="glyphicon glyphicon-bookmark"></span><span style="margin-left:5px">视频</span>
+                                                                        <span style="margin-right:10px"></span>
+                                                                        <span th:if="${moment.creater.id==current_user.id}">
+                                                                            <span class="glyphicon glyphicon-trash"></span><span style="margin-left:5px">删除</span>
+                                                                        </span>
+                                                                        <span style="float: right">
+                                                                              <span class="glyphicon glyphicon-heart-empty" style="font-size:18px;position:relative;top:4px"></span><span style="margin-left:10px" th:text="${moment.like}"></span>
+                                                                        </span>
+                                                                    </span>
+                                                                </div>
+                                                            </article>
+
                                                             <div class="clear"></div>
                                                         </div>
                                                     </div>
@@ -307,11 +383,14 @@
                                                         <div class="t position"><span class="jiao"></span>
                                                         </div>
 
-                                                        <div class="my_meta" >
+                                                        <div class="my_meta" style="padding-top:0px">
                                                             <article class="post-2582">
                                                                 <header class="entry-header">
                                                                     <p class="my_title" style="margin-bottom: 5px;">
-                                                                        <a href="#"  style="font-size:15px;color:#00B2EE" rel="bookmark" th:text="${moment.creater.nickname}"></a>
+                                                                        <span>
+                                                                            <p style="font-size:15px;color:#428BCA" th:text="${moment.creater.nickname}"></p>
+                                                                            <p class="article-meta" style="text-align:left;margin-bottom:5px;color:#555;"><i class="fa fa-heart-o"></i><span th:text="${moment.createdDate} ? ${#dates.format(moment.createdDate, '发表于 yyyy年MM月dd日')}">发表于 2016年4月16日</span></p>
+                                                                        </span>
                                                                     </p>
 
                                                                     <div class="article-content red">
@@ -323,10 +402,13 @@
                                                                     <div class = "article1" th:text ="${moment.article}" style = "display: none">   </div>
                                                                     <span class = "insert" ></span>
                                                                 </div>
-                                                                <p class="article-meta" style="margin-left:300px ;margin-bottom:5px;color:#00B2EE;"><i class="fa fa-heart-o"></i>发表于 2016年4月16日</p>
-                                                                <div style="height:10px"></div>
-                                                                <div style="height:10px"></div>
                                                                 <div class="article-content red">
+                                                                    <p class="more"><a style="color: #FFFFFF" href="javascript:void(0)" title="一朵炒鸡萌的表情面板">阅读全文
+                                                                        &gt;&gt;</a></p>
+                                                                </div>
+
+                                                            </article>
+                                                            <div class="article-content red" style="margin-top:10px">
                                                                     <span style="color: #555;">
                                                                         <span class="glyphicon glyphicon-bookmark"></span><span style="margin-left:5px">文章</span>
                                                                         <span style="margin-right:10px"></span>
@@ -337,9 +419,8 @@
                                                                               <span class="glyphicon glyphicon-heart-empty" style="font-size:18px;position:relative;top:4px"></span><span style="margin-left:10px" th:text="${moment.like}"></span>
                                                                         </span>
                                                                     </span>
-                                                                    <!--<p class="more"><a href="#" title="一朵炒鸡萌的表情面板" target="_blank">阅读全文>&gt;</a></p>-->
-                                                                </div>
-                                                            </article>
+                                                                <!--<p class="more"><a href="#" title="一朵炒鸡萌的表情面板" target="_blank">阅读全文>&gt;</a></p>-->
+                                                            </div>
                                                             <div class="clear"></div>
                                                         </div>
                                                     </div>
@@ -371,12 +452,15 @@
                 <div class="menum">
                     <ul>
                         <li class="first large">
-                            <div class="large-fontsize"><label th:text="${current_user.nickname}"></label></div>
+                            <div class="large-fontsize">
+                                <label th:text="${current_user.nickname}" style="margin-bottom:0px"></label>
+                                <p th:text="${current_user.email}" style="font-weight:500;font-size:12px;line-height:1"></p>
+                            </div>
                         </li>
                         <li class="small">
                             <div class="crtp"></div>
                             <span class="icn icn-9"></span>
-                            <span class="txt">文章</span>
+                            <span class="txt">发布</span>
                             <span class="inf inf-1"><label th:text="${total_articles}"></label></span>
                         </li>
                         <li class="small">
@@ -458,7 +542,7 @@
                         <form id="picturesUploadForm" method="post" onsubmit="return validate()">
                             <input type="hidden" name="type" value="pictures" />
                             <div style="display:inline-block;margin-top:10px;text-align:center;width:100%">
-                                <input type="submit" class="btn btn-default" style="width:100px" value="确认">
+                                <input type="submit" class="btn btn-default" style="width:100px" value="发布">
                             </div>
                         </form>
                     </div>
@@ -559,7 +643,9 @@
                         <div style = "width:100%;">
                             <form th:action="@{/saveArticle}" method ="post">
                                 <textarea id = "textarea1" name = "article" style="height:220px"></textarea>
-                                <input type = "submit" class="btn btn-success" value="发布"/>
+                                <div style="text-align:center">
+                                    <input type="submit" class="btn btn-default" style="margin-top:10px; width:100px" value="发布">
+                                </div>
                             </form>
                         </div>
 
@@ -676,6 +762,10 @@
         }
 
     </script>
+
+    <!--music-->
+    <script src="../js/APlayer.min.js"></script>
+    <script src="../js/selfAPlayer.js"></script>
 
     <!--Custom Timeline js-->
     <script th:src="@{/js/timeline.js}"></script>

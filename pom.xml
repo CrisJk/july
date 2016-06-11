@@ -66,13 +66,13 @@
 			<artifactId>nekohtml</artifactId>
 			<version>1.9.21</version>
 		</dependency>
-        <!--&lt;!&ndash; http://mvnrepository.com/artifact/org.thymeleaf.extras/thymeleaf-extras-java8time &ndash;&gt;-->
-        <!--<dependency>-->
-            <!--<groupId>org.thymeleaf.extras</groupId>-->
-            <!--<artifactId>thymeleaf-extras-java8time</artifactId>-->
-            <!--<version>2.1.0.RELEASE</version>-->
-        <!--</dependency>-->
-        <!--&lt;!&ndash; http://mvnrepository.com/artifact/org.thymeleaf.extras/thymeleaf-extras-springsecurity4 &ndash;&gt;-->
+        <!-- http://mvnrepository.com/artifact/org.thymeleaf.extras/thymeleaf-extras-java8time -->
+        <dependency>
+            <groupId>org.thymeleaf.extras</groupId>
+            <artifactId>thymeleaf-extras-java8time</artifactId>
+            <version>2.1.0.RELEASE</version>
+        </dependency>
+        <!-- http://mvnrepository.com/artifact/org.thymeleaf.extras/thymeleaf-extras-springsecurity4 -->
         <dependency>
             <groupId>org.thymeleaf.extras</groupId>
             <artifactId>thymeleaf-extras-springsecurity4</artifactId>
@@ -107,12 +107,6 @@
 			<artifactId>spring-boot-devtools</artifactId>
 			<optional>true</optional>
 		</dependency>
-
-		<!--<dependency>-->
-			<!--<groupId>baidu</groupId>-->
-			<!--<artifactId>ueditor</artifactId>-->
-			<!--<version>1.1.1</version>-->
-		<!--</dependency>-->
 		<dependency>
 			<groupId>com.google.code.gson</groupId>
 			<artifactId>gson</artifactId>

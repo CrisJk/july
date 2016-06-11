@@ -157,10 +157,13 @@ public class MomentController {
 
     //本用户时间线添加动态到时间线
     private void saveMomentInTimelineSelf(User user, Moment moment) {
+
         List<Moment> timeline = user.getTimeline();
+        System.out.println("添加之前时间线个数："+timeline.size());
         timeline.add(moment);
         user.setTimeline(timeline);
         userService.update(user);
+        System.out.println("添加之后时间线个数："+user.getTimeline().size());
     }
 
     //上传头像
