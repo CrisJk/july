@@ -67,10 +67,10 @@
                 <div th:if="${type=='nickname'}">
                     <label class="searchResult" style="font-size: 20px;color: #555;font-weight:500">搜索到 <span th:text="${#lists.size(aim_users)}"></span> 个相关结果</label>
                 </div>
-                <div th:if="${type=='following'}">
+                <div th:if="${type=='followings'}">
                     <label class="searchResult" style="font-size: 20px;color: #555;font-weight:500">共有 <span th:text="${#lists.size(aim_users)}"></span> 个关注</label>
                 </div>
-                <div th:if="${type=='follower'}">
+                <div th:if="${type=='followers'}">
                     <label class="searchResult" style="font-size: 20px;color: #555;font-weight:500">共有 <span th:text="${#lists.size(aim_users)}"></span> 个粉丝</label>
                 </div>
                 <hr>
