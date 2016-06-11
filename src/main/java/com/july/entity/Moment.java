@@ -38,8 +38,15 @@ public class Moment extends AbstractDocument {
     //内容类型
     private String type;// music picture video
 
+
+
+    //是否显示 true代表显示 false代表不显示（已被删除）
+    private boolean status;
+
     public Moment() {
         super();
+        status = true;
+        like=0;
     }
 
     public Moment(String type, User creater) {
@@ -48,6 +55,7 @@ public class Moment extends AbstractDocument {
         this.creater = creater;
         this.createdDate = Date.from(Instant.now());
         like = 0;
+        status = true;
     }
 
     public String getArticle() {
@@ -101,5 +109,13 @@ public class Moment extends AbstractDocument {
     public String toString()
     {
         return "Moment:[User:"+creater.toString()+"\n]";
+    }
+
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
     }
 }

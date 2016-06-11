@@ -66,12 +66,6 @@ public class TimelineController {
         mav.addObject("total_articles",timeline.size()); //文章数
         System.out.println("current_user:\t"+current_user);
         List<String> followerss = current_user.getFollowers();
-        System.out.println("*********************enter");
-        for (String dd:
-             followerss) {
-            System.out.println(dd);
-        }
-        System.out.println("*********************exit");
         System.out.println(current_user.getFollowers().size());
         mav.addObject("total_followers",current_user.getFollowers().size());
         mav.addObject("total_followings",current_user.getFollowings().size());

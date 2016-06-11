@@ -9,3 +9,5 @@ function search()
     //window.location.href = 'listUserByNickname?nickname=' + nickname;
     return false;
 }
+
+

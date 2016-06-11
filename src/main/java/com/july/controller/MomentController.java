@@ -128,7 +128,6 @@ public class MomentController {
         //上传动态(图片)
         System.out.println("总共有" + ids.size() + "张图片");
 
-
         for (int i = 0; i < ids.size(); i++) {
             String identity = ids.get(i).replace("[", "");
             identity = identity.replace("]", "");
@@ -239,5 +238,18 @@ public class MomentController {
             if (buf != null)
                 buf.close();
         }
+    }
+
+    @RequestMapping(value="deleteMomentInJson",method = RequestMethod.GET,produces = "text/html;charset=UTF-8")
+    @ResponseBody
+    public String deleteMomentInJson(
+            @RequestParam(value="moment_id") BigInteger moment_id
+    )
+    {
+        Gson gson = new Gson();
+        JsonObject jo = new JsonObject();
+        momentService.deleteMomentById(moment_id);
+        jo.addProperty("success",true);
+        return gson.toJson(jo);
     }
 }
