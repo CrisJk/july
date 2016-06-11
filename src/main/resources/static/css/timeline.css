@@ -692,3 +692,7 @@ article>div>p {
     text-indent: -2000px;
     background-position: 0 -934px;
 }
+p{
+    word-break:break-all;
+    text-overflow:ellipsis;
+}
