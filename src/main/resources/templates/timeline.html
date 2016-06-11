@@ -155,6 +155,7 @@
                 <div class="w-load2" id="loadfirst" style="display: none;"><div class="load">加载中</div></div>
 
                 <div th:each="moment:${timeline}">
+                    <div th:if="${moment.status}">
                     <div class="m-mlist" >
                         <div class="mlistimg" style="float: left; margin-right:20px">
                             <div class="w-img" style="z-index:1;" th:if="${moment.creater.avatarAddress} == null">
@@ -236,7 +237,10 @@
                                                                         <span class="glyphicon glyphicon-bookmark"></span><span style="margin-left:5px">图片</span>
                                                                         <span style="margin-right:10px"></span>
                                                                         <span th:if="${moment.creater.id==current_user.id}">
-                                                                            <span class="glyphicon glyphicon-trash"></span><span style="margin-left:5px">删除</span>
+
+                                                                            <button th:onclick="'deleteMoment(\'' + ${moment.id} + '\')'" style="color:darkred" class="btn btn-default btn-link">
+                                                                                <span class="glyphicon glyphicon-trash"></span><span style="margin-left:5px">删除</span>
+                                                                            </button>
                                                                         </span>
                                                                         <span style="float: right">
                                                                               <span class="glyphicon glyphicon-heart-empty" style="font-size:18px;position:relative;top:4px"></span><span style="margin-left:10px" th:text="${moment.like}"></span>
@@ -352,6 +356,7 @@
                                 <!--end 框-->
                             </div>
                         </div>
+                    </div>
                     </div>
                 </div>
                 <div style="display:inline-block;text-align:center;width:100%;margin-left:40px;">
@@ -702,6 +707,31 @@
                 $(this).text("<<收起文章");
             }
         })
+    </script>
+    <script>
+        function deleteMoment( moment_id )
+        {
+            //alert(moment_id);
+            $.ajax({
+                url: "/deleteMomentInJson.html",
+                type:"GET",
+                data:{
+                    "moment_id":moment_id,
+                },
+                dataType:"json",
+                async : false,
+                cache:true,
+                success:function(data){
+                    //alert("success");
+                    location.reload();
+                    //alert(data.success);
+                },
+                error:function(data){
+                    alert("error");
+                    //alert(data.success);
+                }
+            });
+        }
     </script>
 </div>
 </body>

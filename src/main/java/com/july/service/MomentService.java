@@ -2,6 +2,7 @@ package com.july.service;
 
 import com.july.entity.Moment;
 
+import java.math.BigInteger;
 import java.security.NoSuchAlgorithmException;
 
 /**
@@ -11,4 +12,5 @@ public interface MomentService {
 
     boolean save(Moment moment);
 
+    void deleteMomentById(BigInteger moment_id);
 }

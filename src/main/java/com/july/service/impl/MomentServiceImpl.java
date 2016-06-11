@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
@@ -29,6 +30,13 @@ public class MomentServiceImpl implements MomentService {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public void deleteMomentById(BigInteger moment_id) {
+        Moment tmpMoment = momentRepository.findOne(moment_id);
+        tmpMoment.setStatus(false);
+        momentRepository.save(tmpMoment);
     }
 
 }
