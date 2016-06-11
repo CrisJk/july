@@ -63,8 +63,15 @@ public class TimelineController {
         mav.addObject("current_page",current_page);
         mav.addObject("page_size",page_size);
         mav.addObject("total_page",total_page);
-        mav.addObject("total_articles",timeline.size()); //文章数
-        System.out.println("current_user:\t"+current_user);
+
+        int total_articles = 0;
+        for( int i = 0 ; i < timeline.size(); i ++ )
+        {
+            Moment tmpMoment = timeline.get(i);
+            if(tmpMoment.isStatus()) total_articles++;
+        }
+        mav.addObject("total_articles",total_articles); //文章数
+
         List<String> followerss = current_user.getFollowers();
         System.out.println(current_user.getFollowers().size());
         mav.addObject("total_followers",current_user.getFollowers().size());

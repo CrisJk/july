@@ -152,7 +152,14 @@ public class MomentController {
 
     //关注本用户的人的时间线添加动态
     private void saveMomentInTimelineFollow(User user, Moment moment) {
-
+        List<String> followers = user.getFollowers();
+        for(int i = 0; i < followers.size(); i ++ )
+        {
+            User tmp_aim_follower = userService.getUserByEmail(followers.get(i));
+            List<Moment> tmp_aim_timeline = tmp_aim_follower.getTimeline();
+            tmp_aim_timeline.add(moment);
+            userService.update(tmp_aim_follower);
+        }
     }
 
     //本用户时间线添加动态到时间线
