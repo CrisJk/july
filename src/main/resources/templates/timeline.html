@@ -255,7 +255,9 @@
                                                                             </button>
                                                                         </span>
                                                                         <span style="float: right">
-                                                                              <span class="glyphicon glyphicon-heart-empty" style="font-size:18px;position:relative;top:4px"></span><span style="margin-left:10px" th:text="${moment.like}"></span>
+                                                                            <span th:if ="${moment.like==0}" class="glyphicon glyphicon-heart-empty" style="font-size:18px;position:relative;top:4px" th:onclick="'momentLike(\'' + ${moment.id} + '\',\'' + ${moment.like} + '\')'"  ></span>
+                                                                              <span th:if ="${moment.like>0}" class="glyphicon glyphicon-heart" style="font-size:18px;position:relative;top:4px" th:onclick="'momentLike(\'' + ${moment.id} + '\',\'' + ${moment.like} + '\')'"  ></span>
+                                                                            <span style="margin-left:10px" th:text="${moment.like}" th:id="${moment.id}"></span>
                                                                         </span>
                                                                     </span>
                                                                 </div>
@@ -325,7 +327,9 @@
                                                                             </button>
                                                                         </span>
                                                                         <span style="float: right">
-                                                                              <span class="glyphicon glyphicon-heart-empty" style="font-size:18px;position:relative;top:4px"></span><span style="margin-left:10px" th:text="${moment.like}"></span>
+                                                                             <span th:if ="${moment.like==0}" class="glyphicon glyphicon-heart-empty" style="font-size:18px;position:relative;top:4px" th:onclick="'momentLike(\'' + ${moment.id} + '\',\'' + ${moment.like} + '\')'"  ></span>
+                                                                              <span th:if ="${moment.like>0}" class="glyphicon glyphicon-heart" style="font-size:18px;position:relative;top:4px" th:onclick="'momentLike(\'' + ${moment.id} + '\',\'' + ${moment.like} + '\')'"  ></span>
+                                                                            <span style="margin-left:10px" th:text="${moment.like}" th:id="${moment.id}"></span>
                                                                         </span>
                                                                     </span>
                                                                     <!--<p class="more"><a href="#" title="一朵炒鸡萌的表情面板" target="_blank">阅读全文>&gt;</a></p>-->
@@ -392,7 +396,9 @@
                                                                             </button>
                                                                         </span>
                                                                         <span style="float: right">
-                                                                              <span class="glyphicon glyphicon-heart-empty" style="font-size:18px;position:relative;top:4px"></span><span style="margin-left:10px" th:text="${moment.like}"></span>
+                                                                             <span th:if ="${moment.like==0}" class="glyphicon glyphicon-heart-empty" style="font-size:18px;position:relative;top:4px" th:onclick="'momentLike(\'' + ${moment.id} + '\',\'' + ${moment.like} + '\')'"  ></span>
+                                                                              <span th:if ="${moment.like>0}" class="glyphicon glyphicon-heart" style="font-size:18px;position:relative;top:4px" th:onclick="'momentLike(\'' + ${moment.id} + '\',\'' + ${moment.like} + '\')'"  ></span>
+                                                                            <span style="margin-left:10px" th:text="${moment.like}" th:id="${moment.id}"></span>
                                                                         </span>
                                                                     </span>
                                                                 </div>
@@ -461,8 +467,10 @@
                                                                             </button>
                                                                         </span>
                                                                         <span style="float: right">
-                                                                              <span class="glyphicon glyphicon-heart-empty" style="font-size:18px;position:relative;top:4px"></span><span style="margin-left:10px" th:text="${moment.like}"></span>
-                                                                        </span>
+                                                                              <span th:if ="${moment.like==0}" class="glyphicon glyphicon-heart-empty" style="font-size:18px;position:relative;top:4px" th:onclick="'momentLike(\'' + ${moment.id} + '\',\'' + ${moment.like} + '\')'"  ></span>
+                                                                              <span th:if ="${moment.like>0}" class="glyphicon glyphicon-heart" style="font-size:18px;position:relative;top:4px" th:onclick="'momentLike(\'' + ${moment.id} + '\',\'' + ${moment.like} + '\')'"  ></span>
+                                                                            <span style="margin-left:10px" th:text="${moment.like}" th:id="${moment.id}"></span>
+                                                                </span>
                                                                     </span>
                                                                 <!--<p class="more"><a href="#" title="一朵炒鸡萌的表情面板" target="_blank">阅读全文>&gt;</a></p>-->
                                                             </div>
@@ -846,7 +854,7 @@
         more.on('click',function(){
             var post = $(this).parent().parent().parent();
             if(post.hasClass("open")){
-                post.css('max-height','900px').removeClass("open");
+                post.css('max-height','450px').removeClass("open");
                 $(this).text("阅读全文>>");
             }
             else{
@@ -881,6 +889,32 @@
             });
         }
     </script>
+    <script>
+      function  momentLike(id,like) {
+          //console.log(like);
+            $.ajax({
+                url:"/addLike",
+                type:"GET" ,
+                data:{
+                        "id":id,
+                        "like":like
+                },
+                dataType:"json",
+                async : false,
+                cache:true,
+                success:function(data){
+                    //alert("success!");
+                    //alert(data.like) ;
+                    $('#'+id+'').text(data.like);
+                    $('#'+id+'').prev().removeClass("glyphicon-heart-empty").addClass("glyphicon-heart");
+                 },
+                error:function(data){
+                    alert("error!");
+                }
+            });
+
+        }
+        </script>
 </div>
 </body>
 </html>

@@ -1,7 +1,10 @@
 package com.july.controller;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.july.entity.Moment;
 import com.july.entity.User;
+import com.july.service.MomentService;
 import com.july.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -27,6 +31,8 @@ public class TimelineController {
     private final Logger logger = LoggerFactory.getLogger(getClass()) ;
     @Autowired
     UserService userService;
+    @Autowired
+    MomentService momentService ;
 
     @RequestMapping(value="/timeline", method = RequestMethod.GET)
     public ModelAndView showTimeline(
@@ -96,6 +102,29 @@ public class TimelineController {
     @RequestMapping("/video")
     public String showVideo() {
         return "playVideo";
+    }
+
+    @RequestMapping(value="/addLike",method = RequestMethod.GET,produces = "text/html;charset=UTF-8")
+    @ResponseBody
+    public String likeMoment( @RequestParam(value="id") BigInteger id,
+                              @RequestParam(value="like") int like)
+    {
+        System.out.println("moement id:"+id+"********************");
+        System.out.println("moment like:"+like+"********************");
+
+
+        Gson gson = new Gson();
+        JsonObject jo = new JsonObject();
+
+        Moment moment = momentService.getMomentById(id) ;
+        boolean success = false;
+        moment.setLike(++like);
+        momentService.save(moment) ;
+        System.out.println("moment like :"+like+"********************");
+        success = true;
+        jo.addProperty("success",success) ;
+        jo.addProperty("like",like) ;
+        return gson.toJson(jo);
     }
 
 }
