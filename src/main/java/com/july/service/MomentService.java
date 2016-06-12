@@ -13,7 +13,7 @@ import java.security.NoSuchAlgorithmException;
 public interface MomentService {
 
     boolean save(Moment moment);
-
+    Moment getMomentById(BigInteger id) ;
     void deleteMomentById(BigInteger moment_id);
 
     int findMomentCountByContentInPage(String content);

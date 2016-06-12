@@ -94,7 +94,7 @@
     position:relative;
 }
 .post-2582{
-    max-height:600px;
+    max-height:450px;
     overflow:hidden;
 }
 .more{
@@ -105,3 +105,5 @@
 }
 
 .wrap .mainleft .list .item .r .m .my_meta{margin:22px; padding:20px 30px 70px; line-height:25px; color:#999;}
+.glyphicon-heart{color: #ff1b11
+}

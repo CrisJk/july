@@ -38,6 +38,12 @@ public class MomentServiceImpl implements MomentService {
     }
 
     @Override
+    public Moment getMomentById(BigInteger id) {
+        return  momentRepository.findOne(id) ;
+    }
+
+
+    @Override
     public void deleteMomentById(BigInteger moment_id) {
         Moment tmpMoment = momentRepository.findOne(moment_id);
         tmpMoment.setStatus(false);
