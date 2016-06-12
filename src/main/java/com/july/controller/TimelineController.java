@@ -46,12 +46,24 @@ public class TimelineController {
         //得到它的时间线
         List<Moment> timelines = user.getTimeline();
         List<Moment> timeline = new ArrayList<>();
-        for (int i = 0; i < timelines.size(); i++) {
-            if (timelines.get(i).isStatus() == true) {
-                timeline.add(timelines.get(i));
+        if(current_user.getId().compareTo(user.getId())==0)
+        {
+            for (int i = 0; i < timelines.size(); i++) {
+                if (timelines.get(i).isStatus() == true) {
+                    timeline.add(timelines.get(i));
+                }
             }
         }
-
+        else
+        {
+            for( int i = 0 ; i < timelines.size(); i ++ )
+            {
+                if(timelines.get(i).isStatus()==true && timelines.get(i).getCreater().getId().compareTo(user.getId())==0)
+                {
+                    timeline.add(timelines.get(i));
+                }
+            }
+        }
         int total_page = (timeline.size()+page_size-1)/page_size;
 
         //得到当前page，即current_page
@@ -71,10 +83,11 @@ public class TimelineController {
         mav.addObject("total_page",total_page);
 
         int total_articles = 0;
-        for( int i = 0 ; i < timeline.size(); i ++ )
+        List<Moment> current_user_timeline = current_user.getTimeline();
+        for( int i = 0 ; i < current_user_timeline.size(); i ++ )
         {
-            Moment tmpMoment = timeline.get(i);
-            if(tmpMoment.getCreater().getId().equals(current_user.getId()) && tmpMoment.isStatus()) total_articles++;
+            Moment tmpMoment = current_user_timeline.get(i);
+            if(tmpMoment.getCreater().getId().compareTo(current_user.getId())==0&&tmpMoment.isStatus()) total_articles++;
         }
         mav.addObject("total_articles",total_articles); //文章数
 
