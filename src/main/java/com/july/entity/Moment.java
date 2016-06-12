@@ -4,6 +4,7 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.mongodb.core.index.TextIndexed;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.TextScore;
 
 import java.time.Instant;
 import java.util.ArrayList;
@@ -37,8 +38,6 @@ public class Moment extends AbstractDocument {
 
     //内容类型
     private String type;// music picture video
-
-
 
     //是否显示 true代表显示 false代表不显示（已被删除）
     private boolean status;

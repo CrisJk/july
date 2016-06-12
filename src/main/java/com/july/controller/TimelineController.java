@@ -2,10 +2,14 @@ package com.july.controller;
 
 import com.july.entity.Moment;
 import com.july.entity.User;
+import com.july.service.MomentService;
 import com.july.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -23,10 +27,13 @@ import java.util.List;
 @Controller
 public class TimelineController {
 
-
     private final Logger logger = LoggerFactory.getLogger(getClass()) ;
+
     @Autowired
     UserService userService;
+
+    @Autowired
+    MomentService momentService;
 
     @RequestMapping(value="/timeline", method = RequestMethod.GET)
     public ModelAndView showTimeline(
@@ -109,6 +116,47 @@ public class TimelineController {
     @RequestMapping("/video")
     public String showVideo() {
         return "playVideo";
+    }
+
+    @RequestMapping(value = "/fullTextSearch", method = RequestMethod.GET)
+    public ModelAndView showFullTextSearch(@RequestParam(value="content") String content,
+                                           @RequestParam(value="page_size",defaultValue = "5") int page_size,
+                                           @RequestParam(value="current_page",defaultValue="1") int current_page) {
+
+        ModelAndView mav = new ModelAndView("search");
+        mav.addObject("content", content);
+        /*计算页数*/
+        if(current_page<1) current_page = 1;
+        int total_pages;
+        int total_size;
+
+        //计算搜索总页数
+        total_size = momentService.findMomentCountByContentInPage(content);
+        if (total_size > 0) {
+            total_pages = (total_size + page_size) / page_size;
+        } else {
+            total_pages = 1;
+        }
+        if(current_page > total_pages && total_pages!= 0 ) current_page = total_pages;
+
+        Pageable pageable = new PageRequest(current_page-1, page_size);
+        Page<Moment> momentPage = momentService.findMomentByContentInPage(content, pageable);
+        List<Moment> momentList = new ArrayList<>();
+        if (momentPage != null) {
+            momentList = momentPage.getContent();
+        }
+
+        for (int i = 0; i < momentList.size(); i++) {
+            System.out.println(momentList.get(i).getArticle() + "  moment的样子");
+        }
+
+        mav.addObject("total_pages", total_pages);//总页数
+        mav.addObject("current_page", current_page);//当前页
+        mav.addObject("page_size", page_size);//每页显示的数量
+        mav.addObject("moments", momentList);
+        User user = userService.getSessionUser();
+        mav.addObject("current_user", user);
+        return mav;
     }
 
 }

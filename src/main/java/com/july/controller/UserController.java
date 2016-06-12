@@ -29,7 +29,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.security.Principal;
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -124,20 +123,13 @@ public class UserController {
     }
 
     //根据昵称列出用户
-
     @RequestMapping(value={"/listUserByNickname"}, method = RequestMethod.GET)
     public ModelAndView listUserByNickname(
             @RequestParam(value="nickname") String nickname,
             @RequestParam(value="page_size",defaultValue = "5") int page_size,
-            @RequestParam(value="current_page",defaultValue="1") int current_page
-            )
-    {
-
+            @RequestParam(value="current_page",defaultValue="1") int current_page) {
         ModelAndView mav = new ModelAndView("listUsers");
         mav.addObject("nickname",nickname);
-        System.out.println("UserController: ************************已进入**********************");
-        System.out.println("UserController: "+nickname+"******************************************");
-
         /*计算页数*/
         if(current_page<1) current_page = 1;
         int total_pages;
@@ -224,6 +216,8 @@ public class UserController {
             }
             userService.update(user);
             logger.info("Bind local user successfully.");
+
+            return "redirect:/timeline";
         } else {
             logger.error("Password error, can't bind user.");
         }

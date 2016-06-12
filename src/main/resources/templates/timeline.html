@@ -131,6 +131,10 @@
                                 <label class="xtag" style="display:none;">搜索感兴趣的人、事</label>
                                 <input type="text" id="for_search" placeholder="搜索感兴趣的人、事" class="xtag" onfocus="this.isfocus = true;"
                                        onkeypress="if(event.keyCode==13)search()"/>
+                                <select id="search_type">
+                                    <option selected="selected" value="1">用户</option>
+                                    <option value="2">动态</option>
+                                </select>
                             </form>
                         </div>
                     </div>
@@ -151,6 +155,12 @@
                             <li><a class="publishlink n23" id="addMusic" href="#">音乐</a></li>
                             <li><a class="publishlink publishlink-video n24" id="addVideo" href="#">视频</a></li>
                         </ul>
+                    </div>
+                </div>
+                <div th:if="${current_user.id!=aim_user.id}">
+                    <div>
+                        <h3 th:text="'欢迎访问' + ${aim_user.nickname} + '的主页'"></h3>
+                        <span></span>
                     </div>
                 </div>
                 <div id="cannonentrybanner" class="m-cannonentrybanner a-slide a-slide-do">
@@ -453,7 +463,7 @@
                                                             </article>
                                                             <div class="article-content red" style="margin-top:10px">
                                                                     <span style="color: #555;">
-                                                                        <span class="glyphicon glyphicon-bookmark"></span><span style="margin-left:5px">文章</span>
+                                                                        <span class="glyphicon glyphicon-bookmark"></span><span style="margin-left:5px">文字</span>
                                                                         <span style="margin-right:10px"></span>
                                                                         <span th:if="${moment.creater.id==current_user.id}">
                                                                             <button th:onclick="'deleteMoment(\'' + ${moment.id} + '\')'" style="color:darkred" class="btn btn-default btn-link">

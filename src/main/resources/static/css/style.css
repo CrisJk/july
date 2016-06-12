@@ -50,7 +50,7 @@
 .wrap .mainleft .list .item .r .m .my_meta .tag span.cat{background:url(../images/icons.png) no-repeat -238px -115px; padding-left:18px; color:#999;}
 .wrap .mainleft .list .item .r .m .my_meta .view{width:230px; float:right; text-align:right;}
 .wrap .mainleft .list .item .r .m .my_meta .view span{padding:0 10px;}
-.wrap .mainleft .list .item .r .b{background: url(../images/isay24.png) no-repeat -1670px top; height:3px; overflow:hidden;}
+.wrap .mainleft .list .item .r .b{background: url(../images/isay24.png) no-repeat -1670px top; height:3px; overflow:hidden; margin-top: -22px;}
 
 .wrap .mainleft .content{margin-top:0;}
 .wrap .mainleft .content .item .r .position{background:#FFFFFF; line-height:25px; color:#999; border-bottom:1px solid #e7e7e7; z-index:1; zomm:1;}
@@ -103,4 +103,5 @@
     left:0;
     right:0;
 }
+
 .wrap .mainleft .list .item .r .m .my_meta{margin:22px; padding:20px 30px 70px; line-height:25px; color:#999;}

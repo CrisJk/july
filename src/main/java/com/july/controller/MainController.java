@@ -31,6 +31,7 @@ public class MainController {
             String identity = (String) request.getSession().getAttribute("identity");
             mav.addObject("type", type);
             mav.addObject("identity", identity);
+            mav.addObject("notBind", notBind);
         }
         else{
             mav = new ModelAndView("index", "form", new UserCreateForm());
