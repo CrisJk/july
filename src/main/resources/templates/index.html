@@ -23,19 +23,43 @@
 
 
 </head>
-<body class="backgroundimage">
+<body class="backgroundimage" style="background-color:#ededef">
+<script>
+    var csrfParameter = $("meta[name='_csrf_parameter']").attr("content");
+    var csrfHeader = $("meta[name='_csrf_header']").attr("content");
+    var csrfToken = $("meta[name='_csrf']").attr("content");
+
+    //logout
+    function logout() {
+        var data = {};
+        data[csrfParameter] = csrfToken;
+        $.ajax({
+            url: '/logout',
+            type: "POST",
+            data: data,
+            success: function(response) {
+                window.location = "/";
+            }
+        });
+    }
+</script>
 
 <div sec:authorize="isAuthenticated()">
     <!--<h1>hello <span sec:authentication="name"></span></h1>-->
     <!--&lt;!&ndash;<h1>hi<span th:text="${currentUser} ? ${currentUser.email} : Bob">Bob</span></h1>&ndash;&gt;-->
-    <h2 style="text-align: center"><a href="#" onclick="logout();">Logout</a>
-        <!--<br >-->
-    <!--<a th:href="@{/timeline}">Timeline</a></h2>-->
-
     <div th:if="${notBind == 'bind'}">
-        <script type="text/javascript">
-            window.location = "/timeline";
-        </script>
+        <div th:if="${current_user != null}">
+            <h2 style="text-align:center;margin-top:200px"><a href="#" onclick="logout();">Hello, login...</a></h2>
+            <script type="text/javascript">
+                window.location = "/timeline";
+            </script>
+        </div>
+        <div th:if="${current_user == null}">
+            <h2 style="text-align:center;margin-top:200px"><a href="#" onclick="logout();">Bye, logout...</a></h2>
+            <script type="text/javascript">
+                logout();
+            </script>
+        </div>
     </div>
 
 </div>
@@ -68,7 +92,7 @@
                         <div style="padding-left:12%;margin-top:20px;">
                             <input type="submit" value="登录" style="width:305px;margin-bottom:30px;" class="button_blue"/>
                         </div>
-                        <div style="padding-left: 20px;width: 300px;font-size: 14px;">
+                        <div style="padding-left: 20px;width: 330px;font-size: 14px;">
                             <a href="/login/facebook">
                                 <img th:src="@{/images/facebook.png}" style="margin-left:20px;width:40px;height:40px;border-radius: 6px;">
                                 Facebook登录
@@ -132,24 +156,5 @@
     </div>
 </div>
 </div>
-<script>
-    var csrfParameter = $("meta[name='_csrf_parameter']").attr("content");
-    var csrfHeader = $("meta[name='_csrf_header']").attr("content");
-    var csrfToken = $("meta[name='_csrf']").attr("content");
-
-    //logout
-    function logout() {
-        var data = {};
-        data[csrfParameter] = csrfToken;
-        $.ajax({
-            url: '/logout',
-            type: "POST",
-            data: data,
-            success: function(response) {
-                window.location = "/";
-            }
-        });
-    }
-</script>
 </body>
 </html>

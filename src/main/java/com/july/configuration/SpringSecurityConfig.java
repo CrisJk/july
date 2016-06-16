@@ -14,6 +14,7 @@ import org.springframework.boot.autoconfigure.security.oauth2.resource.UserInfoT
 import org.springframework.boot.context.embedded.FilterRegistrationBean;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -30,6 +31,7 @@ import org.springframework.security.oauth2.client.token.grant.code.Authorization
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
 import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.web.filter.CompositeFilter;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -180,7 +182,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                         logger.info("Current user is " + currentUser.toString());
                         request.getSession().setAttribute("notBind", "bind");
                     }
-                } else if (authentication instanceof Authentication) {
+                } else if (authentication instanceof UsernamePasswordAuthenticationToken) {
                     //邮箱登陆
                     logger.info("login with email address.");
                     //返回主页

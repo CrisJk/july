@@ -1,8 +1,45 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+    <title>错误-july</title>
+    <style>
+        .login_form {
+            width: 500px;
+            background-color: #fefeff;
+            border-radius: 4px 4px 0 0;
+            position: relative;
+            margin: 35px auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            font-size: 14px;
+        }
+    </style>
 </head>
-<body>
-error
+<body style="background-color: #ededef">
+<div class="wrapper" id="container">
+    <div class="main-con">
+        <div class="login_form" style="text-align:center">
+            <h3>错&nbsp;&nbsp;&nbsp;&nbsp;误</h3>
+            <div class="alert alert-danger">
+                <span th:if="${message} and ${message.length() != 0}" th:text="${message}">message ...</span>
+                <span th:unless="${message} and ${message.length() != 0}">Cause unknown (no exception details available)</span>
+            </div>
+            <p class="center"><span id="jumpTo">5</span>秒后跳转到首页...</p>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    function countDown(secs, surl){
+        var jumpTo = document.getElementById('jumpTo');
+        jumpTo.innerHTML = secs;
+        if (--secs>0) {
+            setTimeout("countDown("+secs+",'"+surl+"')", 1000);
+        } else {
+            location.href = surl;
+        }
+    }
+    countDown(5, '/timeline');
+</script>
 </body>
 </html>

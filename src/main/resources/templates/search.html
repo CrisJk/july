@@ -9,8 +9,9 @@
     <script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
     <script type="text/javascript"
             src="/webjars/bootstrap/js/bootstrap.min.js"></script>
-    <link th:href="@{/css/style.css}" type="text/css" rel = "stylesheet">
+    <link th:href="@{/css/style1.css}" type="text/css" rel = "stylesheet">
     <link th:href="@{/css/timeline.css}" type="text/css" rel="stylesheet"/>
+    <link th:href="@{/css/search.css}" type="text/css" rel = "stylesheet">
     <script th:src="@{/js/listUsers.js}"></script>
 </head>
 <body style="background-color: #ededef">
@@ -20,7 +21,7 @@
             <div id="julyheadbar" class="g-hdc">
                 <h1 class="m-logo"><a th:href="timeline"><span style="display:none">JULY - 记录生活</span></a></h1>
                 <div class="m-nav" id="topbar">
-                    <ul class="nav1 tbtag">
+                    <ul class="nav1 tbtag" style="position:relative;top:1px;right:300px;">
                         <li class="j-crt"><a th:href="timeline">首页</a></li>
                         <li><a href="#">文字</a></li>
                         <li><a href="#">图片</a></li>
@@ -28,18 +29,19 @@
                         <li><a href="#">视频</a></li>
                     </ul>
 
-                    <div class="nav2" id="schtagbox">
-                        <div class="ssch tbtag">
-                            <form class="xtag">
-                                <a href="#" class="btn xtag"></a>
-                                <label class="xtag" style="display:none;">搜索感兴趣的人、事</label>
-                                <input type="text" id="for_search" placeholder="搜索感兴趣的人、事" class="xtag" onfocus="this.isfocus = true;"
-                                       onkeypress="if(event.keyCode==13)search()"/>
-                                <select id="search_type">
-                                    <option selected="selected" value="1">用户</option>
-                                    <option value="2">动态</option>
-                                </select>
-                            </form>
+                    <div style="position:absolute;left:850px;width:230px">
+                        <div>
+                            <div class="input-group">
+                                <input id="for_search" type="text" style="background-color:#000;border-color:#000;color:#c2c2bf" class="form-control" aria-label="..." placeholder="搜索感兴趣的人、事">
+                                <div class="input-group-btn">
+                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                                            style="color:#99998f;background:#000;border-color:#000" id="searchBtn">搜索 <span class="caret"></span></button>
+                                    <ul id="dropUl" class="dropdown-menu" style="display:none;min-width:60px;background-color:#000;margin-top:-1px;">
+                                        <li style="height:30px;margin-left:0px"><a href="#" style="color:#999" onclick="searchUser()">用户</a></li>
+                                        <li style="height:30px;margin-left:0px"><a href="#" style="color:#999" onclick="searchArticle()">文字</a></li>
+                                    </ul>
+                                </div><!-- /btn-group -->
+                            </div><!-- /input-group -->
                         </div>
                     </div>
                 </div>
@@ -47,92 +49,104 @@
         </div>
     </div>
 
-    <div class="g-bd">
-        <div class="g-bdc">
-            <div class="g-mn" id="main">
-                <div th:each="moment:${moments}">
-                    <div th:if="${moment.status}">
-                        <div class="m-mlist" >
-                            <div class="mlistimg" style="float: left; margin-right:20px">
-                                <div class="w-img" style="z-index:1;" th:if="${moment.creater.avatarAddress} == null">
-                                    <a th:href="|/timeline?aim_user_id=${moment.creater.id}|"><img src='/images/default.png' style="width: 70px; height: 70px; border-radius: 5px;"></a>
-                                </div>
-                                <div class="w-img" style="z-index:1;" th:if="${moment.creater.avatarAddress} != null">
-                                    <a th:href="|/timeline?aim_user_id=${moment.creater.id}|"><img th:src='@{/resource/view/{resourceId}(resourceId=${moment.creater.avatarAddress})}' style="width: 70px; height: 70px; border-radius: 5px;"></a>
-                                </div>
-                            </div>
-                            <div th:if="${moment.type=='article'}"><!--文字-->
-                                <!--框-->
-                                <div class="wrap">
-                                    <div class="mainleft">
-                                        <div class="list content">
-                                            <div class="item">
-                                                <div class="r">
-                                                    <div class="m">
-                                                        <div class="t position"><span class="jiao"></span>
-                                                        </div>
-
-                                                        <div class="my_meta" style="padding-top:0px">
-                                                            <article class="post-2582">
-                                                                <header class="entry-header">
-                                                                    <p class="my_title" style="margin-bottom: 5px;">
-                                                                    <span>
-                                                                    <p style="font-size:15px;color:#428BCA" th:text="${moment.creater.nickname}"></p>
-                                                                    <p class="article-meta" style="text-align:left;margin-bottom:5px;color:#555;"><i class="fa fa-heart-o"></i><span th:text="${moment.createdDate} ? ${#dates.format(moment.createdDate, '发表于 yyyy年MM月dd日')}">发表于 2016年4月16日</span></p>
-                                                                    </span>
-                                                                    </p>
-
-                                                                    <div class="article-content red">
-                                                                        <p></p>
-                                                                    </div>
-                                                                </header>
-                                                                <!-- .entry-header -->
-                                                                <div class="article-content red" style="color:#000000">
-                                                                    <div class = "article1" th:text ="${moment.article}" style = "display: none"></div>
-                                                                    <span class = "insert" ></span>
-                                                                </div>
-                                                                <div class="article-content red">
-                                                                    <p class="more"><a style="color: #FFFFFF" href="javascript:void(0)" title="一朵炒鸡萌的表情面板">阅读全文
-                                                                        &gt;&gt;</a></p>
-                                                                </div>
-
-                                                            </article>
-                                                            <div class="article-content red" style="margin-top:10px">
-                                                                <span style="color: #555;">
-                                                                    <span class="glyphicon glyphicon-bookmark"></span><span style="margin-left:5px">文字</span>
-                                                                    <span style="margin-right:10px"></span>
-                                                                    <span th:if="${moment.creater.id==current_user.id}">
-                                                                        <button th:onclick="'deleteMoment(\'' + ${moment.id} + '\')'" style="color:darkred" class="btn btn-default btn-link">
-                                                                            <span class="glyphicon glyphicon-trash"></span><span style="margin-left:5px">删除</span>
-                                                                        </button>
-                                                                    </span>
-                                                                    <span style="float: right">
-                                                                          <span class="glyphicon glyphicon-heart-empty" style="font-size:18px;position:relative;top:4px"></span><span style="margin-left:10px" th:text="${moment.like}"></span>
-                                                                    </span>
-                                                                </span>
-                                                                <!--<p class="more"><a href="#" title="一朵炒鸡萌的表情面板" target="_blank">阅读全文>&gt;</a></p>-->
-                                                            </div>
-                                                            <div class="clear"></div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="b">
-                                                    </div>
-                                                </div>
-                                                <div class="clear"></div>
-                                            </div>
-                                        </div><!--//list end-->
+    <div th:if="${num==0}" class="box" style="width:640px; min-height:300px">
+        <label class="searchResult" style="margin-left:100px">没有搜索到相关结果</label>
+        <hr>
+    </div>
+    <div th:if="${num>0}">
+        <div class="g-bd">
+            <div class="g-bdc">
+                <div class="g-mn" id="main">
+                    <div>
+                        <h3 class="searchResult" style="font-size: 20px;color: #555;font-weight:500">搜索结果</h3>
+                        <hr style="border:solid;border-width:1px;border-color:#adaca9;">
+                    </div>
+                    <div th:each="moment:${moments}">
+                        <div th:if="${moment.status}">
+                            <div class="m-mlist" >
+                                <div class="mlistimg" style="float: left; margin-right:20px">
+                                    <div class="w-img" style="z-index:1;" th:if="${moment.creater.avatarAddress} == null">
+                                        <a th:href="|/timeline?aim_user_id=${moment.creater.id}|"><img src='/images/default.png' style="width: 70px; height: 70px; border-radius: 5px;"></a>
                                     </div>
-                                    <div class="clear"></div>
+                                    <div class="w-img" style="z-index:1;" th:if="${moment.creater.avatarAddress} != null">
+                                        <a th:href="|/timeline?aim_user_id=${moment.creater.id}|"><img th:src='@{/resource/view/{resourceId}(resourceId=${moment.creater.avatarAddress})}' style="width: 70px; height: 70px; border-radius: 5px;"></a>
+                                    </div>
                                 </div>
-                                <!--end 框-->
+                                <div th:if="${moment.type=='article'}"><!--文字-->
+                                    <!--框-->
+                                    <div class="wrap">
+                                        <div class="mainleft">
+                                            <div class="list content">
+                                                <div class="item">
+                                                    <div class="r">
+                                                        <div class="m">
+                                                            <div class="t position"><span class="jiao"></span>
+                                                            </div>
+
+                                                            <div class="my_meta" style="padding-top:0px">
+                                                                <article class="post-2582">
+                                                                    <header class="entry-header">
+                                                                        <p class="my_title" style="margin-bottom: 5px;">
+                                                                <span>
+                                                                        <p style="font-size:15px;color:#428BCA" th:text="${moment.creater.nickname}"></p>
+                                                                        <p class="article-meta" style="text-align:left;margin-bottom:5px;color:#555;"><i class="fa fa-heart-o"></i><span th:text="${moment.createdDate} ? ${#dates.format(moment.createdDate, '发表于 yyyy年MM月dd日')}">发表于 2016年4月16日</span></p>
+                                                                        </span>
+                                                                        </p>
+
+                                                                        <div class="article-content red">
+                                                                            <p></p>
+                                                                        </div>
+                                                                    </header>
+                                                                    <!-- .entry-header -->
+                                                                    <div class="article-content red" style="color:#000000">
+                                                                        <div class = "article1" th:text ="${moment.article}" style = "display: none"></div>
+                                                                        <span class = "insert" ></span>
+                                                                    </div>
+                                                                    <div class="article-content red">
+                                                                        <p class="more"><a style="color: #FFFFFF" href="javascript:void(0)" title="一朵炒鸡萌的表情面板">阅读全文
+                                                                            &gt;&gt;</a></p>
+                                                                    </div>
+
+                                                                </article>
+                                                                <div class="article-content red" style="margin-top:10px">
+                                                            <span style="color: #555;">
+                                                                <span class="glyphicon glyphicon-bookmark"></span><span style="margin-left:5px">文字</span>
+                                                                <span style="margin-right:10px"></span>
+                                                                <span th:if="${moment.creater.id==current_user.id}">
+                                                                    <button th:onclick="'deleteMoment(\'' + ${moment.id} + '\')'" style="color:darkred" class="btn btn-default btn-link">
+                                                                        <span class="glyphicon glyphicon-trash"></span><span style="margin-left:5px">删除</span>
+                                                                    </button>
+                                                                </span>
+                                                                <span style="float:right;margin-right:10px">
+                                                                      <span class="glyphicon glyphicon-heart-empty" style="font-size:18px;position:relative;top:4px"></span><span style="margin-left:10px" th:text="${moment.like}"></span>
+                                                                </span>
+                                                            </span>
+                                                                    <!--<p class="more"><a href="#" title="一朵炒鸡萌的表情面板" target="_blank">阅读全文>&gt;</a></p>-->
+                                                                </div>
+                                                                <div class="clear"></div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="b">
+                                                        </div>
+                                                    </div>
+                                                    <div class="clear"></div>
+                                                </div>
+                                            </div><!--//list end-->
+                                        </div>
+                                        <div class="clear"></div>
+                                    </div>
+                                    <!--end 框-->
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div style="display:inline-block;text-align:center;width:100%;margin-left:40px;">
-                    <div class="pagination" style="text-align:center;margin-top:0px;margin-bottom:50px">
-                        <a style="border-top-left-radius:3px;border-bottom-left-radius:3px" th:href="@{/fullTextSearch(content=${content},current_page=${current_page-1},page_size=${page_size})}">上一页</a>
-                        <a style="border-top-right-radius:3px;border-bottom-right-radius:3px" th:href="@{timeline.html(content=${content},current_page=${current_page+1},page_size=${page_size})}">下一页</a>
+                    <div style="display:inline-block;text-align:center;width:100%;margin-left:40px;">
+                        <div class="pagination" style="text-align:center;margin-top:0px;margin-bottom:50px">
+                            <a th:if="${current_page>1}" style="border-top-left-radius:3px;border-bottom-left-radius:3px" th:href="@{/fullTextSearch(content=${content},current_page=${current_page-1},page_size=${page_size})}">上一页</a>
+                            <span th:if="${current_page<=1}" style="border-top-left-radius:3px;border-bottom-left-radius:3px;background-color: #fafafa;color: #d3d3d3">上一页</span>
+                            <a th:if="${current_page<total_page}" style="border-top-right-radius:3px;border-bottom-right-radius:3px" th:href="@{/fullTextSearch(content=${content},current_page=${current_page+1},page_size=${page_size})}">下一页</a>
+                            <span th:if="${current_page>=total_page}" style="border-top-left-radius:3px;border-bottom-left-radius:3px;background-color: #fafafa;color: #d3d3d3">下一页</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -153,6 +167,16 @@
             $(this).text("<<收起文章");
         }
     })
+
+    $(document).ready(function(){
+        $("#searchBtn").click(function () {
+            if($('#dropUl').css('display') == 'none'){
+                $('#dropUl').show();
+            } else {
+                $('#dropUl').hide();
+            }
+        });
+    });
 </script>
 <!--富文本js-->
 <script>

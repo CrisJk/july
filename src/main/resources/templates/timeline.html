@@ -39,7 +39,7 @@
 
     <!--<link th:href="@{/css/common.css}" type="text/css" rel="stylesheet"/>-->
     <!--Custom Timeline CSS-->
-    <link th:href="@{/css/style.css}" type="text/css" rel = "stylesheet">
+    <link th:href="@{/css/style1.css}" type="text/css" rel = "stylesheet">
     <link th:href="@{/css/timeline.css}" type="text/css" rel="stylesheet"/>
     <link rel="stylesheet" th:href="@{css/APlayer.min.css}">
 
@@ -116,28 +116,55 @@
             <div id="julyheadbar" class="g-hdc">
                 <h1 class="m-logo"><a th:href="timeline"><span style="display:none">JULY - 记录生活</span></a></h1>
                 <div class="m-nav" id="topbar">
-                    <ul class="nav1 tbtag">
+                    <ul class="nav1 tbtag" style="position:relative;top:1px;right:300px;">
                         <li class="j-crt"><a th:href="timeline">首页</a></li>
                         <li><a href="#">文字</a></li>
                         <li><a href="#">图片</a></li>
                         <li><a href="#">音乐</a></li>-
                         <li><a href="#">视频</a></li>
                     </ul>
-
-                    <div class="nav2" id="schtagbox">
-                        <div class="ssch tbtag">
-                            <form class="xtag">
-                                <a href="#" class="btn xtag"></a>
-                                <label class="xtag" style="display:none;">搜索感兴趣的人、事</label>
-                                <input type="text" id="for_search" placeholder="搜索感兴趣的人、事" class="xtag" onfocus="this.isfocus = true;"
-                                       onkeypress="if(event.keyCode==13)search()"/>
-                                <select id="search_type">
-                                    <option selected="selected" value="1">用户</option>
-                                    <option value="2">动态</option>
-                                </select>
-                            </form>
+                    <div style="position:absolute;left:850px;width:230px">
+                        <div>
+                            <div class="input-group">
+                                <input id="for_search" type="text" style="background-color:#000;border-color:#000;color:#c2c2bf" class="form-control" aria-label="..." placeholder="搜索感兴趣的人、事">
+                                <div class="input-group-btn">
+                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                                            style="color:#99998f;background:#000;border-color:#000" id="searchBtn">搜索 <span class="caret"></span></button>
+                                    <ul id="dropUl" class="dropdown-menu" style="display:none;min-width:60px;background-color:#000;margin-top:-1px;">
+                                        <li style="height:30px;margin-left:0px"><a href="#" style="color:#999" onclick="searchUser()">用户</a></li>
+                                        <li style="height:30px;margin-left:0px"><a href="#" style="color:#999" onclick="searchArticle()">文字</a></li>
+                                    </ul>
+                                </div><!-- /btn-group -->
+                            </div><!-- /input-group -->
                         </div>
                     </div>
+
+
+
+                    <!--<div class="nav2" id="schtagbox">-->
+                        <!--<div class="ssch tbtag">-->
+                            <!--<form class="xtag">-->
+
+
+
+
+
+
+                                <!--<a href="#" class="btn xtag"></a>-->
+                                <!--<label class="xtag" style="display:none;">搜索感兴趣的人、事</label>-->
+                                <!--<ul>-->
+                                    <!--<li><a href="#">Action</a></li>-->
+                                    <!--<li><a href="#">Another action</a></li>-->
+                                <!--</ul>-->
+                                <!--<input type="text" id="for_search" placeholder="搜索感兴趣的人、事" class="xtag" onfocus="this.isfocus = true;"-->
+                                       <!--onkeypress="if(event.keyCode==13)search()"/>-->
+                                <!--<select id="search_type" style="background-color:black;color:darkgrey;display:none">-->
+                                    <!--<option selected="selected" value="1">用户</option>-->
+                                    <!--<option value="2">动态</option>-->
+                                <!--</select>-->
+                            <!--</form>-->
+                        <!--</div>-->
+                    <!--</div>-->
                 </div>
             </div>
         </div>
@@ -159,7 +186,7 @@
                 </div>
                 <div th:if="${current_user.id!=aim_user.id}">
                     <div>
-                        <h3 th:text="'欢迎访问' + ${aim_user.nickname} + '的主页'"></h3>
+                        <h3 style="font-size: 20px;color:#555;font-weight:500" th:text="'欢迎访问' + ${aim_user.nickname} + '的主页'"></h3>
                         <span></span>
                     </div>
                 </div>
@@ -336,7 +363,7 @@
                                                                                 <span class="glyphicon glyphicon-trash"></span><span style="margin-left:5px">删除</span>
                                                                             </button>
                                                                         </span>
-                                                                        <span style="float: right">
+                                                                        <span style="float:right;margin-right:10px">
                                                                              <span th:if ="${moment.like==0}" class="glyphicon glyphicon-heart-empty" style="font-size:18px;position:relative;top:4px" th:onclick="'momentLike(\'' + ${moment.id} + '\',\'' + ${moment.like} + '\')'"  ></span>
                                                                               <span th:if ="${moment.like>0}" class="glyphicon glyphicon-heart" style="font-size:18px;position:relative;top:4px" th:onclick="'momentLike(\'' + ${moment.id} + '\',\'' + ${moment.like} + '\')'"  ></span>
                                                                             <span style="margin-left:10px" th:text="${moment.like}" th:id="${moment.id}"></span>
@@ -505,8 +532,11 @@
                 </div>
                 <div style="display:inline-block;text-align:center;width:100%;margin-left:40px;">
                     <div class="pagination" style="text-align:center;margin-top:0px;margin-bottom:50px">
-                        <a style="border-top-left-radius:3px;border-bottom-left-radius:3px" th:href="@{timeline.html(aim_user_id=${aim_user.id},current_page=${current_page-1},page_size=${page_size})}">上一页</a>
-                        <a style="border-top-right-radius:3px;border-bottom-right-radius:3px" th:href="@{timeline.html(aim_user_id=${aim_user.id},current_page=${current_page+1},page_size=${page_size})}">下一页</a>
+                        <a th:if="${current_page>1}" style="border-top-left-radius:3px;border-bottom-left-radius:3px" th:href="@{timeline.html(aim_user_id=${aim_user.id},current_page=${current_page-1},page_size=${page_size})}">上一页</a>
+                        <span th:if="${current_page<=1}" style="border-top-left-radius:3px;border-bottom-left-radius:3px;background-color: #fafafa;color: #d3d3d3">上一页</span>
+                        <!--<a style="border-top-left-radius:3px;border-bottom-left-radius:3px" th:href="@{timeline.html(aim_user_id=${aim_user.id},current_page=${current_page-1},page_size=${page_size})}">上一页</a>-->
+                        <a th:if="${current_page<total_page}" style="border-top-right-radius:3px;border-bottom-right-radius:3px" th:href="@{timeline.html(aim_user_id=${aim_user.id},current_page=${current_page+1},page_size=${page_size})}">下一页</a>
+                        <span th:if="${current_page>=total_page}" style="border-top-left-radius:3px;border-bottom-left-radius:3px;background-color: #fafafa;color: #d3d3d3">下一页</span>
                     </div>
                 </div>
             </div>
@@ -743,6 +773,13 @@
             });
             $("#addArticle").click(function(){
                 $("#addArticleForm").modal('show') ;
+            });
+            $("#searchBtn").click(function () {
+                if($('#dropUl').css('display') == 'none'){
+                    $('#dropUl').show();
+                } else {
+                    $('#dropUl').hide();
+                }
             });
         });
 </script>

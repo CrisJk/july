@@ -237,7 +237,8 @@ public class MomentController {
                 stream.write(readBytes);
         } catch (IOException ioe) {
             logger.error("Could not show resource " + resourceId);
-            throw new ServletException(ioe.getMessage());
+            logger.error(ioe.getMessage(), ioe.getCause());
+            throw new ServletException(ioe.getMessage(), ioe.getCause());
         } finally {
             if (stream != null)
                 stream.close();

@@ -1,7 +1,4 @@
-@charset "utf-8";
-
-
-.wrap{width:928px; margin:0 auto; margin-top:30px;}
+.wrap{width:928px; margin:0 auto; margin-top:10px;}
 .wrap .mainleft{width:575px; float:left;}
 .wrap .mainleft .blocks{background:url(../images/blocks.png) no-repeat left top; height:113px; padding:0 2px;}
 .wrap .mainleft .blocks .l{width:110px; float:left; height:109px; padding-top:1px;}
@@ -27,7 +24,7 @@
 .wrap .mainleft .bread h3 b{background:#eee; border-left:3px solid #40454B; padding:5px 30px;}
 
 .wrap .mainleft .list{}
-.wrap .mainleft .list .item{overflow:hidden; margin-bottom:20px;}
+.wrap .mainleft .list .item{overflow:hidden;}
 .wrap .mainleft .list .item .l{width:64px; float:left;}
 .wrap .mainleft .list .item .l .date{width:64px; height:44px; background:#40454B; margin-top:2px; text-align:center; white-space:nowrap; overflow:hidden; padding:10px 0; box-shadow:3px 3px 2px #999;}
 .wrap .mainleft .list .item .l .date .t{color:#F7F7F7; font-size:26px;}
@@ -105,5 +102,6 @@
 }
 
 .wrap .mainleft .list .item .r .m .my_meta{margin:22px; padding:20px 30px 70px; line-height:25px; color:#999;}
-.glyphicon-heart{color: #ff1b11
+.glyphicon-heart{
+    color: #cd1212;
 }

@@ -2,6 +2,8 @@ package com.july.controller;
 
 import com.july.controller.form.UserCreateForm;
 import com.july.entity.User;
+import com.july.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -17,15 +19,23 @@ import javax.servlet.http.HttpServletRequest;
 @Controller
 public class MainController {
 
+    @Autowired
+    UserService userService;
+
     @RequestMapping("/")
     public ModelAndView index(HttpServletRequest request) {
         ModelAndView mav = new ModelAndView("index");
         String notBind = "bind";
         if(request.getSession() != null && request.getSession().getAttribute("notBind") != null) {
             notBind = (String) request.getSession().getAttribute("notBind");
-            if (notBind == "notBind") {
+            System.out.println("notBind = "+notBind);
+            if (notBind.equals("notBind")) {
+                System.out.println("notBind = "+notBind);
 //                UserCreateForm userCreateForm = (UserCreateForm) request.getSession().getAttribute("form");
                 mav = new ModelAndView("register", "form", new UserCreateForm());
+            }
+            else {
+                mav.addObject("current_user", userService.getSessionUser());
             }
             String type = (String) request.getSession().getAttribute("type");
             String identity = (String) request.getSession().getAttribute("identity");
@@ -48,5 +58,11 @@ public class MainController {
         }
         return null;
     }*/
+
+    @RequestMapping("/error1")
+    public ModelAndView errorpage() {
+        ModelAndView mav = new ModelAndView("error");
+        return mav;
+    }
 
 }

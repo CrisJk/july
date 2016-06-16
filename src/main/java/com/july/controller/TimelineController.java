@@ -34,8 +34,6 @@ public class TimelineController {
 
     @Autowired
     UserService userService;
-    @Autowired
-    MomentService momentService ;
 
     @Autowired
     MomentService momentService;
@@ -134,11 +132,12 @@ public class TimelineController {
         if (current_page < 1) current_page = 1;
         int total_pages;
         int total_size;
+        int num;
 
         //计算搜索总页数
-        total_size = momentService.findMomentCountByContentInPage(content);
-        if (total_size > 0) {
-            total_pages = (total_size + page_size) / page_size;
+        num = momentService.findMomentCountByContentInPage(content);
+        if (num > 0) {
+            total_pages = (num + page_size) / page_size;
         } else {
             total_pages = 1;
         }
@@ -159,6 +158,7 @@ public class TimelineController {
         mav.addObject("current_page", current_page);//当前页
         mav.addObject("page_size", page_size);//每页显示的数量
         mav.addObject("moments", momentList);
+        mav.addObject("num", num);
         User user = userService.getSessionUser();
         mav.addObject("current_user", user);
         return mav;
