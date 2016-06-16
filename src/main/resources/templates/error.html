@@ -24,7 +24,7 @@
                 <span th:if="${message} and ${message.length() != 0}" th:text="${message}">message ...</span>
                 <span th:unless="${message} and ${message.length() != 0}">Cause unknown (no exception details available)</span>
             </div>
-            <p class="center"><span id="jumpTo">5</span>秒后跳转到首页...</p>
+            <p class="center"><span id="jumpTo">3</span>秒后跳转到首页...</p>
         </div>
     </div>
 </div>
@@ -39,7 +39,7 @@
             location.href = surl;
         }
     }
-    countDown(5, '/timeline');
+    countDown(3, '/');
 </script>
 </body>
 </html>
